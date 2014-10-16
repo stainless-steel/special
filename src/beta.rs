@@ -175,23 +175,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
 /// [2]: http://www.jstor.org/stable/2346798
 pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
-    use super::{exp, log};
-    use std::num::pow;
-
-    #[inline]
-    fn sqrt(value: f64) -> f64 {
-        value.sqrt()
-    }
-
-    #[inline]
-    fn powf(value: f64, exp: f64) -> f64 {
-        value.powf(exp)
-    }
-
-    #[inline]
-    fn max(one: f64, another: f64) -> f64 {
-        one.max(another)
-    }
+    use super::{exp, log, pow, sqrt};
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
@@ -232,7 +216,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
         x = p / (p + q * exp(2.0 * w));
     } else {
         let mut t = 1.0 / (9.0 * q);
-        t = 2.0 * q * pow(1.0 - t + y * sqrt(t), 3);
+        t = 2.0 * q * pow(1.0 - t + y * sqrt(t), 3.0);
         if t <= 0.0 {
             x = 1.0 - exp((log((1.0 - alpha) * q) + log_beta) / q);
         } else {
@@ -253,8 +237,8 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
-    let e = (-5.0 / p / p - 1.0 / powf(alpha, 0.2) - 13.0) as int;
-    let acu = if e > SAE { 1.0 / pow(10.0, (-e) as uint) } else { FPU };
+    let e = (-5.0 / p / p - 1.0 / pow(alpha, 0.2) - 13.0) as int;
+    let acu = if e > SAE { pow(10.0, e as f64) } else { FPU };
 
     let mut tx;
     let mut yprev = 0.0;
@@ -270,7 +254,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
         // Remark AS R83
         // http://www.jstor.org/stable/2347779
         if y * yprev <= 0.0 {
-            prev = max(sq, FPU);
+            prev = if sq > FPU { sq } else { FPU };
         }
 
         // Remark AS R19 and Algorithm AS 109

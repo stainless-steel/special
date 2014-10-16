@@ -39,6 +39,16 @@ pub fn log(x: f64) -> f64 {
     unsafe { m::log(x) }
 }
 
+/// Computes `x` raised to the exponent `y`.
+pub fn pow(x: f64, y: f64) -> f64 {
+    unsafe { m::pow(x, y) }
+}
+
+/// Computes the positive square root of the argument.
+pub fn sqrt(x: f64) -> f64 {
+    unsafe { m::sqrt(x) }
+}
+
 #[cfg(test)]
 mod tests {
     macro_rules! assert_close(
