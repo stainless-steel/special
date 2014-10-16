@@ -9,7 +9,21 @@ extern crate libc;
 pub use beta::{log_beta, inc_beta, inv_inc_beta};
 
 mod beta;
-mod m;
+
+#[link_name = "m"]
+mod m {
+    use libc::{c_double, c_int};
+
+    extern {
+        pub fn erf(x: c_double) -> c_double;
+        pub fn erfc(x: c_double) -> c_double;
+        pub fn exp(x: c_double) -> c_double;
+        pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
+        pub fn log(x: c_double) -> c_double;
+        pub fn pow(x: c_double, y: c_double) -> c_double;
+        pub fn sqrt(x: c_double) -> c_double;
+    }
+}
 
 /// Computes the error function.
 pub fn erf(x: f64) -> f64 {
