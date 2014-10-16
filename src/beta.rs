@@ -126,7 +126,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The
 /// original algorithm was published in Applied Statistics and is known as
-/// [Algorithm AS 64][3]. The algorithm is outlined in what follows.
+/// [Algorithm AS 64][2]. The algorithm is outlined in what follows.
 ///
 /// An approximation x₀ to x if found from (cf. Scheffé and Tukey, 1944)
 ///
