@@ -22,4 +22,4 @@ The code is based on [libm][2] and the work of [John Burkardt][3].
 
 [1]: https://en.wikipedia.org/wiki/Special_functions
 [2]: https://sourceware.org/newlib/libm.html
-[3]: http://people.sc.fsu.edu/~jburkardt/i.html
+[3]: http://people.sc.fsu.edu/~jburkardt/
