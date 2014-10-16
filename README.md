@@ -1,7 +1,6 @@
 # Special Functions
 
-The library provides [special functions](
-https://en.wikipedia.org/wiki/Special_functions) and currently includes:
+The library provides [special functions][1] and currently includes:
 
 * `erf` — the error function,
 * `erfc` — the complementary error function,
@@ -11,10 +10,13 @@ https://en.wikipedia.org/wiki/Special_functions) and currently includes:
 
 ## Acknowledgments
 
-The library is based on [libm](https://sourceware.org/newlib/libm.html).
+The library is based on [libm][2].
 
 ## Contributing
 
 1. Fork the project.
 2. Implement your feature.
 3. Create a pull request.
+
+[1]: http://people.sc.fsu.edu/~jburkardt/i.html
+[2]: https://sourceware.org/newlib/libm.html.
