@@ -6,7 +6,7 @@
 
 extern crate libc;
 
-mod cmath {
+mod m {
     use libc::{c_double, c_int};
 
     #[link_name = "m"]
@@ -15,22 +15,23 @@ mod cmath {
         pub fn erfc(x: c_double) -> c_double;
         pub fn exp(x: c_double) -> c_double;
         pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
+        pub fn log(x: c_double) -> c_double;
     }
 }
 
 /// Computes the error function.
 pub fn erf(x: f64) -> f64 {
-    unsafe { cmath::erf(x) }
+    unsafe { m::erf(x) }
 }
 
 /// Computes the complementary error function.
 pub fn erfc(x: f64) -> f64 {
-    unsafe { cmath::erfc(x) }
+    unsafe { m::erfc(x) }
 }
 
 /// Computes the exponential function.
 pub fn exp(x: f64) -> f64 {
-    unsafe { cmath::exp(x) }
+    unsafe { m::exp(x) }
 }
 
 /// Computes the natural logarithm of the beta function.
@@ -42,8 +43,13 @@ pub fn lbeta(x: f64, y: f64) -> f64 {
 pub fn lgamma(x: f64) -> f64 {
     unsafe {
         let mut sign: libc::c_int = 0;
-        cmath::lgamma_r(x, &mut sign)
+        m::lgamma_r(x, &mut sign)
     }
+}
+
+/// Computes the natural logarithm.
+pub fn log(x: f64) -> f64 {
+    unsafe { m::log(x) }
 }
 
 #[cfg(test)]
@@ -111,5 +117,13 @@ mod tests {
         let y = vec![1.2880225246980774, 0.5723649429247000,
                      0.2032809514312953, 0.0000000000000000];
         assert_close!(apply!(x, super::lgamma), y);
+    }
+
+    #[test]
+    fn log() {
+        let x = vec![0.5, 1.0, 1.5, 2.0];
+        let y = vec![-0.6931471805599453, 0.0000000000000000,
+                     0.4054651081081644, 0.6931471805599453];
+        assert_close!(apply!(x, super::log), y);
     }
 }
