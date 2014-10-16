@@ -189,16 +189,19 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
         return 1.0;
     }
 
+    let mut x;
+    let mut y;
+
     let flip = 0.5 < alpha;
     if flip {
-        alpha = 1.0 - alpha;
-        let temp = p;
+        x = p;
         p = q;
-        q = temp;
+        q = x;
+        alpha = 1.0 - alpha;
     }
 
-    let mut x = sqrt(-log(alpha * alpha));
-    let mut y = x - (2.30753 + 0.27061 * x) / (1.0 + (0.99229 + 0.04481 * x) * x);
+    x = sqrt(-log(alpha * alpha));
+    y = x - (2.30753 + 0.27061 * x) / (1.0 + (0.99229 + 0.04481 * x) * x);
 
     if 1.0 < p && 1.0 < q {
         // Remark AS R19 and Algorithm AS 109
