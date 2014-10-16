@@ -1,4 +1,4 @@
 [package]
-name = "specfn"
+name = "sfunc"
 version = "0.0.1"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
