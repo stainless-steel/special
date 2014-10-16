@@ -1,11 +1,7 @@
 # Special Functions
 
 The library provides [special functions](
-https://en.wikipedia.org/wiki/Special_functions).
-
-## Content
-
-The library currently includes:
+https://en.wikipedia.org/wiki/Special_functions) and currently includes:
 
 * `erf` — the error function,
 * `erfc` — the complement of the error function,
