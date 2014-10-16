@@ -4,7 +4,7 @@ The library provides [special functions](
 https://en.wikipedia.org/wiki/Special_functions) and currently includes:
 
 * `erf` — the error function,
-* `erfc` — the complement of the error function,
+* `erfc` — the complementary error function,
 * `exp` — the exponential function,
 * `lbeta` — the natural logarithm of the beta function, and
 * `lgamma` — the natural logarithm of the gamma function.

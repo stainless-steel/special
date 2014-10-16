@@ -22,7 +22,7 @@ pub fn erf(x: f64) -> f64 {
     unsafe { cmath::erf(x) }
 }
 
-/// Computes the complement of the error function.
+/// Computes the complementary error function.
 pub fn erfc(x: f64) -> f64 {
     unsafe { cmath::erfc(x) }
 }
