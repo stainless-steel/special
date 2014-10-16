@@ -11,8 +11,7 @@ https://en.wikipedia.org/wiki/Special_functions) and currently includes:
 
 ## Acknowledgments
 
-The library is based on [libm](
-http://www.unix.com/man-page/opensolaris/3lib/libm/).
+The library is based on [libm](https://sourceware.org/newlib/libm.html).
 
 ## Contributing
 
