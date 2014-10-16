@@ -6,10 +6,9 @@ pub fn log_beta(x: f64, y: f64) -> f64 {
 
 /// Computes the incomplete beta function.
 ///
-/// The code is based on a [C implementation][1] of the incomplete beta
-/// function by [John Burkardt][2]. The original algorithm was published in
-/// Applied Statistics and is known as [Algorithm AS 63][3]. The algorithm is
-/// outlined in what follows.
+/// The code is based on a [C implementation][1] by John Burkardt. The
+/// original algorithm was published in Applied Statistics and is known as
+/// [Algorithm AS 63][2]. The algorithm is outlined in what follows.
 ///
 /// The function uses the method discussed by Soper (1921). If p is not less
 /// than (p + q)x and the integral part of q + (1 - x)(p + q) is a positive
@@ -46,13 +45,18 @@ pub fn log_beta(x: f64, y: f64) -> f64 {
 /// series expansions.
 ///
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
-/// [2]: http://people.sc.fsu.edu/~jburkardt/i.html
-/// [3]: http://www.jstor.org/stable/2346797
+/// [2]: http://www.jstor.org/stable/2346797
 pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
+    use super::{exp, log};
+
     const ACU: f64 = 0.1e-14;
 
-    if x <= 0.0 { return 0.0; }
-    if 1.0 <= x { return 1.0; }
+    if x <= 0.0 {
+        return 0.0;
+    }
+    if 1.0 <= x {
+        return 1.0;
+    }
 
     let mut psq = p + q;
 
@@ -113,12 +117,200 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
 
     // Remark AS R19 and Algorithm AS 109
     // http://www.jstor.org/stable/2346887
-    alpha = unsafe {
-        use super::m::{log, exp};
-        alpha * exp(p * log(pbase) + (q - 1.0) * log(qbase) - log_beta) / p
-    };
+    alpha = alpha * exp(p * log(pbase) + (q - 1.0) * log(qbase) - log_beta) / p;
 
     if flip { 1.0 - alpha } else { alpha }
+}
+
+/// Computes the inverse of the incomplete beta function.
+///
+/// The code is based on a [C implementation][1] by John Burkardt. The
+/// original algorithm was published in Applied Statistics and is known as
+/// [Algorithm AS 64][3]. The algorithm is outlined in what follows.
+///
+/// An approximation x₀ to x if found from (cf. Scheffé and Tukey, 1944)
+///
+/// ```ignore
+/// 1 + x₀   4p + 2q - 2
+/// ------ = -----------
+/// 1 - x₀      χ²(α)
+/// ```
+///
+/// where χ²(α) is the upper α point of the χ² distribution with 2q degrees
+/// of freedom and is obtained from Wilson and Hilferty’s approximation (cf.
+/// Wilson and Hilferty, 1931)
+///
+/// ```ignore
+/// χ²(α) = 2q (1 - 1/(9q) + y(α) sqrt(1/(9q)))^3,
+/// ```
+///
+/// y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper α
+/// point of the standard normal distribution. If χ²(α) < 0, then
+///
+/// ```ignore
+/// x₀ = 1 - ((1 - α)q B(p, q))^(1/q).
+/// ```
+///
+/// Again if (4p + 2q - 2)/χ²(α) does not exceed 1, x₀ is obtained from
+///
+/// ```ignore
+/// x₀ = (αp B(p, q))^(1/p).
+/// ```
+///
+/// The final solution is obtained by the Newton–Raphson method from the
+/// relation
+///
+/// ```ignore
+///                      f(x[i-1])
+///     x[i] = x[i-1] - ----------
+///                     f'(x[i-1])
+/// ```
+///
+/// where
+///
+/// ```ignore
+/// f(x) = I(x, p, q) - α.
+/// ```
+///
+/// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
+/// [2]: http://www.jstor.org/stable/2346798
+pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
+    use super::{exp, log};
+    use std::num::pow;
+
+    #[inline]
+    fn sqrt(value: f64) -> f64 {
+        value.sqrt()
+    }
+
+    #[inline]
+    fn powf(value: f64, exp: f64) -> f64 {
+        value.powf(exp)
+    }
+
+    #[inline]
+    fn max(one: f64, another: f64) -> f64 {
+        one.max(another)
+    }
+
+    // Remark AS R83
+    // http://www.jstor.org/stable/2347779
+    const SAE: int = -30;
+    const FPU: f64 = 1e-30; // 10^SAE
+
+    if alpha <= 0.0 {
+        return 0.0;
+    }
+    if 1.0 <= alpha {
+        return 1.0;
+    }
+
+    let flip = 0.5 < alpha;
+    if flip {
+        alpha = 1.0 - alpha;
+        let temp = p;
+        p = q;
+        q = temp;
+    }
+
+    let mut x = sqrt(-log(alpha * alpha));
+    let mut y = x - (2.30753 + 0.27061 * x) / (1.0 + (0.99229 + 0.04481 * x) * x);
+
+    if 1.0 < p && 1.0 < q {
+        // Remark AS R19 and Algorithm AS 109
+        // http://www.jstor.org/stable/2346887
+        //
+        // For p and q > 1, the approximation given by Carter (1947), which
+        // improves the Fisher–Cochran formula, is generally better. For other
+        // values of p and q en empirical investigation has shown that the
+        // approximation given in AS 64 is adequate.
+        let r = (y * y - 3.0) / 6.0;
+        let s = 1.0 / (2.0 * p - 1.0);
+        let t = 1.0 / (2.0 * q - 1.0);
+        let h = 2.0 / (s + t);
+        let w = y * sqrt(h + r) / h - (t - s) * (r + 5.0 / 6.0 - 2.0 / (3.0 * h));
+        x = p / (p + q * exp(2.0 * w));
+    } else {
+        let mut t = 1.0 / (9.0 * q);
+        t = 2.0 * q * pow(1.0 - t + y * sqrt(t), 3);
+        if t <= 0.0 {
+            x = 1.0 - exp((log((1.0 - alpha) * q) + log_beta) / q);
+        } else {
+            t = 2.0 * (2.0 * p + q - 1.0) / t;
+            if t <= 1.0 {
+                x = exp((log(alpha * p) + log_beta) / p);
+            } else {
+                x = 1.0 - 2.0 / (t + 1.0);
+            }
+        }
+    }
+
+    if x < 0.0001 {
+        x = 0.0001;
+    } else if 0.9999 < x {
+        x = 0.9999;
+    }
+
+    // Remark AS R83
+    // http://www.jstor.org/stable/2347779
+    let e = (-5.0 / p / p - 1.0 / powf(alpha, 0.2) - 13.0) as int;
+    let acu = if e > SAE { 1.0 / pow(10.0, (-e) as uint) } else { FPU };
+
+    let mut tx;
+    let mut yprev = 0.0;
+    let mut sq = 1.0;
+    let mut prev = 1.0;
+
+    'outer: loop {
+        // Remark AS R19 and Algorithm AS 109
+        // http://www.jstor.org/stable/2346887
+        y = inc_beta(x, p, q, log_beta);
+        y = (y - alpha) * exp(log_beta + (1.0 - p) * log(x) + (1.0 - q) * log(1.0 - x));
+
+        // Remark AS R83
+        // http://www.jstor.org/stable/2347779
+        if y * yprev <= 0.0 {
+            prev = max(sq, FPU);
+        }
+
+        // Remark AS R19 and Algorithm AS 109
+        // http://www.jstor.org/stable/2346887
+        let mut g = 1.0;
+        loop {
+            loop {
+                let adj = g * y;
+                sq = adj * adj;
+
+                if sq < prev {
+                    tx = x - adj;
+                    if 0.0 <= tx && tx <= 1.0 {
+                        break;
+                    }
+                }
+                g /= 3.0;
+            }
+
+            if prev <= acu || y * y <= acu {
+                x = tx;
+                break 'outer;
+            }
+
+            if tx != 0.0 && tx != 1.0 {
+                break;
+            }
+
+            g /= 3.0;
+        }
+
+        if tx == x {
+            break;
+        }
+
+        x = tx;
+        yprev = y;
+    }
+
+    if flip { 1.0 - x } else { x }
 }
 
 #[cfg(test)]
@@ -198,6 +390,60 @@ mod tests {
 
         assert_close!(x.iter().map(|&x| {
             super::inc_beta(x, p, q, log_beta)
+        }).collect(), y);
+    }
+
+    #[test]
+    fn inv_inc_beta_small() {
+        let (p, q) = (0.2, 0.3);
+        let log_beta = super::log_beta(p, q);
+
+        let x = vec![
+            0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45,
+            0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00,
+        ];
+        let y = vec![
+            0.000000000000000e+00, 2.793072851850660e-06,
+            8.937381711316164e-05, 6.784491773826951e-04,
+            2.855345858289119e-03, 8.684107512129325e-03,
+            2.144658503798324e-02, 4.568556852983932e-02,
+            8.683942933344659e-02, 1.502095712585510e-01,
+            3.527066234122371e-01, 4.840600731467657e-01,
+            6.206841200371190e-01, 7.474718280552188e-01,
+            8.514539745840592e-01, 9.257428898178934e-01,
+            9.707021084050310e-01, 9.923134416335146e-01,
+            9.992341305241808e-01, 1.000000000000000e+00,
+        ];
+
+        assert_close!(x.iter().map(|&x| {
+            super::inv_inc_beta(x, p, q, log_beta)
+        }).collect(), y);
+    }
+
+    #[test]
+    fn inv_inc_beta_large() {
+        let (p, q) = (1.0, 2.0);
+        let log_beta = super::log_beta(p, q);
+
+        let x = vec![
+            0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45,
+            0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00,
+        ];
+        let y = vec![
+            0.000000000000000e+00, 0.025320565519104e+00,
+            0.051316701949486e+00, 0.078045554270711e+00,
+            0.105572809000084e+00, 0.133974596215561e+00,
+            0.163339973465924e+00, 0.193774225170145e+00,
+            0.225403330758517e+00, 0.258380151290432e+00,
+            0.329179606750063e+00, 0.367544467966324e+00,
+            0.408392021690038e+00, 0.452277442494834e+00,
+            0.500000000000000e+00, 0.552786404500042e+00,
+            0.612701665379257e+00, 0.683772233983162e+00,
+            0.776393202250021e+00, 1.000000000000000e+00,
+        ];
+
+        assert_close!(x.iter().map(|&x| {
+            super::inv_inc_beta(x, p, q, log_beta)
         }).collect(), y);
     }
 }

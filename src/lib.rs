@@ -6,7 +6,7 @@
 
 extern crate libc;
 
-pub use beta::{log_beta, inc_beta};
+pub use beta::{log_beta, inc_beta, inv_inc_beta};
 
 mod beta;
 mod m;

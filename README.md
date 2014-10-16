@@ -6,6 +6,7 @@ The library provides [special functions][1] and currently includes:
 * `erfc` — the complementary error function,
 * `exp` — the exponential function,
 * `inc_beta` — the incomplete beta function,
+* `inv_inc_beta` — the inverse of the incomplete beta function,
 * `log_beta` — the natural logarithm of the beta function,
 * `log_gamma` — the natural logarithm of the gamma function, and
 * `log` — the natural logarithm.
