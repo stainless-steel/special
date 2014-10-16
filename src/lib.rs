@@ -6,18 +6,10 @@
 
 extern crate libc;
 
-mod m {
-    use libc::{c_double, c_int};
+pub use beta::{log_beta, inc_beta};
 
-    #[link_name = "m"]
-    extern {
-        pub fn erf(x: c_double) -> c_double;
-        pub fn erfc(x: c_double) -> c_double;
-        pub fn exp(x: c_double) -> c_double;
-        pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
-        pub fn log(x: c_double) -> c_double;
-    }
-}
+mod beta;
+mod m;
 
 /// Computes the error function.
 pub fn erf(x: f64) -> f64 {
@@ -34,15 +26,10 @@ pub fn exp(x: f64) -> f64 {
     unsafe { m::exp(x) }
 }
 
-/// Computes the natural logarithm of the beta function.
-pub fn lbeta(x: f64, y: f64) -> f64 {
-    lgamma(x) + lgamma(y) - lgamma(x + y)
-}
-
 /// Computes the natural logarithm of the gamma function.
-pub fn lgamma(x: f64) -> f64 {
+pub fn log_gamma(x: f64) -> f64 {
     unsafe {
-        let mut sign: libc::c_int = 0;
+        let mut sign: i32 = 0;
         m::lgamma_r(x, &mut sign)
     }
 }
@@ -72,12 +59,6 @@ mod tests {
         );
     )
 
-    macro_rules! apply2(
-        ($x:expr, $y:expr, $func:expr) => (
-            $x.iter().zip($y.iter()).map(|(&x, &y)| $func(x, y)).collect()
-        );
-    )
-
     #[test]
     fn erf() {
         let x = vec![-3.0, -1.0, 1.0, 3.0];
@@ -103,20 +84,11 @@ mod tests {
     }
 
     #[test]
-    fn lbeta() {
-        let x = vec![0.25, 0.50, 0.75, 1.00];
-        let y = vec![0.50, 0.75, 1.00, 1.25];
-        let z = vec![1.6571065161914820, 0.8739177307778084,
-                     0.2876820724517809, -0.2231435513142098];
-        assert_close!(apply2!(x, y, super::lbeta), z);
-    }
-
-    #[test]
-    fn lgamma() {
+    fn log_gamma() {
         let x = vec![0.25, 0.50, 0.75, 1.00];
         let y = vec![1.2880225246980774, 0.5723649429247000,
                      0.2032809514312953, 0.0000000000000000];
-        assert_close!(apply!(x, super::lgamma), y);
+        assert_close!(apply!(x, super::log_gamma), y);
     }
 
     #[test]
