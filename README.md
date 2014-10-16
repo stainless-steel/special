@@ -1,13 +1,24 @@
 # Special Functions
 
-The package provides
-[special functions](https://en.wikipedia.org/wiki/Special_functions).
+The library provides [special functions](
+https://en.wikipedia.org/wiki/Special_functions).
+
+## Content
+
+The library currently includes:
+
+* `erf` --- the error function,
+* `erfc` --- the complement of the error function,
+* `exp` --- the exponential function,
+* `lbeta` --- the natural logarithm of the beta function, and
+* `lgamma` --- the natural logarithm of the gamma function.
+
+## Acknowledgments
+
+The library is based on [libm](ftp://sourceware.org/pub/newlib/libm.pdf).
 
 ## Contributing
 
-1. [Fork](https://help.github.com/articles/fork-a-repo) the project.
-2. Create a branch for your feature (`git checkout -b awesome-feature`).
-3. Commit your changes (`git commit -am 'Add an awesome feature'`).
-4. Push to the branch (`git push -u origin awesome-feature`).
-5. [Create](https://help.github.com/articles/creating-a-pull-request)
-   a pull request.
+1. Fork the project.
+2. Implement your feature.
+3. Create a pull request.
