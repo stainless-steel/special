@@ -1,6 +1,6 @@
 /// Computes the natural logarithm of the beta function.
 pub fn log_beta(x: f64, y: f64) -> f64 {
-    use super::{log_gamma};
+    use super::log_gamma;
     log_gamma(x) + log_gamma(y) - log_gamma(x + y)
 }
 
