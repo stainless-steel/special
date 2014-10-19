@@ -2,14 +2,19 @@
 
 The library provides [special functions][1] and currently includes:
 
+* `cos` — the cosine,
 * `erf` — the error function,
 * `erfc` — the complementary error function,
 * `exp` — the exponential function,
+* `gamma` — the gamma function,
 * `inc_beta` — the incomplete beta function,
 * `inv_inc_beta` — the inverse of the incomplete beta function,
 * `log_beta` — the natural logarithm of the beta function,
-* `log_gamma` — the natural logarithm of the gamma function, and
-* `log` — the natural logarithm.
+* `log_gamma` — the natural logarithm of the gamma function,
+* `log` — the natural logarithm,
+* `pow` — the exponentiation,
+* `sin` — the sine, and
+* `sqrt` — the square root function.
 
 ## Acknowledgments
 

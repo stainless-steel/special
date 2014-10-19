@@ -1,7 +1,14 @@
 /// Computes the natural logarithm of the beta function.
+///
+/// The domain is {(x, y): x > 0, y > 0}.
 pub fn log_beta(x: f64, y: f64) -> f64 {
     use super::log_gamma;
-    log_gamma(x) + log_gamma(y) - log_gamma(x + y)
+
+    let (a, _) = log_gamma(x);
+    let (b, _) = log_gamma(y);
+    let (c, _) = log_gamma(x + y);
+
+    a + b - c
 }
 
 /// Computes the incomplete beta function.
@@ -301,7 +308,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
 }
 
 #[cfg(test)]
-mod tests {
+mod test {
     macro_rules! assert_close(
         ($x:expr, $y:expr) => ({
             let eps: f64 = ::std::f64::EPSILON.sqrt();
@@ -436,7 +443,7 @@ mod tests {
 }
 
 #[cfg(test)]
-mod benches {
+mod bench {
     extern crate test;
 
     use std::rand::random;
