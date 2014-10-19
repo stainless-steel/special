@@ -1,6 +1,6 @@
 /// Computes the natural logarithm of the beta function.
 ///
-/// The domain is {(x, y): x > 0, y > 0}.
+/// The domain is `{(x, y): x > 0, y > 0}`.
 pub fn log_beta(x: f64, y: f64) -> f64 {
     use super::log_gamma;
 
@@ -15,45 +15,43 @@ pub fn log_beta(x: f64, y: f64) -> f64 {
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The
 /// original algorithm was published in Applied Statistics and is known as
-/// [Algorithm AS 63][2]. The algorithm is outlined in what follows.
-///
-/// The function uses the method discussed by Soper (1921). If p is not less
-/// than (p + q)x and the integral part of q + (1 - x)(p + q) is a positive
-/// integer, say s, reductions are made up to s times “by parts” using the
-/// recurrence relation
-///
-/// ```ignore
-///                 Γ(p+q)
-/// I(x, p, q) = ----------- x^p (1-x)^(q-1) + I(x, p+1, q-1)
-///              Γ(p+1) Γ(q)
-/// ```
-///
-/// and then reductions are continued by “raising p” with the recurrence
-/// relation
-///
-/// ```ignore
-///                      Γ(p+q)
-/// I(x, p+s, q-s) = --------------- x^(p+s) (1 - x)^(q-s) + I(x, p+s+1, q-s)
-///                  Γ(p+s+1) Γ(q-s)
-/// ```
-///
-/// If s is not a positive integer, reductions are made only by “raising p.”
-/// The process of reduction is terminated when the relative contribution to the
-/// integral is not greater than the value of ACU. If p is less than (p + q)x,
-/// I(1-x, q, p) is first calculated by the above procedure and then I(x, p, q)
-/// is obtained from the relation
-///
-/// ```ignore
-/// I(x, p, q) = 1 - I(1-x, p, q).
-/// ```
-///
-/// Soper (1921) demonstrated that the expansion of I(x, p, q) by “parts” and
-/// “raising p” method as described above converges more rapidly than any other
-/// series expansions.
+/// [Algorithm AS 63][2] and [Algorithm AS 109][3].
 ///
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
 /// [2]: http://www.jstor.org/stable/2346797
+/// [3]: http://www.jstor.org/stable/2346887
 pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
+    // Algorithm AS 63
+    // http://www.jstor.org/stable/2346797
+    //
+    // The function uses the method discussed by Soper (1921). If p is not less
+    // than (p + q)x and the integral part of q + (1 - x)(p + q) is a positive
+    // integer, say s, reductions are made up to s times “by parts” using the
+    // recurrence relation
+    //
+    //                 Γ(p+q)
+    // I(x, p, q) = ----------- x^p (1-x)^(q-1) + I(x, p+1, q-1)
+    //              Γ(p+1) Γ(q)
+    //
+    // and then reductions are continued by “raising p” with the recurrence
+    // relation
+    //
+    //                      Γ(p+q)
+    // I(x, p+s, q-s) = --------------- x^(p+s) (1 - x)^(q-s) + I(x, p+s+1, q-s)
+    //                  Γ(p+s+1) Γ(q-s)
+    //
+    // If s is not a positive integer, reductions are made only by “raising p.”
+    // The process of reduction is terminated when the relative contribution to
+    // the integral is not greater than the value of ACU. If p is less than
+    // (p + q)x, I(1-x, q, p) is first calculated by the above procedure and
+    // then I(x, p, q) is obtained from the relation
+    //
+    // I(x, p, q) = 1 - I(1-x, p, q).
+    //
+    // Soper (1921) demonstrated that the expansion of I(x, p, q) by “parts”
+    // and “raising p” method as described above converges more rapidly than
+    // any other series expansions.
+
     use super::{exp, log};
 
     const ACU: f64 = 0.1e-14;
@@ -133,55 +131,47 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The
 /// original algorithm was published in Applied Statistics and is known as
-/// [Algorithm AS 64][2]. The algorithm is outlined in what follows.
-///
-/// An approximation x₀ to x if found from (cf. Scheffé and Tukey, 1944)
-///
-/// ```ignore
-/// 1 + x₀   4p + 2q - 2
-/// ------ = -----------
-/// 1 - x₀      χ²(α)
-/// ```
-///
-/// where χ²(α) is the upper α point of the χ² distribution with 2q degrees
-/// of freedom and is obtained from Wilson and Hilferty’s approximation (cf.
-/// Wilson and Hilferty, 1931)
-///
-/// ```ignore
-/// χ²(α) = 2q (1 - 1/(9q) + y(α) sqrt(1/(9q)))^3,
-/// ```
-///
-/// y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper α
-/// point of the standard normal distribution. If χ²(α) < 0, then
-///
-/// ```ignore
-/// x₀ = 1 - ((1 - α)q B(p, q))^(1/q).
-/// ```
-///
-/// Again if (4p + 2q - 2)/χ²(α) does not exceed 1, x₀ is obtained from
-///
-/// ```ignore
-/// x₀ = (αp B(p, q))^(1/p).
-/// ```
-///
-/// The final solution is obtained by the Newton–Raphson method from the
-/// relation
-///
-/// ```ignore
-///                      f(x[i-1])
-///     x[i] = x[i-1] - ----------
-///                     f'(x[i-1])
-/// ```
-///
-/// where
-///
-/// ```ignore
-/// f(x) = I(x, p, q) - α.
-/// ```
+/// [Algorithm AS 64][2] and [Algorithm AS 109][3].
 ///
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
 /// [2]: http://www.jstor.org/stable/2346798
+/// [3]: http://www.jstor.org/stable/2346887
 pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
+    // Algorithm AS 64
+    // http://www.jstor.org/stable/2346798
+    //
+    // An approximation x₀ to x if found from (cf. Scheffé and Tukey, 1944)
+    //
+    // 1 + x₀   4p + 2q - 2
+    // ------ = -----------
+    // 1 - x₀      χ²(α)
+    //
+    // where χ²(α) is the upper α point of the χ² distribution with 2q degrees
+    // of freedom and is obtained from Wilson and Hilferty’s approximation (cf.
+    // Wilson and Hilferty, 1931)
+    //
+    // χ²(α) = 2q (1 - 1/(9q) + y(α) sqrt(1/(9q)))^3,
+    //
+    // y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper α
+    // point of the standard normal distribution. If χ²(α) < 0, then
+    //
+    // x₀ = 1 - ((1 - α)q B(p, q))^(1/q).
+    //
+    // Again if (4p + 2q - 2)/χ²(α) does not exceed 1, x₀ is obtained from
+    //
+    // x₀ = (αp B(p, q))^(1/p).
+    //
+    // The final solution is obtained by the Newton–Raphson method from the
+    // relation
+    //
+    //                  f(x[i-1])
+    // x[i] = x[i-1] - ----------
+    //                 f'(x[i-1])
+    //
+    // where
+    //
+    // f(x) = I(x, p, q) - α.
+
     use super::{exp, log, pow, sqrt};
 
     // Remark AS R83
