@@ -306,7 +306,7 @@ mod test {
             let y: Vec<f64> = $y;
             for i in range(0u, x.len()) {
                 assert!(::std::num::abs(x[i] - y[i]) < e,
-                       "expected {:e} ~ {:e}", x[i], y[i]);
+                        "expected {:e} ~ {:e}", x[i], y[i]);
             }
         });
     )
