@@ -434,7 +434,7 @@ mod bench {
     fn inc_beta(b: &mut test::Bencher) {
         let (p, q) = (0.5, 1.5);
         let ln_beta = super::ln_beta(p, q);
-        let x: Vec<f64> = range(0u, 1000).map(|_| random()).collect();
+        let x = range(0u, 1000).map(|_| random()).collect::<Vec<_>>();
 
         b.iter(|| {
             for &x in x.iter() {
@@ -447,7 +447,7 @@ mod bench {
     fn inv_inc_beta(b: &mut test::Bencher) {
         let (p, q) = (0.5, 1.5);
         let ln_beta = super::ln_beta(p, q);
-        let x: Vec<f64> = range(0u, 1000).map(|_| random()).collect();
+        let x = range(0u, 1000).map(|_| random()).collect::<Vec<_>>();
 
         b.iter(|| {
             for &x in x.iter() {
