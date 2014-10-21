@@ -182,6 +182,8 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     #[inline(always)]
     fn pow(x: f64, y: f64) -> f64 { x.powf(y) }
     #[inline(always)]
+    fn pow10(x: i32) -> f64 { 10f64.powi(x) }
+    #[inline(always)]
     fn sqrt(x: f64) -> f64 { x.sqrt() }
 
     // Remark AS R83
@@ -248,7 +250,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
     let e = (-5.0 / p / p - 1.0 / pow(alpha, 0.2) - 13.0) as i32;
-    let acu = if e > SAE { 10f64.powi(e) } else { FPU };
+    let acu = if e > SAE { pow10(e) } else { FPU };
 
     let mut tx;
     let mut yprev = 0.0;
