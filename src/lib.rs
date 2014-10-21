@@ -6,7 +6,7 @@
 
 extern crate libc;
 
-pub use beta::{log_beta, inc_beta, inv_inc_beta};
+pub use beta::{ln_beta, inc_beta, inv_inc_beta};
 
 mod beta;
 
@@ -60,7 +60,7 @@ pub fn gamma(x: f64) -> f64 {
 
 /// Computes the natural logarithm of the gamma function.
 #[inline]
-pub fn log_gamma(x: f64) -> (f64, i32) {
+pub fn ln_gamma(x: f64) -> (f64, i32) {
     let mut sign: i32 = 0;
     let value = unsafe { m::lgamma_r(x, &mut sign) };
     (value, sign)
@@ -70,7 +70,7 @@ pub fn log_gamma(x: f64) -> (f64, i32) {
 ///
 /// The domain is positive real numbers.
 #[inline]
-pub fn log(x: f64) -> f64 {
+pub fn ln(x: f64) -> f64 {
     unsafe { m::log(x) }
 }
 
@@ -98,14 +98,14 @@ pub fn sqrt(x: f64) -> f64 {
 mod test {
     #[test]
     fn gamma() {
-        use super::{exp, gamma, log_gamma};
+        use super::{exp, gamma, ln_gamma};
 
         let x = -2.5;
 
         let gamma1 = -0.9453087204829418;
         let gamma2 = gamma(x);
         let gamma3 = {
-            let (value, sign) = log_gamma(x);
+            let (value, sign) = ln_gamma(x);
             (sign as f64) * exp(value)
         };
 

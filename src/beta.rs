@@ -1,12 +1,12 @@
 /// Computes the natural logarithm of the beta function.
 ///
 /// The domain is `{(x, y): x > 0, y > 0}`.
-pub fn log_beta(x: f64, y: f64) -> f64 {
-    use super::log_gamma;
+pub fn ln_beta(x: f64, y: f64) -> f64 {
+    use super::ln_gamma;
 
-    let (a, _) = log_gamma(x);
-    let (b, _) = log_gamma(y);
-    let (c, _) = log_gamma(x + y);
+    let (a, _) = ln_gamma(x);
+    let (b, _) = ln_gamma(y);
+    let (c, _) = ln_gamma(x + y);
 
     a + b - c
 }
@@ -20,7 +20,7 @@ pub fn log_beta(x: f64, y: f64) -> f64 {
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
 /// [2]: http://www.jstor.org/stable/2346797
 /// [3]: http://www.jstor.org/stable/2346887
-pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
+pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     // Algorithm AS 63
     // http://www.jstor.org/stable/2346797
     //
@@ -52,7 +52,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
     // and “raising p” method as described above converges more rapidly than
     // any other series expansions.
 
-    use super::{exp, log};
+    use super::{exp, ln};
 
     const ACU: f64 = 0.1e-14;
 
@@ -122,7 +122,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
 
     // Remark AS R19 and Algorithm AS 109
     // http://www.jstor.org/stable/2346887
-    alpha = alpha * exp(p * log(pbase) + (q - 1.0) * log(qbase) - log_beta) / p;
+    alpha = alpha * exp(p * ln(pbase) + (q - 1.0) * ln(qbase) - ln_beta) / p;
 
     if flip { 1.0 - alpha } else { alpha }
 }
@@ -136,7 +136,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
 /// [2]: http://www.jstor.org/stable/2346798
 /// [3]: http://www.jstor.org/stable/2346887
-pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f64 {
+pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     // Algorithm AS 64
     // http://www.jstor.org/stable/2346798
     //
@@ -172,7 +172,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
     //
     // f(x) = I(x, p, q) - α.
 
-    use super::{exp, log, pow, sqrt};
+    use super::{exp, ln, pow, sqrt};
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
@@ -197,7 +197,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
         alpha = 1.0 - alpha;
     }
 
-    x = sqrt(-log(alpha * alpha));
+    x = sqrt(-ln(alpha * alpha));
     y = x - (2.30753 + 0.27061 * x) / (1.0 + (0.99229 + 0.04481 * x) * x);
 
     if 1.0 < p && 1.0 < q {
@@ -218,11 +218,11 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
         let mut t = 1.0 / (9.0 * q);
         t = 2.0 * q * pow(1.0 - t + y * sqrt(t), 3.0);
         if t <= 0.0 {
-            x = 1.0 - exp((log((1.0 - alpha) * q) + log_beta) / q);
+            x = 1.0 - exp((ln((1.0 - alpha) * q) + ln_beta) / q);
         } else {
             t = 2.0 * (2.0 * p + q - 1.0) / t;
             if t <= 1.0 {
-                x = exp((log(alpha * p) + log_beta) / p);
+                x = exp((ln(alpha * p) + ln_beta) / p);
             } else {
                 x = 1.0 - 2.0 / (t + 1.0);
             }
@@ -248,8 +248,8 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, log_beta: f64) -> f6
     'outer: loop {
         // Remark AS R19 and Algorithm AS 109
         // http://www.jstor.org/stable/2346887
-        y = inc_beta(x, p, q, log_beta);
-        y = (y - alpha) * exp(log_beta + (1.0 - p) * log(x) + (1.0 - q) * log(1.0 - x));
+        y = inc_beta(x, p, q, ln_beta);
+        y = (y - alpha) * exp(ln_beta + (1.0 - p) * ln(x) + (1.0 - q) * ln(1.0 - x));
 
         // Remark AS R83
         // http://www.jstor.org/stable/2347779
@@ -312,21 +312,21 @@ mod test {
     )
 
     #[test]
-    fn log_beta() {
+    fn ln_beta() {
         let x = vec![0.25, 0.50, 0.75, 1.00];
         let y = vec![0.50, 0.75, 1.00, 1.25];
         let z = vec![1.6571065161914820, 0.8739177307778084,
                      0.2876820724517809, -0.2231435513142098];
 
         assert_almost_eq!(x.iter().zip(y.iter()).map(|(&x, &y)| {
-            super::log_beta(x, y)
+            super::ln_beta(x, y)
         }).collect(), z);
     }
 
     #[test]
     fn inc_beta_small() {
         let (p, q) = (0.1, 0.2);
-        let log_beta = super::log_beta(p, q);
+        let ln_beta = super::ln_beta(p, q);
 
         let x = vec![0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40,
                      0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
@@ -344,14 +344,14 @@ mod test {
                      1.000000000000000e+00];
 
         assert_almost_eq!(x.iter().map(|&x| {
-           super::inc_beta(x, p, q, log_beta)
+           super::inc_beta(x, p, q, ln_beta)
         }).collect(), y);
     }
 
     #[test]
     fn inc_beta_large() {
         let (p, q) = (2.0, 3.0);
-        let log_beta = super::log_beta(p, q);
+        let ln_beta = super::ln_beta(p, q);
 
         let x = vec![0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40,
                      0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
@@ -369,14 +369,14 @@ mod test {
                      1.000000000000000e+00];
 
         assert_almost_eq!(x.iter().map(|&x| {
-            super::inc_beta(x, p, q, log_beta)
+            super::inc_beta(x, p, q, ln_beta)
         }).collect(), y);
     }
 
     #[test]
     fn inv_inc_beta_small() {
         let (p, q) = (0.2, 0.3);
-        let log_beta = super::log_beta(p, q);
+        let ln_beta = super::ln_beta(p, q);
 
         let x = vec![0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40,
                      0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
@@ -394,14 +394,14 @@ mod test {
                      1.000000000000000e+00];
 
         assert_almost_eq!(x.iter().map(|&x| {
-            super::inv_inc_beta(x, p, q, log_beta)
+            super::inv_inc_beta(x, p, q, ln_beta)
         }).collect(), y);
     }
 
     #[test]
     fn inv_inc_beta_large() {
         let (p, q) = (1.0, 2.0);
-        let log_beta = super::log_beta(p, q);
+        let ln_beta = super::ln_beta(p, q);
 
         let x = vec![0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40,
                      0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
@@ -419,7 +419,7 @@ mod test {
                      1.000000000000000e+00];
 
         assert_almost_eq!(x.iter().map(|&x| {
-            super::inv_inc_beta(x, p, q, log_beta)
+            super::inv_inc_beta(x, p, q, ln_beta)
         }).collect(), y);
     }
 }
@@ -433,12 +433,12 @@ mod bench {
     #[bench]
     fn inc_beta(b: &mut test::Bencher) {
         let (p, q) = (0.5, 1.5);
-        let log_beta = super::log_beta(p, q);
+        let ln_beta = super::ln_beta(p, q);
         let x: Vec<f64> = range(0u, 1000).map(|_| random()).collect();
 
         b.iter(|| {
             for &x in x.iter() {
-                test::black_box(super::inc_beta(x, p, q, log_beta))
+                test::black_box(super::inc_beta(x, p, q, ln_beta))
             }
         });
     }
@@ -446,12 +446,12 @@ mod bench {
     #[bench]
     fn inv_inc_beta(b: &mut test::Bencher) {
         let (p, q) = (0.5, 1.5);
-        let log_beta = super::log_beta(p, q);
+        let ln_beta = super::ln_beta(p, q);
         let x: Vec<f64> = range(0u, 1000).map(|_| random()).collect();
 
         b.iter(|| {
             for &x in x.iter() {
-                test::black_box(super::inv_inc_beta(x, p, q, log_beta))
+                test::black_box(super::inv_inc_beta(x, p, q, ln_beta))
             }
         });
     }
