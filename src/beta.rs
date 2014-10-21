@@ -52,7 +52,10 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     // and “raising p” method as described above converges more rapidly than
     // any other series expansions.
 
-    use super::{exp, ln};
+    #[inline(always)]
+    fn exp(x: f64) -> f64 { x.exp() }
+    #[inline(always)]
+    fn ln(x: f64) -> f64 { x.ln() }
 
     const ACU: f64 = 0.1e-14;
 
@@ -172,7 +175,14 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     //
     // f(x) = I(x, p, q) - α.
 
-    use super::{exp, ln, pow, sqrt};
+    #[inline(always)]
+    fn exp(x: f64) -> f64 { x.exp() }
+    #[inline(always)]
+    fn ln(x: f64) -> f64 { x.ln() }
+    #[inline(always)]
+    fn pow(x: f64, y: f64) -> f64 { x.powf(y) }
+    #[inline(always)]
+    fn sqrt(x: f64) -> f64 { x.sqrt() }
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
