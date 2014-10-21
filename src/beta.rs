@@ -176,7 +176,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
-    const SAE: int = -30;
+    const SAE: i32 = -30;
     const FPU: f64 = 1e-30; // 10^SAE
 
     if alpha <= 0.0 {
@@ -237,8 +237,8 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
-    let e = (-5.0 / p / p - 1.0 / pow(alpha, 0.2) - 13.0) as int;
-    let acu = if e > SAE { pow(10.0, e as f64) } else { FPU };
+    let e = (-5.0 / p / p - 1.0 / pow(alpha, 0.2) - 13.0) as i32;
+    let acu = if e > SAE { 10f64.powi(e) } else { FPU };
 
     let mut tx;
     let mut yprev = 0.0;
