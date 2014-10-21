@@ -9,9 +9,9 @@ The library provides [special functions][1] and currently includes:
 * `gamma` — the gamma function,
 * `inc_beta` — the incomplete beta function,
 * `inv_inc_beta` — the inverse of the incomplete beta function,
-* `log_beta` — the natural logarithm of the beta function,
-* `log_gamma` — the natural logarithm of the gamma function,
-* `log` — the natural logarithm,
+* `ln_beta` — the natural logarithm of the beta function,
+* `ln_gamma` — the natural logarithm of the gamma function,
+* `ln` — the natural logarithm,
 * `pow` — the exponentiation,
 * `sin` — the sine, and
 * `sqrt` — the square root function.
