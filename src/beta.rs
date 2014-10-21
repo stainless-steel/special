@@ -101,7 +101,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
 
         alpha += term;
 
-        temp = ::std::num::abs(term);
+        temp = if term < 0.0 { -term } else { term };
         if temp <= ACU && temp <= ACU * alpha {
             break;
         }
