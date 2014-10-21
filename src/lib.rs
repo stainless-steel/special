@@ -114,3 +114,33 @@ mod test {
     }
 
 }
+
+#[cfg(test)]
+mod bech {
+    extern crate test;
+
+    #[bench]
+    fn pow_float(bench: &mut test::Bencher) {
+        use super::pow;
+
+        bench.iter(|| {
+            for exp in range(0i32, 100) {
+                pow(2.7_1828_1828, exp as f64);
+            }
+        });
+    }
+
+    #[bench]
+    fn pow_integer(bench: &mut test::Bencher) {
+        #[inline]
+        fn powi(x: f64, y: i32) -> f64 {
+            x.powi(y)
+        }
+
+        bench.iter(|| {
+            for exp in range(0i32, 100) {
+                powi(2.7_1828_1828, exp);
+            }
+        });
+    }
+}
