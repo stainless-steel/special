@@ -311,17 +311,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 
 #[cfg(test)]
 mod test {
-    macro_rules! assert_almost_eq(
-        ($x:expr, $y:expr) => ({
-            let e: f64 = ::std::f64::EPSILON.sqrt();
-            let x: Vec<f64> = $x;
-            let y: Vec<f64> = $y;
-            for i in range(0u, x.len()) {
-                assert!(::std::num::abs(x[i] - y[i]) < e,
-                        "expected {:e} ~ {:e}", x[i], y[i]);
-            }
-        });
-    )
+    #[phase(plugin)] extern crate assert;
 
     #[test]
     fn ln_beta() {
@@ -330,9 +320,9 @@ mod test {
         let z = vec![1.6571065161914820, 0.8739177307778084,
                      0.2876820724517809, -0.2231435513142098];
 
-        assert_almost_eq!(x.iter().zip(y.iter()).map(|(&x, &y)| {
+        assert_close!(x.iter().zip(y.iter()).map(|(&x, &y)| {
             super::ln_beta(x, y)
-        }).collect(), z);
+        }).collect::<Vec<_>>(), z);
     }
 
     #[test]
@@ -355,9 +345,9 @@ mod test {
                      7.804880320024465e-01, 8.104335200313719e-01,
                      1.000000000000000e+00];
 
-        assert_almost_eq!(x.iter().map(|&x| {
+        assert_close!(x.iter().map(|&x| {
            super::inc_beta(x, p, q, ln_beta)
-        }).collect(), y);
+        }).collect::<Vec<_>>(), y);
     }
 
     #[test]
@@ -380,9 +370,9 @@ mod test {
                      9.963000000000000e-01, 9.995187500000000e-01,
                      1.000000000000000e+00];
 
-        assert_almost_eq!(x.iter().map(|&x| {
+        assert_close!(x.iter().map(|&x| {
             super::inc_beta(x, p, q, ln_beta)
-        }).collect(), y);
+        }).collect::<Vec<_>>(), y);
     }
 
     #[test]
@@ -405,9 +395,9 @@ mod test {
                      9.923134416335146e-01, 9.992341305241808e-01,
                      1.000000000000000e+00];
 
-        assert_almost_eq!(x.iter().map(|&x| {
+        assert_close!(x.iter().map(|&x| {
             super::inv_inc_beta(x, p, q, ln_beta)
-        }).collect(), y);
+        }).collect::<Vec<_>>(), y);
     }
 
     #[test]
@@ -430,9 +420,9 @@ mod test {
                      0.683772233983162e+00, 0.776393202250021e+00,
                      1.000000000000000e+00];
 
-        assert_almost_eq!(x.iter().map(|&x| {
+        assert_close!(x.iter().map(|&x| {
             super::inv_inc_beta(x, p, q, ln_beta)
-        }).collect(), y);
+        }).collect::<Vec<_>>(), y);
     }
 }
 

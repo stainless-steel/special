@@ -2,7 +2,7 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![feature(macro_rules)]
+#![feature(phase)]
 
 extern crate libc;
 
