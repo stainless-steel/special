@@ -1,4 +1,4 @@
-//! The library provides [special functions][1].
+//! [Special functions][1].
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
