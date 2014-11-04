@@ -23,5 +23,5 @@ The code is based on [libm][2] and the work of [John Burkardt][3].
 [2]: https://sourceware.org/newlib/libm.html
 [3]: http://people.sc.fsu.edu/~jburkardt/
 
-[travis-svg]: https://travis-ci.org/rs-math/sfunc.svg?branch=master
-[travis-url]: https://travis-ci.org/rs-math/sfunc
+[travis-svg]: https://travis-ci.org/stainless-steel/sfunc.svg?branch=master
+[travis-url]: https://travis-ci.org/stainless-steel/sfunc
