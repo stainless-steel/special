@@ -9,6 +9,8 @@ The library provides [special functions][1] and currently includes:
 * `ln_beta` — the natural logarithm of the beta function, and
 * `ln_gamma` — the natural logarithm of the gamma function.
 
+## [Documentation][docs]
+
 ## Acknowledgments
 
 The code is based on [libm][2] and the work of [John Burkardt][3].
@@ -25,3 +27,4 @@ The code is based on [libm][2] and the work of [John Burkardt][3].
 
 [travis-svg]: https://travis-ci.org/stainless-steel/sfunc.svg?branch=master
 [travis-url]: https://travis-ci.org/stainless-steel/sfunc
+[docs]: https://stainless-steel.github.io/sfunc
