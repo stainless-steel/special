@@ -1,4 +1,4 @@
-/// Computes the natural logarithm of the beta function.
+/// Compute the natural logarithm of the beta function.
 ///
 /// The domain is `{(x, y): x > 0, y > 0}`.
 pub fn ln_beta(x: f64, y: f64) -> f64 {
@@ -11,7 +11,7 @@ pub fn ln_beta(x: f64, y: f64) -> f64 {
     a + b - c
 }
 
-/// Computes the incomplete beta function.
+/// Compute the incomplete beta function.
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The
 /// original algorithm was published in Applied Statistics and is known as
@@ -130,7 +130,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     if flip { 1.0 - alpha } else { alpha }
 }
 
-/// Computes the inverse of the incomplete beta function.
+/// Compute the inverse of the incomplete beta function.
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The
 /// original algorithm was published in Applied Statistics and is known as

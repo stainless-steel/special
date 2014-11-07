@@ -21,19 +21,19 @@ mod m {
     }
 }
 
-/// Computes the error function.
+/// Compute the error function.
 #[inline]
 pub fn erf(x: f64) -> f64 {
     unsafe { m::erf(x) }
 }
 
-/// Computes the complementary error function.
+/// Compute the complementary error function.
 #[inline]
 pub fn erfc(x: f64) -> f64 {
     unsafe { m::erfc(x) }
 }
 
-/// Computes the natural logarithm of the gamma function.
+/// Compute the natural logarithm of the gamma function.
 #[inline]
 pub fn ln_gamma(x: f64) -> (f64, i32) {
     let mut sign: i32 = 0;
