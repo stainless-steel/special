@@ -18,7 +18,7 @@ The code is based on [libm][2] and the work of [John Burkardt][3].
 ## Contributing
 
 1. Fork the project.
-2. Implement your feature.
+2. Implement your idea.
 3. Create a pull request.
 
 [1]: https://en.wikipedia.org/wiki/Special_functions
