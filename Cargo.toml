@@ -2,10 +2,11 @@
 name = "sfunc"
 version = "0.0.1"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/stainless-steel/sfunc"
+homepage = "https://github.com/stainless-steel/sfunc"
+documentation = "https://stainless-steel.github.io/sfunc"
+description = "The library provides special functions."
 
-[lib]
-name = "sfunc"
-doctest = false
-
-[dev-dependencies.assert]
-git = "https://github.com/stainless-steel/assert"
+[dev-dependencies]
+assert = "0.0.1"
