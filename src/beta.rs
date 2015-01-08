@@ -315,8 +315,6 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 
 #[cfg(test)]
 mod test {
-    #[phase(plugin)] extern crate assert;
-
     #[test]
     fn ln_beta() {
         let x = vec![0.25, 0.50, 0.75, 1.00];
@@ -430,9 +428,8 @@ mod test {
 
 #[cfg(test)]
 mod bench {
-    extern crate test;
-
     use std::rand::random;
+    use test;
 
     #[bench]
     fn inc_beta(b: &mut test::Bencher) {

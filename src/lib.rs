@@ -2,7 +2,12 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![feature(phase)]
+#[cfg(test)]
+#[macro_use]
+extern crate assert;
+
+#[cfg(test)]
+extern crate test;
 
 extern crate libc;
 

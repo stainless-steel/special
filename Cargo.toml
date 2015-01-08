@@ -1,6 +1,6 @@
 [package]
 name = "sfunc"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/stainless-steel/sfunc"
@@ -9,4 +9,4 @@ documentation = "https://stainless-steel.github.io/sfunc"
 description = "The library provides special functions."
 
 [dev-dependencies]
-assert = "0.0.2"
+assert = "0.0.3"
