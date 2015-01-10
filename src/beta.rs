@@ -91,7 +91,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     let mut ai = 1.0;
 
     let mut rx;
-    let mut ns = (q + qbase * psq) as int;
+    let mut ns = (q + qbase * psq) as isize;
     if ns == 0 {
         rx = pbase;
     } else {
@@ -435,7 +435,7 @@ mod bench {
     fn inc_beta(b: &mut test::Bencher) {
         let (p, q) = (0.5, 1.5);
         let ln_beta = super::ln_beta(p, q);
-        let x = range(0u, 1000).map(|_| random()).collect::<Vec<_>>();
+        let x = range(0, 1000).map(|_| random()).collect::<Vec<_>>();
 
         b.iter(|| {
             for &x in x.iter() {
@@ -448,7 +448,7 @@ mod bench {
     fn inv_inc_beta(b: &mut test::Bencher) {
         let (p, q) = (0.5, 1.5);
         let ln_beta = super::ln_beta(p, q);
-        let x = range(0u, 1000).map(|_| random()).collect::<Vec<_>>();
+        let x = range(0, 1000).map(|_| random()).collect::<Vec<_>>();
 
         b.iter(|| {
             for &x in x.iter() {

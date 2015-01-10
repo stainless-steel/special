@@ -2,6 +2,8 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
+#![allow(unstable)]
+
 #[cfg(test)]
 #[macro_use]
 extern crate assert;
