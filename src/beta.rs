@@ -439,7 +439,7 @@ mod bench {
 
         b.iter(|| {
             for &x in x.iter() {
-                test::black_box(super::inc_beta(x, p, q, ln_beta))
+                test::black_box(super::inc_beta(x, p, q, ln_beta));
             }
         });
     }
@@ -452,7 +452,7 @@ mod bench {
 
         b.iter(|| {
             for &x in x.iter() {
-                test::black_box(super::inv_inc_beta(x, p, q, ln_beta))
+                test::black_box(super::inv_inc_beta(x, p, q, ln_beta));
             }
         });
     }
