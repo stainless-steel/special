@@ -2,7 +2,7 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![allow(unstable)]
+#![feature(libc)]
 
 #[cfg(test)]
 #[macro_use]
