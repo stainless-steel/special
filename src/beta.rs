@@ -314,7 +314,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     #[test]
     fn ln_beta() {
         let x = vec![0.25, 0.50, 0.75, 1.00];
@@ -427,8 +427,8 @@ mod test {
 }
 
 #[cfg(test)]
-mod bench {
-    use std::rand::random;
+mod benches {
+    use rand::random;
     use test;
 
     #[bench]

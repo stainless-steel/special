@@ -3,7 +3,7 @@
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
 #![feature(libc)]
-#![cfg_attr(test, feature(test, rand))]
+#![cfg_attr(test, feature(core, test))]
 
 #[cfg(test)]
 #[macro_use]
@@ -11,6 +11,9 @@ extern crate assert;
 
 #[cfg(test)]
 extern crate test;
+
+#[cfg(test)]
+extern crate rand;
 
 extern crate libc;
 
