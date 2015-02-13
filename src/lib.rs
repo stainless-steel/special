@@ -2,8 +2,7 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![feature(libc)]
-#![cfg_attr(test, feature(core, test))]
+#![cfg_attr(test, feature(test))]
 
 #[cfg(test)]
 #[macro_use]

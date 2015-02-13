@@ -1,12 +1,15 @@
 [package]
 name = "special"
-version = "0.1.5"
+version = "0.1.6"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/stainless-steel/special"
 homepage = "https://github.com/stainless-steel/special"
 documentation = "https://stainless-steel.github.io/special"
 description = "The library provides special functions."
+
+[dependencies]
+libc = "*"
 
 [dev-dependencies]
 assert = "0.1"
