@@ -2,7 +2,7 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![cfg_attr(test, feature(test))]
+#![cfg_attr(test, feature(std_misc, test))]
 
 #[cfg(test)]
 #[macro_use]
