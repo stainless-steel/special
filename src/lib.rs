@@ -2,10 +2,9 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![cfg_attr(test, feature(std_misc, test))]
+#![cfg_attr(test, feature(test))]
 
 #[cfg(test)]
-#[macro_use]
 extern crate assert;
 
 #[cfg(test)]
@@ -15,6 +14,7 @@ extern crate test;
 extern crate rand;
 
 extern crate libc;
+extern crate num;
 
 pub use beta::{ln_beta, inc_beta, inv_inc_beta};
 
