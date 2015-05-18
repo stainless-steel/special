@@ -427,35 +427,3 @@ mod tests {
         }).collect::<Vec<_>>(), &y, 1e-14);
     }
 }
-
-#[cfg(test)]
-mod benches {
-    use rand::random;
-    use test;
-
-    #[bench]
-    fn inc_beta(b: &mut test::Bencher) {
-        let (p, q) = (0.5, 1.5);
-        let ln_beta = super::ln_beta(p, q);
-        let x = (0..1000).map(|_| random()).collect::<Vec<_>>();
-
-        b.iter(|| {
-            for &x in x.iter() {
-                test::black_box(super::inc_beta(x, p, q, ln_beta));
-            }
-        });
-    }
-
-    #[bench]
-    fn inv_inc_beta(b: &mut test::Bencher) {
-        let (p, q) = (0.5, 1.5);
-        let ln_beta = super::ln_beta(p, q);
-        let x = (0..1000).map(|_| random()).collect::<Vec<_>>();
-
-        b.iter(|| {
-            for &x in x.iter() {
-                test::black_box(super::inv_inc_beta(x, p, q, ln_beta));
-            }
-        });
-    }
-}

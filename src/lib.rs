@@ -2,16 +2,9 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
-#![cfg_attr(test, feature(test))]
-
 #[cfg(test)]
 extern crate assert;
 
-#[cfg(test)]
-extern crate test;
-
-#[cfg(test)]
-extern crate rand;
 
 extern crate libc;
 extern crate num;
