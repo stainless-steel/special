@@ -59,11 +59,22 @@ macro_rules! eval_poly {
     }
 }
 
-/// Compute the real valued digamma function. `d/dx ln Gamma(x)`.
-/// Appriximation based on Beal, Matthew J. (2003). *Variational
-/// Algorithms for Approximate Bayesian Inference* (PhD thesis). The
-/// Gatsby Computational Neuroscience Unit, University College
-/// London. pp. 265–266
+/// Compute the real-valued digamma function.
+///
+/// The digamma function is defined by
+///
+/// ```math
+///        d ln(Γ(x))
+/// ψ(x) = ----------
+///            dx
+/// ```
+///
+/// where Γ is the Gamma function. The computation is based on an approximation
+/// as described in the reference below.
+///
+/// * M. J. Beal, “Variational Algorithms for Approximate Bayesian Inference.”
+/// The Gatsby Computational Neuroscience Unit, University College London, 2003,
+/// pp. 265–266.
 ///
 /// # Examples
 ///
@@ -89,7 +100,6 @@ pub fn digamma(x: f64)-> f64 {
         digamma(x + 1.0) - x.recip()
     }
 }
-
 
 #[cfg(test)]
 mod tests {
