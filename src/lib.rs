@@ -59,7 +59,7 @@ pub fn digamma(x: f64)-> f64 {
     if x > 8.0 {
         let inv_x = x.recip();
         let inv_x_e2 = inv_x * inv_x;
-        x.ln() - 0.5*inv_x - inv_x_e2 * eval_poly!(inv_x_e2, [
+        x.ln() - 0.5 * inv_x - inv_x_e2 * eval_poly!(inv_x_e2, [
             // The coefficients are `Bernoulli[2n] / 2n`.
             1.0/12.0, -1.0/120.0, 1.0/252.0, -1.0/240.0,
             5.0/660.0, -691.0/32760.0, 1.0/12.0, -3617.0/8160.0,
