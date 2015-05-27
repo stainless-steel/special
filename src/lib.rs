@@ -49,7 +49,6 @@ mod m {
 /// let euler_mascheroni = 0.5772156649015325;
 /// assert_eq!(-euler_mascheroni, digamma(1.0));
 /// ```
-#[inline]
 pub fn digamma(x: f64)-> f64 {
     // Use Horner’s method to evaluate polynomials.
     macro_rules! eval_poly(
