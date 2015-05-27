@@ -103,13 +103,11 @@ pub fn digamma(x: f64)-> f64 {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
-    fn test_digamma() {
-        use std::f64::consts::{ FRAC_PI_2, LN_2 };
+    fn digamma() {
+        use std::f64::consts::{FRAC_PI_2, LN_2};
         let euler_mascheroni = 0.577215664901533;
 
-        assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - euler_mascheroni, digamma(0.25));
+        assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - euler_mascheroni, super::digamma(0.25));
     }
 }
