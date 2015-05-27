@@ -1,6 +1,6 @@
 # Special Functions [![Build Status][status-img]][status-url]
 
-The library provides [special functions][1] and currently includes:
+The package provides [special functions][1] and currently includes:
 
 * `digamma` — the digamma function,
 * `erf` — the error function,
