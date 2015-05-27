@@ -14,7 +14,7 @@ The package provides [special functions][1] and currently includes:
 
 ## Acknowledgments
 
-The code is based on [libm][2] and the work of [John Burkardt][3].
+The code is based on the work of [John Burkardt][2].
 
 ## Contributing
 
@@ -23,8 +23,7 @@ The code is based on [libm][2] and the work of [John Burkardt][3].
 3. Open a pull request.
 
 [1]: https://en.wikipedia.org/wiki/Special_functions
-[2]: https://sourceware.org/newlib/libm.html
-[3]: http://people.sc.fsu.edu/~jburkardt
+[2]: http://people.sc.fsu.edu/~jburkardt
 
 [status-img]: https://travis-ci.org/stainless-steel/special.svg?branch=master
 [status-url]: https://travis-ci.org/stainless-steel/special
