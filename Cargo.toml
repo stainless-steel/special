@@ -1,7 +1,10 @@
 [package]
 name = "special"
 version = "0.2.0"
-authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
+authors = [
+  "Ivan Ukhov <ivan.ukhov@gmail.com>",
+  "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
+]
 license = "MIT"
 repository = "https://github.com/stainless-steel/special"
 homepage = "https://github.com/stainless-steel/special"
