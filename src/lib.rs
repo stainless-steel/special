@@ -24,26 +24,6 @@ mod m {
     }
 }
 
-/// Compute the error function.
-#[inline]
-pub fn erf(x: f64) -> f64 {
-    unsafe { m::erf(x) }
-}
-
-/// Compute the complementary error function.
-#[inline]
-pub fn erfc(x: f64) -> f64 {
-    unsafe { m::erfc(x) }
-}
-
-/// Compute the natural logarithm of the gamma function.
-#[inline]
-pub fn ln_gamma(x: f64) -> (f64, i32) {
-    let mut sign: i32 = 0;
-    let value = unsafe { m::lgamma_r(x, &mut sign) };
-    (value, sign)
-}
-
 // Use Horner’s method to evaluate polynomials.
 macro_rules! eval_poly(
     ($x0:expr, $coefs:expr) => ($coefs.iter().rev().fold(0.0, |sum, &c| $x0 * sum + c));
@@ -88,6 +68,26 @@ pub fn digamma(x: f64)-> f64 {
         // Shift by recurrence
         digamma(x + 1.0) - x.recip()
     }
+}
+
+/// Compute the error function.
+#[inline]
+pub fn erf(x: f64) -> f64 {
+    unsafe { m::erf(x) }
+}
+
+/// Compute the complementary error function.
+#[inline]
+pub fn erfc(x: f64) -> f64 {
+    unsafe { m::erfc(x) }
+}
+
+/// Compute the natural logarithm of the gamma function.
+#[inline]
+pub fn ln_gamma(x: f64) -> (f64, i32) {
+    let mut sign: i32 = 0;
+    let value = unsafe { m::lgamma_r(x, &mut sign) };
+    (value, sign)
 }
 
 #[cfg(test)]

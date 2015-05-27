@@ -2,6 +2,7 @@
 
 The library provides [special functions][1] and currently includes:
 
+* `digamma` — the digamma function,
 * `erf` — the error function,
 * `erfc` — the complementary error function,
 * `inc_beta` — the incomplete beta function,
