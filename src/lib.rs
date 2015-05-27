@@ -24,11 +24,6 @@ mod m {
     }
 }
 
-// Use Horner’s method to evaluate polynomials.
-macro_rules! eval_poly(
-    ($x0:expr, $coefs:expr) => ($coefs.iter().rev().fold(0.0, |sum, &c| $x0 * sum + c));
-);
-
 /// Compute the real-valued digamma function.
 ///
 /// The digamma function is defined by
@@ -56,16 +51,23 @@ macro_rules! eval_poly(
 /// ```
 #[inline]
 pub fn digamma(x: f64)-> f64 {
+    // Use Horner’s method to evaluate polynomials.
+    macro_rules! eval_poly(
+        ($x0:expr, $coefs:expr) => (
+            $coefs.iter().rev().fold(0.0, |sum, &c| $x0 * sum + c)
+        );
+    );
+
     if x > 8.0 {
         let inv_x = x.recip();
         let inv_x_e2 = inv_x * inv_x;
         x.ln() - 0.5*inv_x - inv_x_e2 * eval_poly!(inv_x_e2, [
-            // Coefficients are `Bernoulli[2n] / 2n`
+            // The coefficients are `Bernoulli[2n] / 2n`.
             1.0/12.0, -1.0/120.0, 1.0/252.0, -1.0/240.0,
-            5.0/660.0, -691.0/32760.0, 1.0/12.0, -3617.0/8160.0
+            5.0/660.0, -691.0/32760.0, 1.0/12.0, -3617.0/8160.0,
         ])
     } else {
-        // Shift by recurrence
+        // Shift by recurrence.
         digamma(x + 1.0) - x.recip()
     }
 }
