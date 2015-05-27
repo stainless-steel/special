@@ -5,11 +5,8 @@
 #[cfg(test)]
 extern crate assert;
 
-
 extern crate libc;
 extern crate num;
-
-pub use beta::{ln_beta, inc_beta, inv_inc_beta};
 
 mod beta;
 
@@ -23,6 +20,8 @@ mod m {
         pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
     }
 }
+
+pub use beta::{ln_beta, inc_beta, inv_inc_beta};
 
 /// Compute the real-valued digamma function.
 ///
