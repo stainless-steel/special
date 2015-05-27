@@ -1,4 +1,4 @@
-# Special Functions [![Build Status][travis-svg]][travis-url]
+# Special Functions [![Build Status][status-img]][status-url]
 
 The library provides [special functions][1] and currently includes:
 
@@ -20,12 +20,12 @@ The code is based on [libm][2] and the work of [John Burkardt][3].
 
 1. Fork the project.
 2. Implement your idea.
-3. Create a pull request.
+3. Open a pull request.
 
 [1]: https://en.wikipedia.org/wiki/Special_functions
 [2]: https://sourceware.org/newlib/libm.html
-[3]: http://people.sc.fsu.edu/~jburkardt/
+[3]: http://people.sc.fsu.edu/~jburkardt
 
-[travis-svg]: https://travis-ci.org/stainless-steel/special.svg?branch=master
-[travis-url]: https://travis-ci.org/stainless-steel/special
+[status-img]: https://travis-ci.org/stainless-steel/special.svg?branch=master
+[status-url]: https://travis-ci.org/stainless-steel/special
 [docs]: https://stainless-steel.github.io/special
