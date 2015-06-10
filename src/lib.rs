@@ -6,7 +6,6 @@
 extern crate assert;
 
 extern crate libc;
-extern crate num;
 
 mod beta;
 

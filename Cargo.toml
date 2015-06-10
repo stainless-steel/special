@@ -13,7 +13,6 @@ description = "The package provides special functions."
 
 [dependencies]
 libc = "*"
-num = "*"
 
 [dev-dependencies]
 assert = "*"

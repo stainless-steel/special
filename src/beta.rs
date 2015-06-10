@@ -52,8 +52,6 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     // and “raising p” method as described above converges more rapidly than
     // any other series expansions.
 
-    use ::num::traits::Float;
-
     #[inline(always)]
     fn exp(x: f64) -> f64 { x.exp() }
     #[inline(always)]
@@ -176,8 +174,6 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     // where
     //
     // f(x) = I(x, p, q) - α.
-
-    use ::num::traits::Float;
 
     #[inline(always)]
     fn exp(x: f64) -> f64 { x.exp() }
