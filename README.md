@@ -1,20 +1,8 @@
 # Special Functions [![Build Status][status-img]][status-url]
 
-The package provides [special functions][1] and currently includes:
-
-* `digamma` — the digamma function,
-* `erf` — the error function,
-* `erfc` — the complementary error function,
-* `inc_beta` — the incomplete beta function,
-* `inv_inc_beta` — the inverse of the incomplete beta function,
-* `ln_beta` — the natural logarithm of the beta function, and
-* `ln_gamma` — the natural logarithm of the gamma function.
+The package provides [special functions][1].
 
 ## [Documentation][docs]
-
-## Acknowledgments
-
-The code is based on the work of [John Burkardt][2].
 
 ## Contributing
 
