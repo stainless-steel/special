@@ -13,8 +13,8 @@ pub fn ln_beta(x: f64, y: f64) -> f64 {
 
 /// Compute the incomplete beta function.
 ///
-/// The code is based on a [C implementation][1] by John Burkardt. The
-/// original algorithm was published in Applied Statistics and is known as
+/// The code is based on a [C implementation][1] by John Burkardt. The original
+/// algorithm was published in Applied Statistics and is known as
 /// [Algorithm AS 63][2] and [Algorithm AS 109][3].
 ///
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
