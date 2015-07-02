@@ -52,11 +52,6 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     // and “raising p” method as described above converges more rapidly than
     // any other series expansions.
 
-    #[inline(always)]
-    fn exp(x: f64) -> f64 { x.exp() }
-    #[inline(always)]
-    fn ln(x: f64) -> f64 { x.ln() }
-
     const ACU: f64 = 0.1e-14;
 
     if x <= 0.0 {
@@ -125,7 +120,7 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
 
     // Remark AS R19 and Algorithm AS 109
     // http://www.jstor.org/stable/2346887
-    alpha = alpha * exp(p * ln(pbase) + (q - 1.0) * ln(qbase) - ln_beta) / p;
+    alpha = alpha * (p * pbase.ln() + (q - 1.0) * qbase.ln() - ln_beta).exp() / p;
 
     if flip { 1.0 - alpha } else { alpha }
 }
@@ -175,17 +170,6 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     //
     // f(x) = I(x, p, q) - α.
 
-    #[inline(always)]
-    fn exp(x: f64) -> f64 { x.exp() }
-    #[inline(always)]
-    fn ln(x: f64) -> f64 { x.ln() }
-    #[inline(always)]
-    fn pow(x: f64, y: f64) -> f64 { x.powf(y) }
-    #[inline(always)]
-    fn pow10(x: i32) -> f64 { 10f64.powi(x) }
-    #[inline(always)]
-    fn sqrt(x: f64) -> f64 { x.sqrt() }
-
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
     const SAE: i32 = -30;
@@ -209,7 +193,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
         alpha = 1.0 - alpha;
     }
 
-    x = sqrt(-ln(alpha * alpha));
+    x = (-(alpha * alpha).ln()).sqrt();
     y = x - (2.30753 + 0.27061 * x) / (1.0 + (0.99229 + 0.04481 * x) * x);
 
     if 1.0 < p && 1.0 < q {
@@ -224,17 +208,17 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
         let s = 1.0 / (2.0 * p - 1.0);
         let t = 1.0 / (2.0 * q - 1.0);
         let h = 2.0 / (s + t);
-        let w = y * sqrt(h + r) / h - (t - s) * (r + 5.0 / 6.0 - 2.0 / (3.0 * h));
-        x = p / (p + q * exp(2.0 * w));
+        let w = y * (h + r).sqrt() / h - (t - s) * (r + 5.0 / 6.0 - 2.0 / (3.0 * h));
+        x = p / (p + q * (2.0 * w).exp());
     } else {
         let mut t = 1.0 / (9.0 * q);
-        t = 2.0 * q * pow(1.0 - t + y * sqrt(t), 3.0);
+        t = 2.0 * q * (1.0 - t + y * t.sqrt()).powf(3.0);
         if t <= 0.0 {
-            x = 1.0 - exp((ln((1.0 - alpha) * q) + ln_beta) / q);
+            x = 1.0 - ((((1.0 - alpha) * q).ln() + ln_beta) / q).exp();
         } else {
             t = 2.0 * (2.0 * p + q - 1.0) / t;
             if t <= 1.0 {
-                x = exp((ln(alpha * p) + ln_beta) / p);
+                x = (((alpha * p).ln() + ln_beta) / p).exp();
             } else {
                 x = 1.0 - 2.0 / (t + 1.0);
             }
@@ -249,8 +233,8 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
-    let e = (-5.0 / p / p - 1.0 / pow(alpha, 0.2) - 13.0) as i32;
-    let acu = if e > SAE { pow10(e) } else { FPU };
+    let e = (-5.0 / p / p - 1.0 / alpha.powf(0.2) - 13.0) as i32;
+    let acu = if e > SAE { 10f64.powi(e) } else { FPU };
 
     let mut tx;
     let mut yprev = 0.0;
@@ -261,7 +245,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
         // Remark AS R19 and Algorithm AS 109
         // http://www.jstor.org/stable/2346887
         y = inc_beta(x, p, q, ln_beta);
-        y = (y - alpha) * exp(ln_beta + (1.0 - p) * ln(x) + (1.0 - q) * ln(1.0 - x));
+        y = (y - alpha) * (ln_beta + (1.0 - p) * x.ln() + (1.0 - q) * (1.0 - x).ln()).exp();
 
         // Remark AS R83
         // http://www.jstor.org/stable/2347779
