@@ -55,16 +55,16 @@ pub fn digamma(x: f64)-> f64 {
         );
     );
 
-    if x > 8.0 {
-        let inv_x = x.recip();
-        let inv_x_2 = inv_x * inv_x;
-        x.ln() - 0.5 * inv_x - inv_x_2 * evaluate_polynom!(inv_x_2, [
-            1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
-            5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
-        ])
-    } else {
-        digamma(x + 1.0) - x.recip()
+    if x <= 8.0 {
+        return digamma(x + 1.0) - x.recip();
     }
+
+    let inv_x = x.recip();
+    let inv_x_2 = inv_x * inv_x;
+    x.ln() - 0.5 * inv_x - inv_x_2 * evaluate_polynom!(inv_x_2, [
+        1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
+        5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
+    ])
 }
 
 /// Compute the error function.
