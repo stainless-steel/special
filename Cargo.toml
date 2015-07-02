@@ -16,4 +16,4 @@ libc = "*"
 
 [dev-dependencies]
 assert = "*"
-rand = "*"
+random = "*"
