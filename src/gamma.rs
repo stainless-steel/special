@@ -1,6 +1,6 @@
 /// Compute the real-valued digamma function.
 ///
-/// The digamma function is defined by
+/// The formula is as follows:
 ///
 /// ```math
 ///        d ln(Γ(x))
@@ -8,7 +8,7 @@
 ///            dx
 /// ```
 ///
-/// where Γ is the Gamma function. The computation is based on an approximation
+/// where Γ is the gamma function. The computation is based on an approximation
 /// as described in the reference below.
 ///
 /// ## Examples
@@ -43,7 +43,20 @@ pub fn digamma(x: f64)-> f64 {
     ])
 }
 
-/// Compute the lower incomplete gamma function.
+/// Compute the regularized lower incomplete gamma function.
+///
+/// The formula is as follows:
+///
+/// ```math
+///                          ∞
+///           γ(x, p)    1   /
+/// P(x, p) = ------- = ---- | t^(p-1) e^(-t) dt
+///            Γ(p)     Γ(p) /
+///                          0
+/// ```
+///
+/// where γ is the incomplete lower gamma function, and Γ is the complete gamma
+/// function.
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The original
 /// algorithm was published in Applied Statistics and is known as
