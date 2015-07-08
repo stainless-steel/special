@@ -57,7 +57,7 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
     const ELIMIT: f64 = -88.0;
     const OFLO: f64 = 1.0e+37;
     const TOL: f64 = 1.0e-14;
-    const XBIG: f64 = 1.0E+08;
+    const XBIG: f64 = 1.0e+08;
 
     if x == 0.0 {
         return 0.0;
@@ -89,16 +89,16 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
         let mut a = p;
 
         loop {
-            a = a + 1.0;
-            c = c * x / a;
-            value = value + c;
+            a += 1.0;
+            c *= x / a;
+            value += c;
 
             if c <= TOL {
                 break;
             }
         }
 
-        arg = arg + value.ln();
+        arg += value.ln();
 
         if ELIMIT <= arg {
             return arg.exp();
@@ -117,16 +117,15 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
         let mut value = pn3 / pn4;
 
         loop {
-            a = a + 1.0;
-            b = b + 2.0;
-            c = c + 1.0;
+            a += 1.0;
+            b += 2.0;
+            c += 1.0;
             let an = a * c;
             let pn5 = b * pn3 - an * pn1;
             let pn6 = b * pn4 - an * pn2;
 
             if pn6 != 0.0 {
                 let rn = pn5 / pn6;
-
                 if (value - rn).abs() <= TOL.min(TOL * rn) {
                     break;
                 }
@@ -139,14 +138,14 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
             pn4 = pn6;
 
             if OFLO <= pn5.abs() {
-                pn1 = pn1 / OFLO;
-                pn2 = pn2 / OFLO;
-                pn3 = pn3 / OFLO;
-                pn4 = pn4 / OFLO;
+                pn1 /= OFLO;
+                pn2 /= OFLO;
+                pn3 /= OFLO;
+                pn4 /= OFLO;
             }
         }
 
-        arg = arg + value.ln();
+        arg += value.ln();
 
         if ELIMIT <= arg {
             return 1.0 - arg.exp();
