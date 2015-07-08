@@ -51,9 +51,8 @@ pub fn digamma(x: f64)-> f64 {
 ///
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html
 /// [2]: http://www.jstor.org/stable/2347328
-pub fn inc_gamma(p: f64, x: f64) -> f64 {
-
-    debug_assert!(p > 0.0 && x >= 0.0);
+pub fn inc_gamma(x: f64, p: f64) -> f64 {
+    debug_assert!(x >= 0.0 && p > 0.0);
 
     const ELIMIT: f64 = -88.0;
     const OFLO: f64 = 1.0e+37;
@@ -194,7 +193,7 @@ mod tests {
             9.738240752336722e-01, 9.815062931491536e-01,
         ];
 
-        let z = x.iter().map(|&x| super::inc_gamma(P, x)).collect::<Vec<_>>();
+        let z = x.iter().map(|&x| super::inc_gamma(x, P)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-14);
     }
 
@@ -215,7 +214,7 @@ mod tests {
             9.792520392189441e-01, 9.889149370075309e-01,
         ];
 
-        let z = x.iter().map(|&x| super::inc_gamma(P, x)).collect::<Vec<_>>();
+        let z = x.iter().map(|&x| super::inc_gamma(x, P)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-12);
     }
 }
