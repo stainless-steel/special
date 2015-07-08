@@ -52,24 +52,33 @@ pub fn digamma(x: f64)-> f64 {
 /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html
 /// [2]: http://www.jstor.org/stable/2347328
 pub fn inc_gamma(p: f64, x: f64) -> f64 {
-    use m::erf;
-    use std::f64::consts::FRAC_1_SQRT_2;
 
     debug_assert!(p > 0.0 && x >= 0.0);
 
     const ELIMIT: f64 = -88.0;
     const OFLO: f64 = 1.0e+37;
-    const PLIMIT: f64 = 1000.0;
     const TOL: f64 = 1.0e-14;
     const XBIG: f64 = 1.0E+08;
 
     if x == 0.0 {
         return 0.0;
     }
-    if PLIMIT < p {
-        let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
-        return 0.5 * (1.0 + unsafe { erf(FRAC_1_SQRT_2 * pn1) });
-    }
+
+    // For `p ≥ 1000`, the original algorithm uses an approximation shown below.
+    // However, it introduces a substantial accuracy loss.
+    //
+    // ```
+    // use m::erf;
+    // use std::f64::consts::FRAC_1_SQRT_2;
+    //
+    // const PLIMIT: f64 = 1000.0;
+    //
+    // if PLIMIT < p {
+    //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
+    //     return 0.5 * (1.0 + unsafe { erf(FRAC_1_SQRT_2 * pn1) });
+    // }
+    // ```
+
     if XBIG < x {
         return 1.0;
     }
@@ -207,6 +216,6 @@ mod tests {
         ];
 
         let z = x.iter().map(|&x| super::inc_gamma(P, x)).collect::<Vec<_>>();
-        assert::close(&z, &y, 1e-14);
+        assert::close(&z, &y, 1e-12);
     }
 }
