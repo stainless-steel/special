@@ -39,12 +39,14 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
     // and “raising p” method as described above converges more rapidly than
     // any other series expansions.
 
+    debug_assert!(x >= 0.0 && x <= 1.0 && p > 0.0 && q > 0.0);
+
     const ACU: f64 = 0.1e-14;
 
-    if x <= 0.0 {
+    if x == 0.0 {
         return 0.0;
     }
-    if 1.0 <= x {
+    if x == 1.0 {
         return 1.0;
     }
 
@@ -157,15 +159,17 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     //
     // f(x) = I(x, p, q) - α.
 
+    debug_assert!(alpha >= 0.0 && alpha <= 1.0 && p > 0.0 && q > 0.0);
+
     // Remark AS R83
     // http://www.jstor.org/stable/2347779
     const SAE: i32 = -30;
     const FPU: f64 = 1e-30; // 10^SAE
 
-    if alpha <= 0.0 {
+    if alpha == 0.0 {
         return 0.0;
     }
-    if 1.0 <= alpha {
+    if alpha == 1.0 {
         return 1.0;
     }
 
@@ -281,10 +285,9 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 }
 
 /// Compute the natural logarithm of the beta function.
-///
-/// The domain is `{(x, y): x > 0, y > 0}`.
 pub fn ln_beta(x: f64, y: f64) -> f64 {
     use gamma::ln_gamma;
+    debug_assert!(x > 0.0 && y > 0.0);
     ln_gamma(x).0 + ln_gamma(y).0 - ln_gamma(x + y).0
 }
 
