@@ -48,11 +48,9 @@ pub fn digamma(x: f64)-> f64 {
 /// The formula is as follows:
 ///
 /// ```math
-///                          ∞
-///           γ(x, p)    1   /
-/// P(x, p) = ------- = ---- | t^(p-1) e^(-t) dt
-///            Γ(p)     Γ(p) /
-///                          0
+///           γ(x, p)    1   x
+/// P(x, p) = ------- = ---- ∫ t^(p-1) e^(-t) dt
+///            Γ(p)     Γ(p) 0
 /// ```
 ///
 /// where γ is the incomplete lower gamma function, and Γ is the complete gamma
