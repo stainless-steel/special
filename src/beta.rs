@@ -296,7 +296,6 @@ mod tests {
     fn inc_beta_small() {
         let (p, q) = (0.1, 0.2);
         let ln_beta = super::ln_beta(p, q);
-
         let x = vec![
             0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
             0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00,
@@ -311,16 +310,14 @@ mod tests {
             7.804880320024465e-01, 8.104335200313719e-01, 1.000000000000000e+00,
         ];
 
-        assert::close(&x.iter().map(|&x| {
-           super::inc_beta(x, p, q, ln_beta)
-        }).collect::<Vec<_>>(), &y, 1e-14);
+        let z = x.iter().map(|&x| super::inc_beta(x, p, q, ln_beta)).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-14);
     }
 
     #[test]
     fn inc_beta_large() {
         let (p, q) = (2.0, 3.0);
         let ln_beta = super::ln_beta(p, q);
-
         let x = vec![
             0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
             0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00,
@@ -335,16 +332,14 @@ mod tests {
             9.963000000000000e-01, 9.995187500000000e-01, 1.000000000000000e+00,
         ];
 
-        assert::close(&x.iter().map(|&x| {
-            super::inc_beta(x, p, q, ln_beta)
-        }).collect::<Vec<_>>(), &y, 1e-14);
+        let z = x.iter().map(|&x| super::inc_beta(x, p, q, ln_beta)).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-14);
     }
 
     #[test]
     fn inv_inc_beta_small() {
         let (p, q) = (0.2, 0.3);
         let ln_beta = super::ln_beta(p, q);
-
         let x = vec![
             0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
             0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00,
@@ -359,16 +354,14 @@ mod tests {
             9.923134416335146e-01, 9.992341305241808e-01, 1.000000000000000e+00,
         ];
 
-        assert::close(&x.iter().map(|&x| {
-            super::inv_inc_beta(x, p, q, ln_beta)
-        }).collect::<Vec<_>>(), &y, 1e-14);
+        let z = x.iter().map(|&x| super::inv_inc_beta(x, p, q, ln_beta)).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-14);
     }
 
     #[test]
     fn inv_inc_beta_large() {
         let (p, q) = (1.0, 2.0);
         let ln_beta = super::ln_beta(p, q);
-
         let x = vec![
             0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
             0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00,
@@ -383,21 +376,18 @@ mod tests {
             0.683772233983162e+00, 0.776393202250021e+00, 1.000000000000000e+00,
         ];
 
-        assert::close(&x.iter().map(|&x| {
-            super::inv_inc_beta(x, p, q, ln_beta)
-        }).collect::<Vec<_>>(), &y, 1e-14);
+        let z = x.iter().map(|&x| super::inv_inc_beta(x, p, q, ln_beta)).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-14);
     }
 
     #[test]
     fn ln_beta() {
-        let x = vec![0.25, 0.50, 0.75, 1.00];
-        let y = vec![0.50, 0.75, 1.00, 1.25];
-        let z = vec![
+        let x = vec![(0.25, 0.5), (0.5, 0.75), (0.75, 1.0), (1.0, 1.25)];
+        let y = vec![
             1.6571065161914820,  0.8739177307778084, 0.2876820724517809, -0.2231435513142098,
         ];
 
-        assert::close(&x.iter().zip(y.iter()).map(|(&x, &y)| {
-            super::ln_beta(x, y)
-        }).collect::<Vec<_>>(), &z, 1e-14);
+        let z = x.iter().map(|&(p, q)| super::ln_beta(p, q)).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-14);
     }
 }

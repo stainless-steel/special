@@ -178,7 +178,7 @@ mod tests {
 
     #[test]
     fn inc_gamma_small_p() {
-        const P: f64 = 4.2;
+        let p = 4.2;
         let x = vec![
             0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5,
             5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5,
@@ -193,13 +193,13 @@ mod tests {
             9.738240752336722e-01, 9.815062931491536e-01,
         ];
 
-        let z = x.iter().map(|&x| super::inc_gamma(x, P)).collect::<Vec<_>>();
+        let z = x.iter().map(|&x| super::inc_gamma(x, p)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-14);
     }
 
     #[test]
     fn inc_gamma_large_p() {
-        const P: f64 = 1500.0;
+        let p = 1500.0;
         let x = vec![
             1400.0, 1410.0, 1420.0, 1430.0, 1440.0, 1450.0, 1460.0, 1470.0, 1480.0, 1490.0,
             1500.0, 1510.0, 1520.0, 1530.0, 1540.0, 1550.0, 1560.0, 1570.0, 1580.0, 1590.0,
@@ -214,7 +214,7 @@ mod tests {
             9.792520392189441e-01, 9.889149370075309e-01,
         ];
 
-        let z = x.iter().map(|&x| super::inc_gamma(x, P)).collect::<Vec<_>>();
+        let z = x.iter().map(|&x| super::inc_gamma(x, p)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-12);
     }
 }
