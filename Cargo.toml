@@ -17,3 +17,7 @@ libc = "*"
 [dev-dependencies]
 assert = "*"
 random = "*"
+
+[[bench]]
+name = "special"
+path = "benches/lib.rs"

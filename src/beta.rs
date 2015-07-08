@@ -1,16 +1,3 @@
-/// Compute the natural logarithm of the beta function.
-///
-/// The domain is `{(x, y): x > 0, y > 0}`.
-pub fn ln_beta(x: f64, y: f64) -> f64 {
-    use super::ln_gamma;
-
-    let (a, _) = ln_gamma(x);
-    let (b, _) = ln_gamma(y);
-    let (c, _) = ln_gamma(x + y);
-
-    a + b - c
-}
-
 /// Compute the incomplete beta function.
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The original
@@ -293,23 +280,22 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
     if flip { 1.0 - x } else { x }
 }
 
+/// Compute the natural logarithm of the beta function.
+///
+/// The domain is `{(x, y): x > 0, y > 0}`.
+pub fn ln_beta(x: f64, y: f64) -> f64 {
+    use gamma::ln_gamma;
+
+    let (a, _) = ln_gamma(x);
+    let (b, _) = ln_gamma(y);
+    let (c, _) = ln_gamma(x + y);
+
+    a + b - c
+}
+
 #[cfg(test)]
 mod tests {
     use assert;
-
-    #[test]
-    fn ln_beta() {
-        let x = vec![0.25, 0.50, 0.75, 1.00];
-        let y = vec![0.50, 0.75, 1.00, 1.25];
-        let z = vec![
-            1.6571065161914820,  0.8739177307778084,
-            0.2876820724517809, -0.2231435513142098,
-        ];
-
-        assert::close(&x.iter().zip(y.iter()).map(|(&x, &y)| {
-            super::ln_beta(x, y)
-        }).collect::<Vec<_>>(), &z, 1e-14);
-    }
 
     #[test]
     fn inc_beta_small() {
@@ -405,5 +391,18 @@ mod tests {
         assert::close(&x.iter().map(|&x| {
             super::inv_inc_beta(x, p, q, ln_beta)
         }).collect::<Vec<_>>(), &y, 1e-14);
+    }
+
+    #[test]
+    fn ln_beta() {
+        let x = vec![0.25, 0.50, 0.75, 1.00];
+        let y = vec![0.50, 0.75, 1.00, 1.25];
+        let z = vec![
+            1.6571065161914820,  0.8739177307778084, 0.2876820724517809, -0.2231435513142098,
+        ];
+
+        assert::close(&x.iter().zip(y.iter()).map(|(&x, &y)| {
+            super::ln_beta(x, y)
+        }).collect::<Vec<_>>(), &z, 1e-14);
     }
 }
