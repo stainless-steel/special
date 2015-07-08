@@ -1,5 +1,3 @@
-use m;
-
 /// Compute the real-valued digamma function.
 ///
 /// The digamma function is defined by
@@ -27,7 +25,7 @@ use m;
 /// 1. M. J. Beal, Variational algorithms for approximate Bayesian inference.
 ///    University of London, 2003, pp. 265–266.
 pub fn digamma(x: f64)-> f64 {
-    macro_rules! evaluate_polynom(
+    macro_rules! evaluate_polynomial(
         ($x:expr, $coefficients:expr) => (
             $coefficients.iter().rev().fold(0.0, |sum, &c| $x * sum + c)
         );
@@ -39,7 +37,7 @@ pub fn digamma(x: f64)-> f64 {
 
     let inv_x = x.recip();
     let inv_x_2 = inv_x * inv_x;
-    x.ln() - 0.5 * inv_x - inv_x_2 * evaluate_polynom!(inv_x_2, [
+    x.ln() - 0.5 * inv_x - inv_x_2 * evaluate_polynomial!(inv_x_2, [
         1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
         5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
     ])
@@ -153,8 +151,9 @@ pub fn inc_gamma(p: f64, x: f64) -> f64 {
 /// Compute the natural logarithm of the gamma function.
 #[inline]
 pub fn ln_gamma(x: f64) -> (f64, i32) {
+    use m::lgamma_r;
     let mut sign: i32 = 0;
-    let value = unsafe { m::lgamma_r(x, &mut sign) };
+    let value = unsafe { lgamma_r(x, &mut sign) };
     (value, sign)
 }
 
