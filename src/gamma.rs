@@ -16,8 +16,8 @@
 /// ```
 /// use special::digamma;
 ///
-/// let euler_mascheroni = 0.5772156649015325;
-/// assert_eq!(-euler_mascheroni, digamma(1.0));
+/// const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
+/// assert!((digamma(1.0) + EULER_MASCHERONI).abs() < 1e-15);
 /// ```
 ///
 /// ## References
@@ -173,8 +173,8 @@ mod tests {
     #[test]
     fn digamma() {
         use std::f64::consts::{FRAC_PI_2, LN_2};
-        let euler_mascheroni = 0.577215664901533;
-        assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - euler_mascheroni, super::digamma(0.25));
+        const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
+        assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - EULER_MASCHERONI, super::digamma(0.25));
     }
 
     #[test]
