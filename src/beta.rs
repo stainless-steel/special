@@ -285,12 +285,7 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 /// The domain is `{(x, y): x > 0, y > 0}`.
 pub fn ln_beta(x: f64, y: f64) -> f64 {
     use gamma::ln_gamma;
-
-    let (a, _) = ln_gamma(x);
-    let (b, _) = ln_gamma(y);
-    let (c, _) = ln_gamma(x + y);
-
-    a + b - c
+    ln_gamma(x).0 + ln_gamma(y).0 - ln_gamma(x + y).0
 }
 
 #[cfg(test)]
