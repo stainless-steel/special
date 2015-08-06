@@ -14,7 +14,7 @@ mod gamma;
 mod m;
 
 pub use beta::{inc_beta, inv_inc_beta, ln_beta};
-pub use gamma::{digamma, inc_gamma, ln_gamma};
+pub use gamma::{digamma, gamma, inc_gamma, ln_gamma};
 
 /// Compute the error function.
 #[inline]
