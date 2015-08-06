@@ -1,3 +1,5 @@
+use m;
+
 /// Compute the real-valued digamma function.
 ///
 /// The formula is as follows:
@@ -46,8 +48,7 @@ pub fn digamma(x: f64)-> f64 {
 /// Compute the gamma function.
 #[inline]
 pub fn gamma(x: f64) -> f64 {
-    use m::tgamma;
-    unsafe { tgamma(x) }
+    unsafe { m::tgamma(x) }
 }
 
 /// Compute the regularized lower incomplete gamma function.
@@ -85,14 +86,13 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
     // However, it introduces a substantial accuracy loss.
     //
     // ```
-    // use m::erf;
     // use std::f64::consts::FRAC_1_SQRT_2;
     //
     // const PLIMIT: f64 = 1000.0;
     //
     // if PLIMIT < p {
     //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
-    //     return 0.5 * (1.0 + unsafe { erf(FRAC_1_SQRT_2 * pn1) });
+    //     return 0.5 * (1.0 + unsafe { m::erf(FRAC_1_SQRT_2 * pn1) });
     // }
     // ```
 
@@ -176,9 +176,8 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
 /// Compute the natural logarithm of the gamma function.
 #[inline]
 pub fn ln_gamma(x: f64) -> (f64, i32) {
-    use m::lgamma_r;
     let mut sign: i32 = 0;
-    let value = unsafe { lgamma_r(x, &mut sign) };
+    let value = unsafe { m::lgamma_r(x, &mut sign) };
     (value, sign)
 }
 
