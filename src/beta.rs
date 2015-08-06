@@ -52,8 +52,8 @@ pub fn inc_beta(x: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64 {
 
     let mut psq = p + q;
 
-    let mut pbase;
-    let mut qbase;
+    let pbase;
+    let qbase;
 
     let mut temp;
 

@@ -206,7 +206,7 @@ mod tests {
         ];
 
         let z = x.iter().map(|&x| super::gamma(x)).collect::<Vec<_>>();
-        assert::close(&z, &y, 1e-14);
+        assert::close(&z, &y, 1e-13);
     }
 
     #[test]
