@@ -175,6 +175,13 @@ pub fn ln_gamma(x: f64) -> (f64, i32) {
     (value, sign)
 }
 
+#[inline]
+pub fn gamma(x: f64) -> f64 {
+    use m::tgamma;
+    let val = unsafe { tgamma(x) };
+    val
+}
+
 #[cfg(test)]
 mod tests {
     use assert;
@@ -204,6 +211,23 @@ mod tests {
         ];
 
         let z = x.iter().map(|&x| super::inc_gamma(x, p)).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-14);
+    }
+
+    #[test]
+    fn gamma() {
+        let x = vec![
+            0.1, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5,
+            5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0,
+        ];
+        let y = vec![
+            9.51350769866873, 1.772453850905516, 1.0, 0.886226925452758, 1.0,
+            1.329340388179137, 2.0, 3.3233509704478426, 6.0, 11.63172839656745,
+            24.0, 52.342777784553526, 119.99999999999997, 287.88527781504416,
+            720.0000000000001, 1871.2543057977896, 5039.999999999993,
+        ];
+
+        let z = x.iter().map(|&x| super::gamma(x)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-14);
     }
 
