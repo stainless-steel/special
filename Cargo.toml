@@ -1,7 +1,8 @@
 [package]
 name = "special"
-version = "0.4.2"
+version = "0.5.0"
 authors = [
+  "Abhishek Chanda <abhishek.becs@gmail.com>",
   "Ivan Ukhov <ivan.ukhov@gmail.com>",
   "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
 ]
