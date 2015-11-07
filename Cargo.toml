@@ -1,6 +1,6 @@
 [package]
 name = "special"
-version = "0.5.0"
+version = "0.5.1"
 authors = [
   "Abhishek Chanda <abhishek.becs@gmail.com>",
   "Ivan Ukhov <ivan.ukhov@gmail.com>",
@@ -13,11 +13,11 @@ documentation = "https://stainless-steel.github.io/special"
 description = "The package provides special functions."
 
 [dependencies]
-libc = "*"
+libc = "0.2"
 
 [dev-dependencies]
-assert = "*"
-random = "*"
+assert = "0.6"
+random = "0.9"
 
 [[bench]]
 name = "special"
