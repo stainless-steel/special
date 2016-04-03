@@ -1,17 +1,17 @@
 [package]
 name = "special"
 version = "0.5.1"
+license = "Apache-2.0/MIT"
 authors = [
   "Abhishek Chanda <abhishek.becs@gmail.com>",
   "Albert Pang <albert.pang@me.com>",
   "Ivan Ukhov <ivan.ukhov@gmail.com>",
   "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
 ]
-license = "MIT"
-repository = "https://github.com/stainless-steel/special"
-homepage = "https://github.com/stainless-steel/special"
-documentation = "https://stainless-steel.github.io/special"
 description = "The package provides special functions."
+documentation = "https://stainless-steel.github.io/special"
+homepage = "https://github.com/stainless-steel/special"
+repository = "https://github.com/stainless-steel/special"
 
 [dependencies]
 libc = "0.2"
