@@ -10,11 +10,6 @@ extern {
     pub fn tgamma(x: c_double) -> c_double;
 }
 
-#[cfg(windows)]
-pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double {
-    unsafe { lgamma(x, sign) }
-}
-
 #[cfg(test)]
 mod tests {
     use assert;
