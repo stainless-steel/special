@@ -175,13 +175,6 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
 
 /// Compute the natural logarithm of the gamma function.
 #[inline]
-#[cfg(unix)]
-pub fn ln_gamma(x: f64) -> (f64, i32) {
-    let mut sign: i32 = 0;
-    let value = unsafe { m::lgamma_r(x, &mut sign) };
-    (value, sign)
-}
-#[cfg(windows)]
 pub fn ln_gamma(x: f64) -> (f64, i32) {
     let mut sign: i32 = 0;
     let value = unsafe { m::lgamma(x, &mut sign) };
