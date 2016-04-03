@@ -3,6 +3,7 @@ name = "special"
 version = "0.5.1"
 authors = [
   "Abhishek Chanda <abhishek.becs@gmail.com>",
+  "Albert Pang <albert.pang@me.com>",
   "Ivan Ukhov <ivan.ukhov@gmail.com>",
   "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
 ]
