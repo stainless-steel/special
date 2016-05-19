@@ -1,6 +1,6 @@
 [package]
 name = "special"
-version = "0.5.2"
+version = "0.5.3"
 license = "Apache-2.0/MIT"
 authors = [
   "Abhishek Chanda <abhishek.becs@gmail.com>",
@@ -17,8 +17,8 @@ repository = "https://github.com/stainless-steel/special"
 libc = "0.2"
 
 [dev-dependencies]
-assert = "0.6"
-random = "0.9"
+assert = "0.7"
+random = "0.10"
 
 [[bench]]
 name = "special"
