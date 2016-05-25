@@ -1,5 +1,6 @@
 use Gamma;
 
+/// Beta functions.
 pub trait Beta {
     /// Compute the incomplete beta function.
     ///
