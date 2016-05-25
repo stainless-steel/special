@@ -116,75 +116,61 @@ macro_rules! implement { ($($kind:ty),*) => ($(impl Gamma for $kind {
 
         if x <= 1.0 || x < p {
             let mut arg = p * x.ln() - x - (p + 1.0).ln_gamma().0;
-            let mut c = 1.0;
             let mut value = 1.0;
             let mut a = p;
+            let mut c = 1.0;
 
             loop {
                 a += 1.0;
                 c *= x / a;
                 value += c;
-
                 if c <= TOL {
                     break;
                 }
             }
-
             arg += value.ln();
 
-            if ELIMIT <= arg {
-                return arg.exp();
-            } else {
-                return 0.0;
-            };
-        } else {
-            let mut arg = p * x.ln() - x - p.ln_gamma().0;
-            let mut a = 1.0 - p;
-            let mut b = a + x + 1.0;
-            let mut c = 0.0;
-            let mut pn1 = 1.0;
-            let mut pn2 = x;
-            let mut pn3 = x + 1.0;
-            let mut pn4 = x * b;
-            let mut value = pn3 / pn4;
+            return if ELIMIT <= arg { arg.exp() } else { 0.0 };
+        }
 
-            loop {
-                a += 1.0;
-                b += 2.0;
-                c += 1.0;
-                let an = a * c;
-                let pn5 = b * pn3 - an * pn1;
-                let pn6 = b * pn4 - an * pn2;
+        let mut arg = p * x.ln() - x - p.ln_gamma().0;
+        let mut a = 1.0 - p;
+        let mut b = a + x + 1.0;
+        let mut c = 0.0;
+        let mut pn1 = 1.0;
+        let mut pn2 = x;
+        let mut pn3 = x + 1.0;
+        let mut pn4 = x * b;
+        let mut value = pn3 / pn4;
 
-                if pn6 != 0.0 {
-                    let rn = pn5 / pn6;
-                    if (value - rn).abs() <= TOL.min(TOL * rn) {
-                        break;
-                    }
-                    value = rn;
+        loop {
+            a += 1.0;
+            b += 2.0;
+            c += 1.0;
+            let an = a * c;
+            let pn5 = b * pn3 - an * pn1;
+            let pn6 = b * pn4 - an * pn2;
+            if pn6 != 0.0 {
+                let rn = pn5 / pn6;
+                if (value - rn).abs() <= TOL.min(TOL * rn) {
+                    break;
                 }
-
-                pn1 = pn3;
-                pn2 = pn4;
-                pn3 = pn5;
-                pn4 = pn6;
-
-                if OFLO <= pn5.abs() {
-                    pn1 /= OFLO;
-                    pn2 /= OFLO;
-                    pn3 /= OFLO;
-                    pn4 /= OFLO;
-                }
+                value = rn;
             }
-
-            arg += value.ln();
-
-            if ELIMIT <= arg {
-                return 1.0 - arg.exp();
-            } else {
-                return 1.0;
+            pn1 = pn3;
+            pn2 = pn4;
+            pn3 = pn5;
+            pn4 = pn6;
+            if OFLO <= pn5.abs() {
+                pn1 /= OFLO;
+                pn2 /= OFLO;
+                pn3 /= OFLO;
+                pn4 /= OFLO;
             }
         }
+        arg += value.ln();
+
+        return if ELIMIT <= arg { 1.0 - arg.exp() } else { 1.0 };
     }
 
     #[inline]
