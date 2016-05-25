@@ -1,4 +1,4 @@
-use m;
+use Special;
 
 /// Compute the real-valued digamma function.
 ///
@@ -95,7 +95,7 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
     }
 
     if x <= 1.0 || x < p {
-        let mut arg = p * x.ln() - x - ln_gamma(p + 1.0).0;
+        let mut arg = p * x.ln() - x - (p + 1.0).ln_gamma().0;
         let mut c = 1.0;
         let mut value = 1.0;
         let mut a = p;
@@ -118,7 +118,7 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
             return 0.0;
         };
     } else {
-        let mut arg = p * x.ln() - x - ln_gamma(p).0;
+        let mut arg = p * x.ln() - x - p.ln_gamma().0;
         let mut a = 1.0 - p;
         let mut b = a + x + 1.0;
         let mut c = 0.0;
@@ -165,14 +165,6 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
             return 1.0;
         }
     }
-}
-
-/// Compute the natural logarithm of the gamma function.
-#[inline]
-pub fn ln_gamma(x: f64) -> (f64, i32) {
-    let mut sign: i32 = 0;
-    let value = unsafe { m::lgamma(x, &mut sign) };
-    (value, sign)
 }
 
 #[cfg(test)]

@@ -14,10 +14,10 @@ mod gamma;
 mod m;
 
 pub use beta::{inc_beta, inv_inc_beta, ln_beta};
-pub use gamma::{digamma, inc_gamma, ln_gamma};
+pub use gamma::{digamma, inc_gamma};
 
 /// Special functions.
-pub trait Special {
+pub trait Special where Self: Sized {
     /// Compute the error function.
     fn erf(self) -> Self;
 
@@ -26,6 +26,9 @@ pub trait Special {
 
     /// Compute the gamma function.
     fn gamma(self) -> Self;
+
+    /// Compute the natural logarithm of the gamma function.
+    fn ln_gamma(self) -> (Self, i32);
 }
 
 macro_rules! implement {
@@ -33,17 +36,24 @@ macro_rules! implement {
         impl Special for $kind {
             #[inline]
             fn erf(self) -> Self {
-                unsafe { m::erf(self as f64) as $kind }
+                unsafe { m::erf(self as f64) as Self }
             }
 
             #[inline]
             fn erfc(self) -> Self {
-                unsafe { m::erfc(self as f64) as $kind }
+                unsafe { m::erfc(self as f64) as Self }
             }
 
             #[inline]
             fn gamma(self) -> Self {
-                unsafe { m::tgamma(self as f64) as $kind }
+                unsafe { m::tgamma(self as f64) as Self }
+            }
+
+            #[inline]
+            fn ln_gamma(self) -> (Self, i32) {
+                let mut sign: i32 = 0;
+                let value = unsafe { m::lgamma(self as f64, &mut sign) as Self };
+                (value, sign)
             }
         }
     )*);

@@ -1,3 +1,5 @@
+use Special;
+
 /// Compute the incomplete beta function.
 ///
 /// The code is based on a [C implementation][1] by John Burkardt. The original
@@ -286,9 +288,8 @@ pub fn inv_inc_beta(mut alpha: f64, mut p: f64, mut q: f64, ln_beta: f64) -> f64
 
 /// Compute the natural logarithm of the beta function.
 pub fn ln_beta(x: f64, y: f64) -> f64 {
-    use gamma::ln_gamma;
     debug_assert!(x > 0.0 && y > 0.0);
-    ln_gamma(x).0 + ln_gamma(y).0 - ln_gamma(x + y).0
+    x.ln_gamma().0 + y.ln_gamma().0 - (x + y).ln_gamma().0
 }
 
 #[cfg(test)]
