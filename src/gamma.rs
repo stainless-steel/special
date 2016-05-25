@@ -10,21 +10,19 @@ pub trait Gamma where Self: Sized {
 }
 
 macro_rules! implement {
-    ($($kind:ty),*) => ($(
-        impl Gamma for $kind {
-            #[inline]
-            fn gamma(self) -> Self {
-                unsafe { math::tgamma(self as f64) as Self }
-            }
-
-            #[inline]
-            fn ln_gamma(self) -> (Self, i32) {
-                let mut sign: i32 = 0;
-                let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
-                (value, sign)
-            }
+    ($($kind:ty),*) => ($(impl Gamma for $kind {
+        #[inline]
+        fn gamma(self) -> Self {
+            unsafe { math::tgamma(self as f64) as Self }
         }
-    )*);
+
+        #[inline]
+        fn ln_gamma(self) -> (Self, i32) {
+            let mut sign: i32 = 0;
+            let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
+            (value, sign)
+        }
+    })*);
 }
 
 implement!(f32, f64);
