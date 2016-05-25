@@ -45,12 +45,6 @@ pub fn digamma(x: f64)-> f64 {
     ])
 }
 
-/// Compute the gamma function.
-#[inline]
-pub fn gamma(x: f64) -> f64 {
-    unsafe { m::tgamma(x) }
-}
-
 /// Compute the regularized lower incomplete gamma function.
 ///
 /// The formula is as follows:
@@ -190,22 +184,6 @@ mod tests {
         use std::f64::consts::{FRAC_PI_2, LN_2};
         const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
         assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - EULER_MASCHERONI, super::digamma(0.25));
-    }
-
-    #[test]
-    fn gamma() {
-        use std::f64::INFINITY;
-        let x = vec![0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0];
-        let y = vec![
-                         INFINITY, 1.772453850905516e+00, 1.000000000000000e+00,
-            8.862269254527581e-01, 1.000000000000000e+00, 1.329340388179137e+00,
-            2.000000000000000e+00, 3.323350970447843e+00, 6.000000000000000e+00,
-            1.163172839656745e+01, 2.400000000000000e+01, 5.234277778455353e+01,
-            1.200000000000000e+02, 2.878852778150444e+02, 7.200000000000000e+02,
-        ];
-
-        let z = x.iter().map(|&x| super::gamma(x)).collect::<Vec<_>>();
-        assert::close(&z, &y, 1e-12);
     }
 
     #[test]
