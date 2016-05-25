@@ -14,7 +14,7 @@ mod math;
 
 pub use beta::{inc_beta, inv_inc_beta, ln_beta};
 pub use error::Error;
-pub use gamma::{Gamma, digamma, inc_gamma};
+pub use gamma::{Gamma, inc_gamma};
 
 /// Special functions.
 pub trait Special where Self: Error + Gamma {

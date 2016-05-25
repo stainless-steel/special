@@ -2,6 +2,34 @@ use math;
 
 /// Gamma functions.
 pub trait Gamma where Self: Sized {
+    /// Compute the real-valued digamma function.
+    ///
+    /// The formula is as follows:
+    ///
+    /// ```math
+    ///        d ln(Γ(x))
+    /// ψ(x) = ----------
+    ///            dx
+    /// ```
+    ///
+    /// where Γ is the gamma function. The computation is based on an
+    /// approximation as described in the reference below.
+    ///
+    /// ## Examples
+    ///
+    /// ```
+    /// use special::Gamma;
+    ///
+    /// const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
+    /// assert!((1.0.digamma() + EULER_MASCHERONI).abs() < 1e-15);
+    /// ```
+    ///
+    /// ## References
+    ///
+    /// 1. M. J. Beal, Variational algorithms for approximate Bayesian
+    ///    inference. University of London, 2003, pp. 265–266.
+    fn digamma(self) -> Self;
+
     /// Compute the gamma function.
     fn gamma(self) -> Self;
 
@@ -9,8 +37,26 @@ pub trait Gamma where Self: Sized {
     fn ln_gamma(self) -> (Self, i32);
 }
 
+macro_rules! evaluate_polynomial(
+    ($x:expr, $coefficients:expr) => (
+        $coefficients.iter().rev().fold(0.0, |sum, &c| $x * sum + c)
+    );
+);
+
 macro_rules! implement {
     ($($kind:ty),*) => ($(impl Gamma for $kind {
+        fn digamma(self)-> Self {
+            if self <= 8.0 {
+                return (self + 1.0).digamma() - self.recip();
+            }
+            let inv = self.recip();
+            let inv2 = inv * inv;
+            self.ln() - 0.5 * inv - inv2 * evaluate_polynomial!(inv2, [
+                1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
+                5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
+            ])
+        }
+
         #[inline]
         fn gamma(self) -> Self {
             unsafe { math::tgamma(self as f64) as Self }
@@ -26,51 +72,6 @@ macro_rules! implement {
 }
 
 implement!(f32, f64);
-
-/// Compute the real-valued digamma function.
-///
-/// The formula is as follows:
-///
-/// ```math
-///        d ln(Γ(x))
-/// ψ(x) = ----------
-///            dx
-/// ```
-///
-/// where Γ is the gamma function. The computation is based on an approximation
-/// as described in the reference below.
-///
-/// ## Examples
-///
-/// ```
-/// use special::digamma;
-///
-/// const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
-/// assert!((digamma(1.0) + EULER_MASCHERONI).abs() < 1e-15);
-/// ```
-///
-/// ## References
-///
-/// 1. M. J. Beal, Variational algorithms for approximate Bayesian inference.
-///    University of London, 2003, pp. 265–266.
-pub fn digamma(x: f64)-> f64 {
-    macro_rules! evaluate_polynomial(
-        ($x:expr, $coefficients:expr) => (
-            $coefficients.iter().rev().fold(0.0, |sum, &c| $x * sum + c)
-        );
-    );
-
-    if x <= 8.0 {
-        return digamma(x + 1.0) - x.recip();
-    }
-
-    let inv_x = x.recip();
-    let inv_x_2 = inv_x * inv_x;
-    x.ln() - 0.5 * inv_x - inv_x_2 * evaluate_polynomial!(inv_x_2, [
-        1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
-        5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
-    ])
-}
 
 /// Compute the regularized lower incomplete gamma function.
 ///
@@ -198,11 +199,13 @@ pub fn inc_gamma(x: f64, p: f64) -> f64 {
 mod tests {
     use assert;
 
+    use super::Gamma;
+
     #[test]
     fn digamma() {
         use std::f64::consts::{FRAC_PI_2, LN_2};
         const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
-        assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - EULER_MASCHERONI, super::digamma(0.25));
+        assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - EULER_MASCHERONI, 0.25.digamma());
     }
 
     #[test]
