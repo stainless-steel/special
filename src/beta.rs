@@ -1,4 +1,4 @@
-use Special;
+use Gamma;
 
 /// Compute the incomplete beta function.
 ///

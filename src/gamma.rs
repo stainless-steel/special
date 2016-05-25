@@ -1,4 +1,33 @@
-use Special;
+use math;
+
+/// Gamma functions.
+pub trait Gamma where Self: Sized {
+    /// Compute the gamma function.
+    fn gamma(self) -> Self;
+
+    /// Compute the natural logarithm of the gamma function.
+    fn ln_gamma(self) -> (Self, i32);
+}
+
+macro_rules! implement {
+    ($($kind:ty),*) => ($(
+        impl Gamma for $kind {
+            #[inline]
+            fn gamma(self) -> Self {
+                unsafe { math::tgamma(self as f64) as Self }
+            }
+
+            #[inline]
+            fn ln_gamma(self) -> (Self, i32) {
+                let mut sign: i32 = 0;
+                let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
+                (value, sign)
+            }
+        }
+    )*);
+}
+
+implement!(f32, f64);
 
 /// Compute the real-valued digamma function.
 ///
