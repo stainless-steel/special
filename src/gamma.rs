@@ -33,6 +33,27 @@ pub trait Gamma where Self: Sized {
     /// Compute the gamma function.
     fn gamma(self) -> Self;
 
+    /// Compute the regularized lower incomplete gamma function.
+    ///
+    /// The formula is as follows:
+    ///
+    /// ```math
+    ///           γ(x, p)    1   x
+    /// P(x, p) = ------- = ---- ∫ t^(p-1) e^(-t) dt
+    ///            Γ(p)     Γ(p) 0
+    /// ```
+    ///
+    /// where γ is the incomplete lower gamma function, and Γ is the complete
+    /// gamma function.
+    ///
+    /// The code is based on a [C implementation][1] by John Burkardt. The
+    /// original algorithm was published in Applied Statistics and is known as
+    /// [Algorithm AS 239][2].
+    ///
+    /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html
+    /// [2]: http://www.jstor.org/stable/2347328
+    fn inc_gamma(self, p: Self) -> Self;
+
     /// Compute the natural logarithm of the gamma function.
     fn ln_gamma(self) -> (Self, i32);
 }
@@ -46,12 +67,13 @@ macro_rules! evaluate_polynomial(
 macro_rules! implement {
     ($($kind:ty),*) => ($(impl Gamma for $kind {
         fn digamma(self)-> Self {
-            if self <= 8.0 {
-                return (self + 1.0).digamma() - self.recip();
+            let x = self;
+            if x <= 8.0 {
+                return (x + 1.0).digamma() - x.recip();
             }
-            let inv = self.recip();
-            let inv2 = inv * inv;
-            self.ln() - 0.5 * inv - inv2 * evaluate_polynomial!(inv2, [
+            let y = x.recip();
+            let y2 = y * y;
+            x.ln() - 0.5 * y - y2 * evaluate_polynomial!(y2, [
                 1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
                 5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
             ])
@@ -60,6 +82,110 @@ macro_rules! implement {
         #[inline]
         fn gamma(self) -> Self {
             unsafe { math::tgamma(self as f64) as Self }
+        }
+
+        fn inc_gamma(self, p: Self) -> Self {
+            debug_assert!(self >= 0.0 && p > 0.0);
+
+            const ELIMIT: $kind = -88.0;
+            const OFLO: $kind = 1.0e+37;
+            const TOL: $kind = 1.0e-14;
+            const XBIG: $kind = 1.0e+08;
+
+            let x = self;
+            if x == 0.0 {
+                return 0.0;
+            }
+
+            // For `p ≥ 1000`, the original algorithm uses an approximation
+            // shown below. However, it introduces a substantial accuracy loss.
+            //
+            // ```
+            // use std::f64::consts::FRAC_1_SQRT_2;
+            //
+            // const PLIMIT: f64 = 1000.0;
+            //
+            // if PLIMIT < p {
+            //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
+            //     return 0.5 * (1.0 + (FRAC_1_SQRT_2 * pn1).erf());
+            // }
+            // ```
+
+            if XBIG < x {
+                return 1.0;
+            }
+
+            if x <= 1.0 || x < p {
+                let mut arg = p * x.ln() - x - (p + 1.0).ln_gamma().0;
+                let mut c = 1.0;
+                let mut value = 1.0;
+                let mut a = p;
+
+                loop {
+                    a += 1.0;
+                    c *= x / a;
+                    value += c;
+
+                    if c <= TOL {
+                        break;
+                    }
+                }
+
+                arg += value.ln();
+
+                if ELIMIT <= arg {
+                    return arg.exp();
+                } else {
+                    return 0.0;
+                };
+            } else {
+                let mut arg = p * x.ln() - x - p.ln_gamma().0;
+                let mut a = 1.0 - p;
+                let mut b = a + x + 1.0;
+                let mut c = 0.0;
+                let mut pn1 = 1.0;
+                let mut pn2 = x;
+                let mut pn3 = x + 1.0;
+                let mut pn4 = x * b;
+                let mut value = pn3 / pn4;
+
+                loop {
+                    a += 1.0;
+                    b += 2.0;
+                    c += 1.0;
+                    let an = a * c;
+                    let pn5 = b * pn3 - an * pn1;
+                    let pn6 = b * pn4 - an * pn2;
+
+                    if pn6 != 0.0 {
+                        let rn = pn5 / pn6;
+                        if (value - rn).abs() <= TOL.min(TOL * rn) {
+                            break;
+                        }
+                        value = rn;
+                    }
+
+                    pn1 = pn3;
+                    pn2 = pn4;
+                    pn3 = pn5;
+                    pn4 = pn6;
+
+                    if OFLO <= pn5.abs() {
+                        pn1 /= OFLO;
+                        pn2 /= OFLO;
+                        pn3 /= OFLO;
+                        pn4 /= OFLO;
+                    }
+                }
+
+                arg += value.ln();
+
+                if ELIMIT <= arg {
+                    return 1.0 - arg.exp();
+                } else {
+                    return 1.0;
+                }
+            }
         }
 
         #[inline]
@@ -72,128 +198,6 @@ macro_rules! implement {
 }
 
 implement!(f32, f64);
-
-/// Compute the regularized lower incomplete gamma function.
-///
-/// The formula is as follows:
-///
-/// ```math
-///           γ(x, p)    1   x
-/// P(x, p) = ------- = ---- ∫ t^(p-1) e^(-t) dt
-///            Γ(p)     Γ(p) 0
-/// ```
-///
-/// where γ is the incomplete lower gamma function, and Γ is the complete gamma
-/// function.
-///
-/// The code is based on a [C implementation][1] by John Burkardt. The original
-/// algorithm was published in Applied Statistics and is known as
-/// [Algorithm AS 239][2].
-///
-/// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html
-/// [2]: http://www.jstor.org/stable/2347328
-pub fn inc_gamma(x: f64, p: f64) -> f64 {
-    debug_assert!(x >= 0.0 && p > 0.0);
-
-    const ELIMIT: f64 = -88.0;
-    const OFLO: f64 = 1.0e+37;
-    const TOL: f64 = 1.0e-14;
-    const XBIG: f64 = 1.0e+08;
-
-    if x == 0.0 {
-        return 0.0;
-    }
-
-    // For `p ≥ 1000`, the original algorithm uses an approximation shown below.
-    // However, it introduces a substantial accuracy loss.
-    //
-    // ```
-    // use std::f64::consts::FRAC_1_SQRT_2;
-    //
-    // const PLIMIT: f64 = 1000.0;
-    //
-    // if PLIMIT < p {
-    //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
-    //     return 0.5 * (1.0 + unsafe { m::erf(FRAC_1_SQRT_2 * pn1) });
-    // }
-    // ```
-
-    if XBIG < x {
-        return 1.0;
-    }
-
-    if x <= 1.0 || x < p {
-        let mut arg = p * x.ln() - x - (p + 1.0).ln_gamma().0;
-        let mut c = 1.0;
-        let mut value = 1.0;
-        let mut a = p;
-
-        loop {
-            a += 1.0;
-            c *= x / a;
-            value += c;
-
-            if c <= TOL {
-                break;
-            }
-        }
-
-        arg += value.ln();
-
-        if ELIMIT <= arg {
-            return arg.exp();
-        } else {
-            return 0.0;
-        };
-    } else {
-        let mut arg = p * x.ln() - x - p.ln_gamma().0;
-        let mut a = 1.0 - p;
-        let mut b = a + x + 1.0;
-        let mut c = 0.0;
-        let mut pn1 = 1.0;
-        let mut pn2 = x;
-        let mut pn3 = x + 1.0;
-        let mut pn4 = x * b;
-        let mut value = pn3 / pn4;
-
-        loop {
-            a += 1.0;
-            b += 2.0;
-            c += 1.0;
-            let an = a * c;
-            let pn5 = b * pn3 - an * pn1;
-            let pn6 = b * pn4 - an * pn2;
-
-            if pn6 != 0.0 {
-                let rn = pn5 / pn6;
-                if (value - rn).abs() <= TOL.min(TOL * rn) {
-                    break;
-                }
-                value = rn;
-            }
-
-            pn1 = pn3;
-            pn2 = pn4;
-            pn3 = pn5;
-            pn4 = pn6;
-
-            if OFLO <= pn5.abs() {
-                pn1 /= OFLO;
-                pn2 /= OFLO;
-                pn3 /= OFLO;
-                pn4 /= OFLO;
-            }
-        }
-
-        arg += value.ln();
-
-        if ELIMIT <= arg {
-            return 1.0 - arg.exp();
-        } else {
-            return 1.0;
-        }
-    }
-}
 
 #[cfg(test)]
 mod tests {
@@ -225,7 +229,7 @@ mod tests {
             9.738240752336722e-01, 9.815062931491536e-01,
         ];
 
-        let z = x.iter().map(|&x| super::inc_gamma(x, p)).collect::<Vec<_>>();
+        let z = x.iter().map(|&x| x.inc_gamma(p)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-14);
     }
 
@@ -246,7 +250,7 @@ mod tests {
             9.792520392189441e-01, 9.889149370075309e-01,
         ];
 
-        let z = x.iter().map(|&x| super::inc_gamma(x, p)).collect::<Vec<_>>();
+        let z = x.iter().map(|&x| x.inc_gamma(p)).collect::<Vec<_>>();
         assert::close(&z, &y, 1e-12);
     }
 }

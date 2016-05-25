@@ -1,5 +1,5 @@
 use random::{self, Source};
-use special::{self, Gamma};
+use special::Gamma;
 use test::{Bencher, black_box};
 
 #[bench]
@@ -23,7 +23,7 @@ fn inc_gamma(bencher: &mut Bencher) {
 
     bencher.iter(|| {
         for &(x, p) in &xp {
-            black_box(special::inc_gamma(x, p));
+            black_box(x.inc_gamma(p));
         }
     });
 }
