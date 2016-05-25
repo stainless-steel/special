@@ -8,22 +8,17 @@ extern crate assert;
 extern crate libc;
 
 mod beta;
+mod error;
 mod gamma;
+mod math;
 
-#[link_name = "m"]
-mod m;
+pub use beta::Beta;
+pub use error::Error;
+pub use gamma::Gamma;
 
-pub use beta::{inc_beta, inv_inc_beta, ln_beta};
-pub use gamma::{digamma, gamma, inc_gamma, ln_gamma};
-
-/// Compute the error function.
-#[inline]
-pub fn erf(x: f64) -> f64 {
-    unsafe { m::erf(x) }
+/// Special functions.
+pub trait Special where Self: Beta + Error + Gamma {
 }
 
-/// Compute the complementary error function.
-#[inline]
-pub fn erfc(x: f64) -> f64 {
-    unsafe { m::erfc(x) }
+impl<T> Special for T where T: Beta + Error + Gamma {
 }
