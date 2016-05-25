@@ -12,13 +12,13 @@ mod error;
 mod gamma;
 mod math;
 
-pub use beta::{inc_beta, inv_inc_beta, ln_beta};
+pub use beta::Beta;
 pub use error::Error;
 pub use gamma::Gamma;
 
 /// Special functions.
-pub trait Special where Self: Error + Gamma {
+pub trait Special where Self: Beta + Error + Gamma {
 }
 
-impl<T> Special for T where T: Error + Gamma {
+impl<T> Special for T where T: Beta + Error + Gamma {
 }

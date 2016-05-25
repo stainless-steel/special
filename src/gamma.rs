@@ -84,14 +84,14 @@ macro_rules! implement { ($($kind:ty),*) => ($(impl Gamma for $kind {
     }
 
     fn inc_gamma(self, p: Self) -> Self {
-        debug_assert!(self >= 0.0 && p > 0.0);
-
         const ELIMIT: $kind = -88.0;
         const OFLO: $kind = 1.0e+37;
         const TOL: $kind = 1.0e-14;
         const XBIG: $kind = 1.0e+08;
 
         let x = self;
+        debug_assert!(x >= 0.0 && p > 0.0);
+
         if x == 0.0 {
             return 0.0;
         }
@@ -170,7 +170,7 @@ macro_rules! implement { ($($kind:ty),*) => ($(impl Gamma for $kind {
         }
         arg += value.ln();
 
-        return if ELIMIT <= arg { 1.0 - arg.exp() } else { 1.0 };
+        if ELIMIT <= arg { 1.0 - arg.exp() } else { 1.0 }
     }
 
     #[inline]
