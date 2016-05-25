@@ -64,138 +64,136 @@ macro_rules! evaluate_polynomial(
     );
 );
 
-macro_rules! implement {
-    ($($kind:ty),*) => ($(impl Gamma for $kind {
-        fn digamma(self)-> Self {
-            let x = self;
-            if x <= 8.0 {
-                return (x + 1.0).digamma() - x.recip();
+macro_rules! implement { ($($kind:ty),*) => ($(impl Gamma for $kind {
+    fn digamma(self)-> Self {
+        let x = self;
+        if x <= 8.0 {
+            return (x + 1.0).digamma() - x.recip();
+        }
+        let y = x.recip();
+        let y2 = y * y;
+        x.ln() - 0.5 * y - y2 * evaluate_polynomial!(y2, [
+            1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
+            5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
+        ])
+    }
+
+    #[inline]
+    fn gamma(self) -> Self {
+        unsafe { math::tgamma(self as f64) as Self }
+    }
+
+    fn inc_gamma(self, p: Self) -> Self {
+        debug_assert!(self >= 0.0 && p > 0.0);
+
+        const ELIMIT: $kind = -88.0;
+        const OFLO: $kind = 1.0e+37;
+        const TOL: $kind = 1.0e-14;
+        const XBIG: $kind = 1.0e+08;
+
+        let x = self;
+        if x == 0.0 {
+            return 0.0;
+        }
+
+        // For `p ≥ 1000`, the original algorithm uses an approximation shown
+        // below. However, it introduces a substantial accuracy loss.
+        //
+        // ```
+        // use std::f64::consts::FRAC_1_SQRT_2;
+        //
+        // const PLIMIT: f64 = 1000.0;
+        //
+        // if PLIMIT < p {
+        //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
+        //     return 0.5 * (1.0 + (FRAC_1_SQRT_2 * pn1).erf());
+        // }
+        // ```
+
+        if XBIG < x {
+            return 1.0;
+        }
+
+        if x <= 1.0 || x < p {
+            let mut arg = p * x.ln() - x - (p + 1.0).ln_gamma().0;
+            let mut c = 1.0;
+            let mut value = 1.0;
+            let mut a = p;
+
+            loop {
+                a += 1.0;
+                c *= x / a;
+                value += c;
+
+                if c <= TOL {
+                    break;
+                }
             }
-            let y = x.recip();
-            let y2 = y * y;
-            x.ln() - 0.5 * y - y2 * evaluate_polynomial!(y2, [
-                1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
-                5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
-            ])
-        }
 
-        #[inline]
-        fn gamma(self) -> Self {
-            unsafe { math::tgamma(self as f64) as Self }
-        }
+            arg += value.ln();
 
-        fn inc_gamma(self, p: Self) -> Self {
-            debug_assert!(self >= 0.0 && p > 0.0);
-
-            const ELIMIT: $kind = -88.0;
-            const OFLO: $kind = 1.0e+37;
-            const TOL: $kind = 1.0e-14;
-            const XBIG: $kind = 1.0e+08;
-
-            let x = self;
-            if x == 0.0 {
+            if ELIMIT <= arg {
+                return arg.exp();
+            } else {
                 return 0.0;
-            }
+            };
+        } else {
+            let mut arg = p * x.ln() - x - p.ln_gamma().0;
+            let mut a = 1.0 - p;
+            let mut b = a + x + 1.0;
+            let mut c = 0.0;
+            let mut pn1 = 1.0;
+            let mut pn2 = x;
+            let mut pn3 = x + 1.0;
+            let mut pn4 = x * b;
+            let mut value = pn3 / pn4;
 
-            // For `p ≥ 1000`, the original algorithm uses an approximation
-            // shown below. However, it introduces a substantial accuracy loss.
-            //
-            // ```
-            // use std::f64::consts::FRAC_1_SQRT_2;
-            //
-            // const PLIMIT: f64 = 1000.0;
-            //
-            // if PLIMIT < p {
-            //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
-            //     return 0.5 * (1.0 + (FRAC_1_SQRT_2 * pn1).erf());
-            // }
-            // ```
+            loop {
+                a += 1.0;
+                b += 2.0;
+                c += 1.0;
+                let an = a * c;
+                let pn5 = b * pn3 - an * pn1;
+                let pn6 = b * pn4 - an * pn2;
 
-            if XBIG < x {
-                return 1.0;
-            }
-
-            if x <= 1.0 || x < p {
-                let mut arg = p * x.ln() - x - (p + 1.0).ln_gamma().0;
-                let mut c = 1.0;
-                let mut value = 1.0;
-                let mut a = p;
-
-                loop {
-                    a += 1.0;
-                    c *= x / a;
-                    value += c;
-
-                    if c <= TOL {
+                if pn6 != 0.0 {
+                    let rn = pn5 / pn6;
+                    if (value - rn).abs() <= TOL.min(TOL * rn) {
                         break;
                     }
+                    value = rn;
                 }
 
-                arg += value.ln();
+                pn1 = pn3;
+                pn2 = pn4;
+                pn3 = pn5;
+                pn4 = pn6;
 
-                if ELIMIT <= arg {
-                    return arg.exp();
-                } else {
-                    return 0.0;
-                };
-            } else {
-                let mut arg = p * x.ln() - x - p.ln_gamma().0;
-                let mut a = 1.0 - p;
-                let mut b = a + x + 1.0;
-                let mut c = 0.0;
-                let mut pn1 = 1.0;
-                let mut pn2 = x;
-                let mut pn3 = x + 1.0;
-                let mut pn4 = x * b;
-                let mut value = pn3 / pn4;
-
-                loop {
-                    a += 1.0;
-                    b += 2.0;
-                    c += 1.0;
-                    let an = a * c;
-                    let pn5 = b * pn3 - an * pn1;
-                    let pn6 = b * pn4 - an * pn2;
-
-                    if pn6 != 0.0 {
-                        let rn = pn5 / pn6;
-                        if (value - rn).abs() <= TOL.min(TOL * rn) {
-                            break;
-                        }
-                        value = rn;
-                    }
-
-                    pn1 = pn3;
-                    pn2 = pn4;
-                    pn3 = pn5;
-                    pn4 = pn6;
-
-                    if OFLO <= pn5.abs() {
-                        pn1 /= OFLO;
-                        pn2 /= OFLO;
-                        pn3 /= OFLO;
-                        pn4 /= OFLO;
-                    }
-                }
-
-                arg += value.ln();
-
-                if ELIMIT <= arg {
-                    return 1.0 - arg.exp();
-                } else {
-                    return 1.0;
+                if OFLO <= pn5.abs() {
+                    pn1 /= OFLO;
+                    pn2 /= OFLO;
+                    pn3 /= OFLO;
+                    pn4 /= OFLO;
                 }
             }
-        }
 
-        #[inline]
-        fn ln_gamma(self) -> (Self, i32) {
-            let mut sign: i32 = 0;
-            let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
-            (value, sign)
+            arg += value.ln();
+
+            if ELIMIT <= arg {
+                return 1.0 - arg.exp();
+            } else {
+                return 1.0;
+            }
         }
-    })*);
-}
+    }
+
+    #[inline]
+    fn ln_gamma(self) -> (Self, i32) {
+        let mut sign: i32 = 0;
+        let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
+        (value, sign)
+    }
+})*)}
 
 implement!(f32, f64);
 
