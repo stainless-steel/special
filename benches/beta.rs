@@ -19,11 +19,11 @@ fn inc_beta(bencher: &mut Bencher) {
 fn inv_inc_beta(bencher: &mut Bencher) {
     let (p, q) = (0.5, 1.5);
     let ln_beta = p.ln_beta(q);
-    let alpha = random::default().iter().take(1000).collect::<Vec<f64>>();
+    let a = random::default().iter().take(1000).collect::<Vec<f64>>();
 
     bencher.iter(|| {
-        for &alpha in &alpha {
-            black_box(alpha.inv_inc_beta(p, q, ln_beta));
+        for &a in &a {
+            black_box(a.inv_inc_beta(p, q, ln_beta));
         }
     });
 }
