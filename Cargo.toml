@@ -1,6 +1,6 @@
 [package]
 name = "special"
-version = "0.7.1"
+version = "0.7.2"
 license = "Apache-2.0/MIT"
 authors = [
   "Abhishek Chanda <abhishek.becs@gmail.com>",
@@ -18,7 +18,7 @@ libc = "0.2"
 
 [dev-dependencies]
 assert = "0.7"
-random = "0.11"
+random = "0.12"
 
 [[bench]]
 name = "special"
