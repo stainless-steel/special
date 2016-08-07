@@ -1,12 +1,18 @@
-use random::{self, Source};
+#![feature(test)]
+
+extern crate random;
+extern crate special;
+extern crate test;
+
+use random::Source;
 use special::Gamma;
 use test::{Bencher, black_box};
 
 #[bench]
 fn digamma(bencher: &mut Bencher) {
-    let x = random::default().iter::<f64>().take(1000).map(|x| 20.0 * x - 10.0)
-                                                      .collect::<Vec<_>>();
-
+    let x = random::default().iter::<f64>().take(1000)
+                                           .map(|x| 20.0 * x - 10.0)
+                                           .collect::<Vec<_>>();
     bencher.iter(|| {
         for &x in &x {
             black_box(x.digamma());
@@ -20,7 +26,6 @@ fn inc_gamma(bencher: &mut Bencher) {
     let xp = x.iter::<f64>().zip(p.iter::<f64>()).take(1000).map(|(x, p)| {
         (100.0 * x, 100.0 * p)
     }).collect::<Vec<_>>();
-
     bencher.iter(|| {
         for &(x, p) in &xp {
             black_box(x.inc_gamma(p));

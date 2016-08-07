@@ -19,7 +19,3 @@ libc = "0.2"
 [dev-dependencies]
 assert = "0.7"
 random = "0.12"
-
-[[bench]]
-name = "special"
-path = "benches/lib.rs"
