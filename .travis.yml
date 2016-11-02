@@ -6,18 +6,5 @@ rust:
   - beta
   - nightly
 
-branches:
-  only:
-    - master
-
-after_success:
-  - if [ "$TRAVIS_RUST_VERSION" == "nightly" ]; then
-      curl https://stainless-steel.github.io/travis/documentation.sh | bash;
-    fi
-
-env:
-  global:
-    - secure: iuO2xMUG/9Owlj0LMcHgZj8tg2BMgNA6VpWLAFDCdMVg9xL/03KhkZhPwGmKV2Ry/K/lNyWlNfXzgV6r+AAFBwXCoKLf40t9ci2CQW9Op3MgiKMRs87fNOK9n+MmtwzBozBu0mY1iDM6LH/PfoblukutSXCBBXGkfJ33JVz04HE=
-
 notifications:
   email: false

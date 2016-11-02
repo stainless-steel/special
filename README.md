@@ -2,7 +2,7 @@
 
 The package provides [special functions][1].
 
-## [Documentation][docs]
+## [Documentation][documentation]
 
 ## Contribution
 
@@ -12,7 +12,7 @@ will be licensed according to the terms given in [LICENSE.md](LICENSE.md).
 
 [1]: https://en.wikipedia.org/wiki/Special_functions
 
-[docs]: https://stainless-steel.github.io/special
+[documentation]: https://docs.rs/special
 [status1-img]: https://travis-ci.org/stainless-steel/special.svg?branch=master
 [status1-url]: https://travis-ci.org/stainless-steel/special
 [status2-img]: https://ci.appveyor.com/api/projects/status/qlmjrirn3nup7w2f?svg=true

@@ -1,6 +1,6 @@
 [package]
 name = "special"
-version = "0.7.2"
+version = "0.7.3"
 license = "Apache-2.0/MIT"
 authors = [
   "Abhishek Chanda <abhishek.becs@gmail.com>",
@@ -9,7 +9,7 @@ authors = [
   "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
 ]
 description = "The package provides special functions."
-documentation = "https://stainless-steel.github.io/special"
+documentation = "https://docs.rs/special"
 homepage = "https://github.com/stainless-steel/special"
 repository = "https://github.com/stainless-steel/special"
 
