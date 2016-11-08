@@ -3,10 +3,10 @@ name = "special"
 version = "0.7.3"
 license = "Apache-2.0/MIT"
 authors = [
-  "Abhishek Chanda <abhishek.becs@gmail.com>",
-  "Albert Pang <albert.pang@me.com>",
-  "Ivan Ukhov <ivan.ukhov@gmail.com>",
-  "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
+    "Abhishek Chanda <abhishek.becs@gmail.com>",
+    "Albert Pang <albert.pang@me.com>",
+    "Ivan Ukhov <ivan.ukhov@gmail.com>",
+    "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
 ]
 description = "The package provides special functions."
 documentation = "https://docs.rs/special"
