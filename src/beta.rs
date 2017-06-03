@@ -28,7 +28,7 @@ pub trait Beta {
     fn ln_beta(self, other: Self) -> Self;
 }
 
-macro_rules! implement { ($($kind:ident),*) => ($(impl Beta for $kind {
+macro_rules! implement { ($kind:ident) => (impl Beta for $kind {
     fn inc_beta(self, mut p: Self, mut q: Self, ln_beta: Self) -> Self {
         // Algorithm AS 63
         // http://www.jstor.org/stable/2346797
@@ -303,9 +303,10 @@ macro_rules! implement { ($($kind:ident),*) => ($(impl Beta for $kind {
         debug_assert!(self > 0.0 && other > 0.0);
         self.ln_gamma().0 + other.ln_gamma().0 - (self + other).ln_gamma().0
     }
-})*)}
+})}
 
-implement!(f32, f64);
+implement!(f32);
+implement!(f64);
 
 #[cfg(test)]
 mod tests {

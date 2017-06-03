@@ -9,16 +9,21 @@ pub trait Error {
     fn erfc(self) -> Self;
 }
 
-macro_rules! implement { ($($kind:ty),*) => ($(impl Error for $kind {
-    #[inline]
-    fn erf(self) -> Self {
-        unsafe { math::erf(self as f64) as Self }
-    }
+macro_rules! implement {
+    ($kind:ty) => (
+        impl Error for $kind {
+            #[inline]
+            fn erf(self) -> Self {
+                unsafe { math::erf(self as f64) as Self }
+            }
 
-    #[inline]
-    fn erfc(self) -> Self {
-        unsafe { math::erfc(self as f64) as Self }
-    }
-})*)}
+            #[inline]
+            fn erfc(self) -> Self {
+                unsafe { math::erfc(self as f64) as Self }
+            }
+        }
+    )
+}
 
-implement!(f32, f64);
+implement!(f32);
+implement!(f64);

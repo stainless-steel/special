@@ -64,7 +64,7 @@ macro_rules! evaluate_polynomial(
     );
 );
 
-macro_rules! implement { ($($kind:ty),*) => ($(impl Gamma for $kind {
+macro_rules! implement { ($kind:ty) => (impl Gamma for $kind {
     fn digamma(self)-> Self {
         let x = self;
         if x <= 8.0 {
@@ -179,9 +179,10 @@ macro_rules! implement { ($($kind:ty),*) => ($(impl Gamma for $kind {
         let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
         (value, sign)
     }
-})*)}
+})}
 
-implement!(f32, f64);
+implement!(f32);
+implement!(f64);
 
 #[cfg(test)]
 mod tests {
