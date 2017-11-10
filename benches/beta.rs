@@ -6,7 +6,7 @@ extern crate test;
 
 use random::Source;
 use special::Beta;
-use test::{Bencher, black_box};
+use test::{black_box, Bencher};
 
 #[bench]
 fn inc_beta(bencher: &mut Bencher) {

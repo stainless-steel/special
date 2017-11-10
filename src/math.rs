@@ -2,19 +2,19 @@
 
 use libc::{c_double, c_int};
 
-extern {
+extern "C" {
     pub fn erf(x: c_double) -> c_double;
     pub fn erfc(x: c_double) -> c_double;
     pub fn tgamma(x: c_double) -> c_double;
 }
 
 #[cfg(windows)]
-extern {
+extern "C" {
     pub fn lgamma(x: c_double, sign: &mut c_int) -> c_double;
 }
 
 #[cfg(unix)]
-extern {
+extern "C" {
     pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
 }
 

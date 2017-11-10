@@ -332,7 +332,9 @@ mod tests {
             7.804880320024465e-01, 8.104335200313719e-01, 1.000000000000000e+00,
         ];
 
-        let y = x.iter().map(|&x| x.inc_beta(p, q, ln_beta)).collect::<Vec<_>>();
+        let y = x.iter()
+            .map(|&x| x.inc_beta(p, q, ln_beta))
+            .collect::<Vec<_>>();
         assert::close(&y, &a, 1e-14);
     }
 
@@ -354,7 +356,9 @@ mod tests {
             9.963000000000000e-01, 9.995187500000000e-01, 1.000000000000000e+00,
         ];
 
-        let y = x.iter().map(|&x| x.inc_beta(p, q, ln_beta)).collect::<Vec<_>>();
+        let y = x.iter()
+            .map(|&x| x.inc_beta(p, q, ln_beta))
+            .collect::<Vec<_>>();
         assert::close(&y, &a, 1e-14);
     }
 
@@ -376,7 +380,9 @@ mod tests {
             9.923134416335146e-01, 9.992341305241808e-01, 1.000000000000000e+00,
         ];
 
-        let y = a.iter().map(|&a| a.inv_inc_beta(p, q, ln_beta)).collect::<Vec<_>>();
+        let y = a.iter()
+            .map(|&a| a.inv_inc_beta(p, q, ln_beta))
+            .collect::<Vec<_>>();
         assert::close(&y, &x, 1e-14);
     }
 
@@ -398,7 +404,9 @@ mod tests {
             0.683772233983162e+00, 0.776393202250021e+00, 1.000000000000000e+00,
         ];
 
-        let y = a.iter().map(|&a| a.inv_inc_beta(p, q, ln_beta)).collect::<Vec<_>>();
+        let y = a.iter()
+            .map(|&a| a.inv_inc_beta(p, q, ln_beta))
+            .collect::<Vec<_>>();
         assert::close(&y, &x, 1e-14);
     }
 

@@ -1,7 +1,10 @@
 use math;
 
 /// Gamma functions.
-pub trait Gamma where Self: Sized {
+pub trait Gamma
+where
+    Self: Sized,
+{
     /// Compute the real-valued digamma function.
     ///
     /// The formula is as follows:
