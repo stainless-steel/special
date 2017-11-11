@@ -10,9 +10,9 @@ where
     /// The formula is as follows:
     ///
     /// ```math
-    ///        d ln(Γ(x))
-    /// ψ(x) = ----------
-    ///            dx
+    ///        d ln(Γ(p))
+    /// ψ(p) = ----------
+    ///            dp
     /// ```
     ///
     /// where Γ is the gamma function. The computation is based on an
@@ -69,13 +69,13 @@ macro_rules! evaluate_polynomial(
 
 macro_rules! implement { ($kind:ty) => (impl Gamma for $kind {
     fn digamma(self)-> Self {
-        let x = self;
-        if x <= 8.0 {
-            return (x + 1.0).digamma() - x.recip();
+        let p = self;
+        if p <= 8.0 {
+            return (p + 1.0).digamma() - p.recip();
         }
-        let y = x.recip();
-        let y2 = y * y;
-        x.ln() - 0.5 * y - y2 * evaluate_polynomial!(y2, [
+        let q = p.recip();
+        let q2 = q * q;
+        p.ln() - 0.5 * q - q2 * evaluate_polynomial!(q2, [
             1.0 / 12.0, -1.0 / 120.0, 1.0 / 252.0, -1.0 / 240.0,
             5.0 / 660.0, -691.0 / 32760.0, 1.0 / 12.0, -3617.0 / 8160.0,
         ])
