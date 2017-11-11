@@ -2,7 +2,7 @@ use Gamma;
 
 /// Beta functions.
 pub trait Beta {
-    /// Compute the incomplete beta function.
+    /// Compute the regularized incomplete beta function.
     ///
     /// The code is based on a [C implementation][1] by John Burkardt. The
     /// original algorithm was published in Applied Statistics and is known as
@@ -13,7 +13,7 @@ pub trait Beta {
     /// [3]: http://www.jstor.org/stable/2346887
     fn inc_beta(self, p: Self, q: Self, ln_beta: Self) -> Self;
 
-    /// Compute the inverse of the incomplete beta function.
+    /// Compute the inverse of the regularized incomplete beta function.
     ///
     /// The code is based on a [C implementation][1] by John Burkardt. The
     /// original algorithm was published in Applied Statistics and is known as
