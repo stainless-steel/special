@@ -38,24 +38,26 @@ macro_rules! implement { ($kind:ident) => (impl Beta for $kind {
         // positive integer, say s, reductions are made up to s times “by parts”
         // using the recurrence relation
         //
-        //                 Γ(p+q)
-        // I(x, p, q) = ----------- x^p (1-x)^(q-1) + I(x, p+1, q-1)
-        //              Γ(p+1) Γ(q)
+        //                 Γ(p + q)
+        // I(x, p, q) = ------------- x^p (1 - x)^(q - 1) + I(x, p + 1, q - 1)
+        //              Γ(p + 1) Γ(q)
         //
         // and then reductions are continued by “raising p” with the recurrence
         // relation
         //
-        //                      Γ(p+q)
-        // I(x, p+s, q-s) = --------------- x^(p+s) (1 - x)^(q-s) + I(x, p+s+1, q-s)
-        //                  Γ(p+s+1) Γ(q-s)
+        //                             Γ(p + q)
+        // I(x, p + s, q - s) = --------------------- x^(p + s) (1 - x)^(q - s)
+        //                      Γ(p + s + 1) Γ(q - s)
+        //
+        //                    + I(x, p + s + 1, q - s)
         //
         // If s is not a positive integer, reductions are made only by “raising
         // p.” The process of reduction is terminated when the relative
         // contribution to the integral is not greater than the value of ACU. If
-        // p is less than (p + q)x, I(1-x, q, p) is first calculated by the
+        // p is less than (p + q)x, I(1 - x, q, p) is first calculated by the
         // above procedure and then I(x, p, q) is obtained from the relation
         //
-        // I(x, p, q) = 1 - I(1-x, p, q).
+        // I(x, p, q) = 1 - I(1 - x, p, q).
         //
         // Soper (1921) demonstrated that the expansion of I(x, p, q) by “parts”
         // and “raising p” method as described above converges more rapidly than
@@ -151,23 +153,23 @@ macro_rules! implement { ($kind:ident) => (impl Beta for $kind {
         // degrees of freedom and is obtained from Wilson and Hilferty’s
         // approximation (cf. Wilson and Hilferty, 1931)
         //
-        // χ²(α) = 2q (1 - 1/(9q) + y(α) sqrt(1/(9q)))^3,
+        // χ²(α) = 2q (1 - 1 / (9q) + y(α) sqrt(1 / (9q)))^3,
         //
         // y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper
         // α point of the standard normal distribution. If χ²(α) < 0, then
         //
-        // x₀ = 1 - ((1 - α)q B(p, q))^(1/q).
+        // x₀ = 1 - ((1 - α)q B(p, q))^(1 / q).
         //
-        // Again if (4p + 2q - 2)/χ²(α) does not exceed 1, x₀ is obtained from
+        // Again if (4p + 2q - 2) / χ²(α) does not exceed 1, x₀ is obtained from
         //
-        // x₀ = (αp B(p, q))^(1/p).
+        // x₀ = (αp B(p, q))^(1 / p).
         //
         // The final solution is obtained by the Newton–Raphson method from the
         // relation
         //
-        //                  f(x[i-1])
-        // x[i] = x[i-1] - ----------
-        //                 f'(x[i-1])
+        //                    f(x[i - 1])
+        // x[i] = x[i - 1] - ------------
+        //                   f'(x[i - 1])
         //
         // where
         //
