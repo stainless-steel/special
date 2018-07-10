@@ -29,7 +29,6 @@ macro_rules! implement {
 
             // Code translated from C:
             // https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html
-            #[inline]
             fn erfinv(self) -> Self {
                 let mut w: $kind = -((1.0 - self) * (1.0 + self)).ln();
                 let mut p: $kind;
