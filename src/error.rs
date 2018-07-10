@@ -87,26 +87,26 @@ mod tests {
     // Test values calculated from scipy
     #[test]
     fn erfinv_of_zero_should_be_zero() {
-        assert::close(erfinv(0.0), 0.0, 1E-12);
+        assert::close(0.0_f64.erfinv(), 0.0, 1E-12);
     }
 
     #[test]
     fn erfinv_positive_value_mid_domain() {
-        assert::close(erfinv(0.5), 0.47693627620446982, 1E-12);
+        assert::close(0.5_f64.erfinv(), 0.47693627620446982, 1E-12);
     }
 
     #[test]
     fn erfinv_positive_value_near_center() {
-        assert::close(erfinv(0.121), 0.10764782605515244, 1E-12);
+        assert::close(0.121_f64.erfinv(), 0.10764782605515244, 1E-12);
     }
 
     #[test]
     fn erfinv_negative_value_near_lower_bound() {
-        assert::close(erfinv(-0.99), -1.8213863677184492, 1E-12);
+        assert::close(-0.99_f64.erfinv(), -1.8213863677184492, 1E-12);
     }
 
     #[test]
     fn erfinv_negative_value_nearer_lower_bound() {
-        assert::close(erfinv(-0.999), -2.3267537655135242, 1E-12);
+        assert::close(-0.999_f64.erfinv(), -2.3267537655135242, 1E-12);
     }
 }
