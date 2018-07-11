@@ -76,8 +76,9 @@ implement!(f64);
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use assert;
+
+    use super::*;
 
     #[test]
     fn erfinv_of_zero_should_be_zero() {
