@@ -81,27 +81,19 @@ mod tests {
     use super::*;
 
     #[test]
-    fn inv_erf_of_zero_should_be_zero() {
-        assert::close(0.0.inv_erf(), 0.0, 1e-12);
+    fn inv_erf_negative() {
+        assert::close(-0.99.inv_erf(), -1.8213863677184492, 1e-12);
+        assert::close(-0.999.inv_erf(), -2.3267537655135242, 1e-12);
     }
 
     #[test]
-    fn inv_erf_positive_value_mid_domain() {
+    fn inv_erf_positive() {
         assert::close(0.5.inv_erf(), 0.47693627620446982, 1e-12);
-    }
-
-    #[test]
-    fn inv_erf_positive_value_near_center() {
         assert::close(0.121.inv_erf(), 0.10764782605515244, 1e-12);
     }
 
     #[test]
-    fn inv_erf_negative_value_near_lower_bound() {
-        assert::close(-0.99.inv_erf(), -1.8213863677184492, 1e-12);
-    }
-
-    #[test]
-    fn inv_erf_negative_value_nearer_lower_bound() {
-        assert::close(-0.999.inv_erf(), -2.3267537655135242, 1e-12);
+    fn inv_erf_zero() {
+        assert::close(0.0.inv_erf(), 0.0, 1e-12);
     }
 }
