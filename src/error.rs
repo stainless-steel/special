@@ -79,7 +79,6 @@ mod tests {
     use super::*;
     use assert;
 
-    // Test values calculated from scipy
     #[test]
     fn erfinv_of_zero_should_be_zero() {
         assert::close(0.0.erfinv(), 0.0, 1e-12);
