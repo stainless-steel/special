@@ -8,12 +8,12 @@ pub trait Error {
     /// Compute the complementary error function.
     fn erfc(self) -> Self;
 
-    /// Compute the inverse error function.
+    /// Compute the inverse of the error function.
     ///
     /// The code is based on a [C implementation][1] by Alijah Ahmed.
     ///
     /// [1]: https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html
-    fn erfinv(self) -> Self;
+    fn inv_erf(self) -> Self;
 }
 
 macro_rules! implement {
@@ -29,7 +29,7 @@ macro_rules! implement {
                 unsafe { math::erfc(self as f64) as Self }
             }
 
-            fn erfinv(self) -> Self {
+            fn inv_erf(self) -> Self {
                 const SQRT_PI: $kind = 1.772453850905515881919427556567825376987457275391;
 
                 let mut w: $kind = -((1.0 - self) * (1.0 + self)).ln();
@@ -81,27 +81,27 @@ mod tests {
     use super::*;
 
     #[test]
-    fn erfinv_of_zero_should_be_zero() {
-        assert::close(0.0.erfinv(), 0.0, 1e-12);
+    fn inv_erf_of_zero_should_be_zero() {
+        assert::close(0.0.inv_erf(), 0.0, 1e-12);
     }
 
     #[test]
-    fn erfinv_positive_value_mid_domain() {
-        assert::close(0.5.erfinv(), 0.47693627620446982, 1e-12);
+    fn inv_erf_positive_value_mid_domain() {
+        assert::close(0.5.inv_erf(), 0.47693627620446982, 1e-12);
     }
 
     #[test]
-    fn erfinv_positive_value_near_center() {
-        assert::close(0.121.erfinv(), 0.10764782605515244, 1e-12);
+    fn inv_erf_positive_value_near_center() {
+        assert::close(0.121.inv_erf(), 0.10764782605515244, 1e-12);
     }
 
     #[test]
-    fn erfinv_negative_value_near_lower_bound() {
-        assert::close(-0.99.erfinv(), -1.8213863677184492, 1e-12);
+    fn inv_erf_negative_value_near_lower_bound() {
+        assert::close(-0.99.inv_erf(), -1.8213863677184492, 1e-12);
     }
 
     #[test]
-    fn erfinv_negative_value_nearer_lower_bound() {
-        assert::close(-0.999.erfinv(), -2.3267537655135242, 1e-12);
+    fn inv_erf_negative_value_nearer_lower_bound() {
+        assert::close(-0.999.inv_erf(), -2.3267537655135242, 1e-12);
     }
 }
