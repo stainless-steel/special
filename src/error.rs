@@ -1,7 +1,5 @@
 use math;
 
-const SQRT_PI: f64 = 1.772453850905515881919427556567825376987457275391;
-
 /// Error functions.
 pub trait Error {
     /// Compute the error function.
@@ -30,6 +28,8 @@ macro_rules! implement {
             // Code translated from C:
             // https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html
             fn erfinv(self) -> Self {
+                const SQRT_PI: $kind = 1.772453850905515881919427556567825376987457275391;
+
                 let mut w: $kind = -((1.0 - self) * (1.0 + self)).ln();
                 let mut p: $kind;
 
