@@ -6,7 +6,7 @@ pub trait Error {
     fn error(self) -> Self;
 
     /// Compute the complementary error function.
-    fn comp_error(self) -> Self;
+    fn compl_error(self) -> Self;
 
     /// Compute the inverse of the error function.
     ///
@@ -25,7 +25,7 @@ macro_rules! implement {
             }
 
             #[inline]
-            fn comp_error(self) -> Self {
+            fn compl_error(self) -> Self {
                 unsafe { math::erfc(self as f64) as Self }
             }
 
