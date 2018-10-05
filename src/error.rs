@@ -3,33 +3,33 @@ use math;
 /// Error functions.
 pub trait Error {
     /// Compute the error function.
-    fn erf(self) -> Self;
+    fn error(self) -> Self;
 
     /// Compute the complementary error function.
-    fn erfc(self) -> Self;
+    fn comp_error(self) -> Self;
 
     /// Compute the inverse of the error function.
     ///
     /// The code is based on a [C implementation][1] by Alijah Ahmed.
     ///
     /// [1]: https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html
-    fn inv_erf(self) -> Self;
+    fn inv_error(self) -> Self;
 }
 
 macro_rules! implement {
     ($kind:ty) => {
         impl Error for $kind {
             #[inline]
-            fn erf(self) -> Self {
+            fn error(self) -> Self {
                 unsafe { math::erf(self as f64) as Self }
             }
 
             #[inline]
-            fn erfc(self) -> Self {
+            fn comp_error(self) -> Self {
                 unsafe { math::erfc(self as f64) as Self }
             }
 
-            fn inv_erf(self) -> Self {
+            fn inv_error(self) -> Self {
                 const SQRT_PI: $kind = 1.772453850905515881919427556567825376987457275391;
 
                 let mut w: $kind = -((1.0 - self) * (1.0 + self)).ln();
@@ -61,7 +61,7 @@ macro_rules! implement {
 
                 let res_ra = p * self;
 
-                let fx: Self = res_ra.erf() - self;
+                let fx: Self = res_ra.error() - self;
                 let df = 2.0 / SQRT_PI as $kind * (-(res_ra * res_ra)).exp();
                 let d2f = -2.0 * res_ra * df;
 
@@ -81,19 +81,19 @@ mod tests {
     use super::*;
 
     #[test]
-    fn inv_erf_negative() {
-        assert::close(-0.99.inv_erf(), -1.8213863677184492, 1e-12);
-        assert::close(-0.999.inv_erf(), -2.3267537655135242, 1e-12);
+    fn inv_error_negative() {
+        assert::close(-0.99.inv_error(), -1.8213863677184492, 1e-12);
+        assert::close(-0.999.inv_error(), -2.3267537655135242, 1e-12);
     }
 
     #[test]
-    fn inv_erf_positive() {
-        assert::close(0.5.inv_erf(), 0.47693627620446982, 1e-12);
-        assert::close(0.121.inv_erf(), 0.10764782605515244, 1e-12);
+    fn inv_error_positive() {
+        assert::close(0.5.inv_error(), 0.47693627620446982, 1e-12);
+        assert::close(0.121.inv_error(), 0.10764782605515244, 1e-12);
     }
 
     #[test]
-    fn inv_erf_zero() {
-        assert::close(0.0.inv_erf(), 0.0, 1e-12);
+    fn inv_error_zero() {
+        assert::close(0.0.inv_error(), 0.0, 1e-12);
     }
 }

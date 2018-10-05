@@ -109,7 +109,7 @@ macro_rules! implement { ($kind:ty) => (impl Gamma for $kind {
         //
         // if PLIMIT < p {
         //     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);
-        //     return 0.5 * (1.0 + (FRAC_1_SQRT_2 * pn1).erf());
+        //     return 0.5 * (1.0 + (FRAC_1_SQRT_2 * pn1).error());
         // }
         // ```
 
