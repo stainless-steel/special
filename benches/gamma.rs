@@ -25,7 +25,8 @@ fn digamma(bencher: &mut Bencher) {
 #[bench]
 fn inc_gamma(bencher: &mut Bencher) {
     let (mut x, mut p) = (random::default(), random::default());
-    let xp = x.iter::<f64>()
+    let xp = x
+        .iter::<f64>()
         .zip(p.iter::<f64>())
         .take(1000)
         .map(|(x, p)| (100.0 * x, 100.0 * p))
