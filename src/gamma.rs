@@ -62,6 +62,10 @@ where
     fn ln_gamma(self) -> (Self, i32);
 
     /// Compute the trigamma function.
+    ///
+    /// The code is based on a [Julia implementation][1].
+    ///
+    /// [1]: https://github.com/JuliaMath/SpecialFunctions.jl
     fn trigamma(&self) -> Self;
 }
 
