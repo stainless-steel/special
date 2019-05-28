@@ -1,5 +1,5 @@
+use consts::Float;
 use math;
-use consts::FpConsts;
 
 /// Gamma functions.
 pub trait Gamma
