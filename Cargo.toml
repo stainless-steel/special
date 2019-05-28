@@ -8,6 +8,7 @@ authors = [
     "Baxter Eaves <baxyjr@gmail.com>",
     "Ivan Ukhov <ivan.ukhov@gmail.com>",
     "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
+    "zolkko <zolkko@gmail.com>",
 ]
 description = "The package provides special functions."
 documentation = "https://docs.rs/special"
