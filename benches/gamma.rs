@@ -37,3 +37,14 @@ fn inc_gamma(bencher: &mut Bencher) {
         }
     });
 }
+
+#[bench]
+fn trigamma(bencher: &mut Bencher) {
+    let x = random::default().iter().take(1000).collect::<Vec<f64>>();
+
+    bencher.iter(|| {
+        for &x in &x {
+            black_box(x.trigamma());
+        }
+    });
+}
