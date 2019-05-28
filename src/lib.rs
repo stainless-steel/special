@@ -8,10 +8,10 @@ extern crate assert;
 extern crate libc;
 
 mod beta;
+mod consts;
 mod error;
 mod gamma;
 mod math;
-mod consts;
 
 pub use beta::Beta;
 pub use error::Error;
