@@ -107,9 +107,9 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
 
     fn inc_gamma(self, p: Self) -> Self {
         const ELIMIT: $kind = -88.0;
-        const OFLO: $kind = 1.0e+37;
-        const TOL: $kind = 1.0e-14;
-        const XBIG: $kind = 1.0e+08;
+        const OFLO: $kind = 1e+37;
+        const TOL: $kind = 1e-14;
+        const XBIG: $kind = 1e+08;
 
         let x = self;
         debug_assert!(x >= 0.0 && p > 0.0);
