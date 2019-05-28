@@ -209,20 +209,20 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
     fn trigamma(&self) -> Self {
         let mut x: $kind = *self;
         if x <= 0.0 {
-            return (<$kind>::PI * (1.0 / (<$kind>::PI * x).sin())).powi(2)
+            return (<$kind>::PI * (<$kind>::PI * x).sin().recip()).powi(2)
                 - (1.0 - x).trigamma();
         }
 
         let mut psi: $kind = 0.0;
         if x < 8.0 {
             let n = (8.0 - x.floor()) as usize;
-            psi += (1.0 / x).powi(2);
+            psi += x.recip().powi(2);
             for v in 1..n {
-                psi += (1.0 / (x + (v as $kind))).powi(2);
+                psi += (x + (v as $kind)).recip().powi(2);
             }
             x += n as $kind;
         }
-        let t = 1.0 / x;
+        let t = x.recip();
         let w = t * t;
         psi += t + 0.5 * w;
         psi + t
@@ -344,8 +344,8 @@ mod tests {
             9.0,
             10.0,
             -PI,
-            -(PI * 2.0),
-            -(PI * 3.0),
+            -2.0 * PI,
+            -3.0 * PI,
         ];
         let y = vec![
             101.43329915079276,
