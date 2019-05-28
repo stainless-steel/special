@@ -1,4 +1,5 @@
 use math;
+use consts::FpConsts;
 
 /// Gamma functions.
 pub trait Gamma
@@ -60,7 +61,7 @@ where
     /// Compute the natural logarithm of the gamma function.
     fn ln_gamma(self) -> (Self, i32);
 
-    /// Compute the trigamma function of `x`.
+    /// Compute the trigamma function.
     fn trigamma(&self) -> Self;
 }
 
@@ -200,18 +201,12 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
     }
 
     fn trigamma(&self) -> Self {
-
-        use std::f64::consts::PI;
-
         let mut x: $kind = *self;
-
         if x <= 0.0 {
-            let pi = PI as $kind;
-            return (pi * (1.0 / (pi * x).sin())).powi(2) - (1.0 - x).trigamma();
+            return (<$kind>::PI * (1.0 / (<$kind>::PI * x).sin())).powi(2) - (1.0 - x).trigamma();
         }
 
         let mut psi: $kind = 0.0;
-
         if x < 8.0 {
             let n = (8.0 - x.floor()) as usize;
             psi += (1.0 / x).powi(2);
@@ -220,12 +215,9 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
             }
             x += n as $kind;
         }
-
         let t = 1.0 / x;
         let w = t * t;
-
         psi += t + 0.5 * w;
-
         psi + t * w * evaluate_polynomial!(w, [
             0.16666666666666666, -0.03333333333333333, 0.023809523809523808, -0.03333333333333333,
             0.07575757575757576, -0.2531135531135531, 1.1666666666666667, -7.092156862745098])
@@ -321,24 +313,29 @@ mod tests {
     fn trigamma() {
         use std::f64::consts::PI;
 
-        assert::close((0.1).trigamma(), 101.433299150792758817, 1e-10);
-        assert::close((1.0 / 2.0).trigamma(), PI.powi(2) / 2.0, 1e-10);
+        let x = vec![
+            0.1, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+            -PI, -(PI * 2.0), -(PI * 3.0)
+        ];
+        let y = vec![
+            101.43329915079276,
+            4.93480220054468,
+            1.6449340668482262,
+            0.6449340668482261,
+            0.39493406684822613,
+            0.28382295573711497,
+            0.221322955737115,
+            0.18132295573711496,
+            0.1535451779593372,
+            0.13313701469403108,
+            0.11751201469403139,
+            0.10516633568168575,
+            53.030438740085536,
+            16.206759250472963,
+            10.341296000533267
+        ];
 
-        assert::close((1.0).trigamma(), PI.powi(2) / 6.0, 1e-10);
-        assert::close((2.0).trigamma(), PI.powi(2) / 6.0 - 1.0, 1e-10);
-        assert::close((3.0).trigamma(), PI.powi(2) / 6.0 - 5.0 / 4.0, 1e-10);
-        assert::close((4.0).trigamma(), PI.powi(2) / 6.0 - 49.0 / 36.0, 1e-10);
-        assert::close((5.0).trigamma(), PI.powi(2) / 6.0 - 205.0 / 144.0, 1e-10);
-
-        assert::close((6.0).trigamma(), 0.18132296, 1e-5);
-        assert::close((7.0).trigamma(), 0.15354518, 1e-5);
-        assert::close((8.0).trigamma(), 0.13313701, 1e-5);
-        assert::close((9.0).trigamma(), 0.11751201, 1e-5);
-
-        assert::close((10.0).trigamma(), PI.powi(2) / 6.0 - 9778141.0 / 6350400.0, 1e-10);
-
-        assert::close((-PI).trigamma(), 53.030438740085384761, 1e-10);
-        assert::close((-(PI * 2.0)).trigamma(), 16.206759250472931656, 1e-10);
-        assert::close((-(PI * 3.0)).trigamma(), 10.341296000533261275, 1e-10);
+        let z = x.iter().map(|&x| x.trigamma()).collect::<Vec<_>>();
+        assert::close(&z, &y, 1e-12);
     }
 }

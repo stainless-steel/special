@@ -11,6 +11,7 @@ mod beta;
 mod error;
 mod gamma;
 mod math;
+mod consts;
 
 pub use beta::Beta;
 pub use error::Error;
