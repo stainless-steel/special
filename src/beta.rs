@@ -1,5 +1,8 @@
 use Gamma;
 
+#[cfg(not(feature = "std"))]
+use FloatExt;
+
 /// Beta functions.
 pub trait Beta {
     /// Compute the regularized incomplete beta function.
@@ -320,6 +323,7 @@ implement!(f64);
 
 #[cfg(test)]
 mod tests {
+    use alloc::{vec, vec::Vec};
     use assert;
 
     use super::Beta;

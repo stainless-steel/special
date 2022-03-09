@@ -1,5 +1,8 @@
 use math;
 
+#[cfg(not(feature = "std"))]
+use FloatExt;
+
 /// Error functions.
 pub trait Error {
     /// Compute the error function.

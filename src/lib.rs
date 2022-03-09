@@ -2,6 +2,13 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(feature = "std")]
+extern crate core;
+
+extern crate alloc;
+
 #[cfg(test)]
 extern crate assert;
 
@@ -20,3 +27,4 @@ mod math;
 pub use beta::Beta;
 pub use error::Error;
 pub use gamma::Gamma;
+pub use math::FloatExt;

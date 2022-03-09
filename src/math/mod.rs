@@ -1,3 +1,6 @@
+mod floatext;
+pub use self::floatext::FloatExt;
+
 #[cfg(feature = "system_math")]
 mod system;
 
