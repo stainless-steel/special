@@ -5,7 +5,11 @@
 #[cfg(test)]
 extern crate assert;
 
+#[cfg(feature = "system_math")]
 extern crate libc;
+
+#[cfg(not(feature = "system_math"))]
+extern crate libm;
 
 mod beta;
 mod consts;
