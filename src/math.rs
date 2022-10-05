@@ -13,12 +13,12 @@ extern "C" {
     pub fn lgamma(x: c_double, sign: &mut c_int) -> c_double;
 }
 
-#[cfg(unix)]
+#[cfg(any(unix, target_arch = "wasm32"))]
 extern "C" {
     pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
 }
 
-#[cfg(unix)]
+#[cfg(any(unix, target_arch = "wasm32"))]
 #[inline(always)]
 pub unsafe fn lgamma(x: c_double, sign: &mut c_int) -> c_double {
     lgamma_r(x, sign)
