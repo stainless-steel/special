@@ -10,8 +10,8 @@ will be licensed according to the terms given in [LICENSE.md](LICENSE.md).
 
 [1]: https://en.wikipedia.org/wiki/Special_functions
 
-[build1-img]: https://travis-ci.org/stainless-steel/special.svg?branch=master
-[build1-url]: https://travis-ci.org/stainless-steel/special
+[build1-img]: https://github.com/stainless-steel/special/workflows/build/badge.svg
+[build1-url]: https://github.com/stainless-steel/special/actions/workflows/build.yml
 [build2-img]: https://ci.appveyor.com/api/projects/status/qlmjrirn3nup7w2f?svg=true
 [build2-url]: https://ci.appveyor.com/project/IvanUkhov/special
 [documentation-img]: https://docs.rs/special/badge.svg
