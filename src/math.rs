@@ -1,25 +1,59 @@
-#![link_name = "m"]
+macro_rules! declare {
+    ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
+        pub trait Float: Sized {
+            const PI: Self;
 
-use libc::{c_double, c_int};
-
-extern "C" {
-    pub fn erf(x: c_double) -> c_double;
-    pub fn erfc(x: c_double) -> c_double;
-    pub fn tgamma(x: c_double) -> c_double;
+            $(
+                fn $method(self, $($argument: $type_outer),*) -> $return;
+            )*
+        }
+    }
 }
 
-#[cfg(windows)]
-extern "C" {
-    pub fn lgamma(x: c_double, sign: &mut c_int) -> c_double;
+macro_rules! implement {
+    ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
+        impl Float for f32 {
+            const PI: Self = core::f32::consts::PI;
+
+            $(
+                #[inline(always)]
+                fn $method(self, $($argument: $type_outer),*) -> $return {
+                    $f32(self, $($argument as $type_inner),*)
+                }
+            )*
+        }
+
+        impl Float for f64 {
+            const PI: Self = core::f64::consts::PI;
+
+            $(
+                #[inline(always)]
+                fn $method(self, $($argument: $type_outer),*) -> $return {
+                    $f64(self, $($argument as $type_inner),*)
+                }
+            )*
+        }
+    };
 }
 
-#[cfg(unix)]
-extern "C" {
-    pub fn lgamma_r(x: c_double, sign: &mut c_int) -> c_double;
+macro_rules! run {
+    ($macro: ident) => {
+        $macro! {
+            (abs, libm::fabsf, libm::fabs, () -> Self),
+            (erf, libm::erff, libm::erf, () -> Self),
+            (erfc, libm::erfcf, libm::erfc, () -> Self),
+            (exp, libm::expf, libm::exp, () -> Self),
+            (floor, libm::floorf, libm::floor, () -> Self),
+            (lgamma, libm::lgammaf_r, libm::lgamma_r, () -> (Self, i32)),
+            (ln, libm::logf, libm::log, () -> Self),
+            (powf, libm::powf, libm::pow, (exponent: Self as Self) -> Self),
+            (powi, libm::powf, libm::pow, (exponent: i32 as Self) -> Self),
+            (sin, libm::sinf, libm::sin, () -> Self),
+            (sqrt, libm::sqrtf, libm::sqrt, () -> Self),
+            (tgamma, libm::tgammaf, libm::tgamma, () -> Self),
+        }
+    };
 }
 
-#[cfg(unix)]
-#[inline(always)]
-pub unsafe fn lgamma(x: c_double, sign: &mut c_int) -> c_double {
-    lgamma_r(x, sign)
-}
+run! { declare }
+run! { implement }

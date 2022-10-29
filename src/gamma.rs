@@ -1,5 +1,5 @@
-use consts::Float;
-use math;
+#[allow(unused_imports)]
+use math::Float;
 
 /// Gamma functions.
 pub trait Gamma
@@ -102,7 +102,7 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
 
     #[inline]
     fn gamma(self) -> Self {
-        unsafe { math::tgamma(self as f64) as Self }
+        self.tgamma()
     }
 
     fn inc_gamma(self, p: Self) -> Self {
@@ -201,9 +201,7 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
 
     #[inline]
     fn ln_gamma(self) -> (Self, i32) {
-        let mut sign: i32 = 0;
-        let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
-        (value, sign)
+        self.lgamma()
     }
 
     fn trigamma(&self) -> Self {
@@ -248,13 +246,14 @@ implement!(f64);
 
 #[cfg(test)]
 mod tests {
+    use alloc::{vec, vec::Vec};
     use assert;
 
     use super::Gamma;
 
     #[test]
     fn digamma() {
-        use std::f64::consts::{FRAC_PI_2, LN_2};
+        use core::f64::consts::{FRAC_PI_2, LN_2};
         const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
         assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - EULER_MASCHERONI, 0.25.digamma());
     }
@@ -329,7 +328,7 @@ mod tests {
 
     #[test]
     fn trigamma() {
-        use std::f64::consts::PI;
+        use core::f64::consts::PI;
         let x = vec![
             0.1,
             0.5,

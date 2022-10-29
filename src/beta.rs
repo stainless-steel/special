@@ -1,4 +1,6 @@
 use Gamma;
+#[allow(unused_imports)]
+use math::Float;
 
 /// Beta functions.
 pub trait Beta {
@@ -320,6 +322,7 @@ implement!(f64);
 
 #[cfg(test)]
 mod tests {
+    use alloc::{vec, vec::Vec};
     use assert;
 
     use super::Beta;

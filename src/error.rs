@@ -1,4 +1,4 @@
-use math;
+use math::Float;
 
 /// Error functions.
 pub trait Error {
@@ -21,12 +21,12 @@ macro_rules! implement {
         impl Error for $kind {
             #[inline]
             fn error(self) -> Self {
-                unsafe { math::erf(self as f64) as Self }
+                self.erf()
             }
 
             #[inline]
             fn compl_error(self) -> Self {
-                unsafe { math::erfc(self as f64) as Self }
+                self.erfc()
             }
 
             fn inv_error(self) -> Self {

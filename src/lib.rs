@@ -2,13 +2,15 @@
 //!
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
+#![no_std]
+
 #[cfg(test)]
 extern crate assert;
 
-extern crate libc;
+extern crate alloc;
+extern crate libm;
 
 mod beta;
-mod consts;
 mod error;
 mod gamma;
 mod math;
