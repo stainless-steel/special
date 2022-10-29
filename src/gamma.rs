@@ -1,8 +1,5 @@
-use consts::Float;
-use math;
-
-#[cfg(not(feature = "std"))]
-use FloatExt;
+#[allow(unused_imports)]
+use math::Float;
 
 /// Gamma functions.
 pub trait Gamma
@@ -105,7 +102,7 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
 
     #[inline]
     fn gamma(self) -> Self {
-        unsafe { math::tgamma(self as f64) as Self }
+        self.tgamma()
     }
 
     fn inc_gamma(self, p: Self) -> Self {
@@ -204,9 +201,7 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
 
     #[inline]
     fn ln_gamma(self) -> (Self, i32) {
-        let mut sign: i32 = 0;
-        let value = unsafe { math::lgamma(self as f64, &mut sign) as Self };
-        (value, sign)
+        self.lgamma()
     }
 
     fn trigamma(&self) -> Self {

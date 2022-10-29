@@ -1,7 +1,6 @@
 use Gamma;
-
-#[cfg(not(feature = "std"))]
-use FloatExt;
+#[allow(unused_imports)]
+use math::Float;
 
 /// Beta functions.
 pub trait Beta {

@@ -18,24 +18,8 @@ readme = "README.md"
 categories = ["algorithms", "science"]
 keywords = ["beta", "error", "gamma"]
 
-[features]
-default = ["std", "system_math"]
-
-# Activating feature "system_math" (which is the default) instructs `special` to
-# use the system math C library for mathematical operations. Deactivate this
-# default feature if no system math C library is available on your compilation
-# target (e.g., if you compile to WebAssembly, or if you want test for undefined
-# behaviour using `miri`).
-system_math = ["libc"]
-
-# Feature "std" is active by default. Deactivate it if you want to compile to a
-# `no_std` target (e.g., a microcontroller). You'll likely want to deactivate
-# feature "system_math" as well in this case.
-std = []
-
 [dependencies]
-libc = {version = "0.2", optional = true} 
-libm = "0.2.2" # Only used if default feature "libc" is *not* activated.
+libm = "0.2"
 
 [dev-dependencies]
 assert = "0.7"
