@@ -1,6 +1,6 @@
-use Gamma;
 #[allow(unused_imports)]
 use math::Float;
+use Gamma;
 
 /// Beta functions.
 pub trait Beta {
@@ -30,6 +30,7 @@ pub trait Beta {
     fn ln_beta(self, other: Self) -> Self;
 }
 
+#[rustfmt::skip]
 macro_rules! implement { ($kind:ident) => { impl Beta for $kind {
     fn inc_beta(self, mut p: Self, mut q: Self, ln_beta: Self) -> Self {
         // Algorithm AS 63

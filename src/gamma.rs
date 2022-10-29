@@ -75,6 +75,7 @@ macro_rules! evaluate_polynomial(
     );
 );
 
+#[rustfmt::skip]
 macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
     fn digamma(self) -> Self {
         let p = self;
