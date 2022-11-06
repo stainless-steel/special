@@ -1,6 +1,7 @@
 macro_rules! declare {
     ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
-        pub trait Float: Sized {
+        /// Basic functions.
+        pub trait Basic: Sized {
             const PI: Self;
 
             $(
@@ -12,7 +13,7 @@ macro_rules! declare {
 
 macro_rules! implement {
     ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
-        impl Float for f32 {
+        impl Basic for f32 {
             const PI: Self = core::f32::consts::PI;
 
             $(
@@ -23,7 +24,7 @@ macro_rules! implement {
             )*
         }
 
-        impl Float for f64 {
+        impl Basic for f64 {
             const PI: Self = core::f64::consts::PI;
 
             $(

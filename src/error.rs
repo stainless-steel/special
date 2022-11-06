@@ -1,4 +1,4 @@
-use math::Float;
+use basic::Basic;
 
 /// Error functions.
 pub trait Error {

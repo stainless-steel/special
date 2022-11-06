@@ -1,5 +1,5 @@
 #[allow(unused_imports)]
-use math::Float;
+use basic::Basic;
 use Gamma;
 
 /// Beta functions.
