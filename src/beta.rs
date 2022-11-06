@@ -1,5 +1,5 @@
 #[allow(unused_imports)]
-use basic::Basic;
+use primitive::Primitive;
 use Gamma;
 
 /// Beta functions.

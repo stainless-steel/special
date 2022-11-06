@@ -1,4 +1,4 @@
-use basic::Basic;
+use primitive::Primitive;
 
 /// Error functions.
 pub trait Error {

@@ -1,5 +1,4 @@
-#[allow(unused_imports)]
-use basic::Basic;
+use primitive::Primitive;
 
 /// Gamma functions.
 pub trait Gamma
