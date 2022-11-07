@@ -1,6 +1,7 @@
 macro_rules! declare {
     ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
         /// Primitive functions.
+        #[doc(hidden)]
         pub trait Primitive: Sized {
             /// The number π.
             const PI: Self;
