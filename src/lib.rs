@@ -7,7 +7,9 @@
 #[cfg(test)]
 extern crate assert;
 
+#[cfg(test)]
 extern crate alloc;
+
 extern crate libm;
 
 mod beta;
