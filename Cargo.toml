@@ -16,7 +16,7 @@ documentation = "https://docs.rs/special"
 homepage = "https://github.com/stainless-steel/special"
 repository = "https://github.com/stainless-steel/special"
 readme = "README.md"
-categories = ["algorithms", "science"]
+categories = ["algorithms", "science", "no-std::no-alloc"]
 keywords = ["beta", "error", "gamma"]
 
 [dependencies]
