@@ -1,3 +1,5 @@
+#![allow(unstable_name_collisions)]
+
 #[allow(unused_imports)]
 use primitive::Primitive;
 use Gamma;

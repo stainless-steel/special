@@ -1,3 +1,5 @@
+#![allow(unstable_name_collisions)]
+
 use primitive::Primitive;
 
 /// Gamma functions.
