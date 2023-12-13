@@ -4,6 +4,8 @@
 
 #![no_std]
 
+#![allow(clippy::excessive_precision)]
+
 #[cfg(test)]
 extern crate assert;
 

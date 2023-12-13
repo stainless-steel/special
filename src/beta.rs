@@ -1,3 +1,4 @@
+#![allow(clippy::manual_range_contains)]
 #![allow(unstable_name_collisions)]
 
 #[allow(unused_imports)]
