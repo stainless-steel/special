@@ -3,7 +3,6 @@
 //! [1]: https://en.wikipedia.org/wiki/Special_functions
 
 #![no_std]
-
 #![allow(clippy::excessive_precision)]
 
 #[cfg(test)]
