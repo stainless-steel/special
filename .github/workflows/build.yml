@@ -13,26 +13,22 @@ jobs:
   agnostic:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions-rs/cargo@v1
-        with: {command: fmt, args: --all -- --check}
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install stable --profile=minimal --component clippy --component rustfmt
+      - run: make check
 
   macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions-rs/cargo@v1
-        with: {command: test}
-      - uses: actions-rs/toolchain@v1
-        with: {toolchain: nightly}
-      - run: cargo +nightly bench
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install nightly --profile=minimal
+      - run: make test
+      - run: make bench
 
   ubuntu:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions-rs/cargo@v1
-        with: {command: test}
-      - uses: actions-rs/toolchain@v1
-        with: {toolchain: nightly}
-      - run: cargo +nightly bench
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install nightly --profile=minimal
+      - run: make test
+      - run: make bench

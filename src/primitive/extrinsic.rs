@@ -1,39 +1,31 @@
 macro_rules! declare {
-    ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
+    ($(($name:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:ty as $type_inner:ty),*) -> $return:ty),)*) => {
         /// Primitive functions.
         pub trait Primitive: Sized {
-            /// The number π.
             const PI: Self;
-
-            $(fn $method(self, $($argument: $type_outer),*) -> $return;)*
+            $(fn $name(self, $($argument: $type_outer),*) -> $return;)*
         }
     }
 }
 
 macro_rules! implement {
-    ($(($method:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:tt as $type_inner:tt),*) -> $return:tt),)*) => {
+    ($(($name:ident, $f32:expr, $f64:expr, ($($argument:ident: $type_outer:ty as $type_inner:ty),*) -> $return:ty),)*) => {
         impl Primitive for f32 {
             const PI: Self = core::f32::consts::PI;
-
-            $(
-                #[inline(always)]
-                fn $method(self, $($argument: $type_outer),*) -> $return {
-                    $f32(self, $($argument as $type_inner),*)
-                }
-            )*
+            $(implement! { @method $name, $f32, ($($argument: $type_outer as $type_inner),*) -> $return })*
         }
 
         impl Primitive for f64 {
             const PI: Self = core::f64::consts::PI;
-
-            $(
-                #[inline(always)]
-                fn $method(self, $($argument: $type_outer),*) -> $return {
-                    $f64(self, $($argument as $type_inner),*)
-                }
-            )*
+            $(implement! { @method $name, $f64, ($($argument: $type_outer as $type_inner),*) -> $return })*
         }
     };
+    (@method $name:ident, $function:expr, ($($argument:ident: $type_outer:ty as $type_inner:ty),*) -> $return:ty) => {
+        #[inline(always)]
+        fn $name(self, $($argument: $type_outer),*) -> $return {
+            $function(self, $($argument as $type_inner),*)
+        }
+    }
 }
 
 macro_rules! run {

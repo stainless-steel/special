@@ -255,7 +255,10 @@ mod tests {
 
     #[test]
     fn digamma() {
+        #[cfg(feature = "no_std")]
         use core::f64::consts::{FRAC_PI_2, LN_2};
+        #[cfg(not(feature = "no_std"))]
+        use std::f64::consts::{FRAC_PI_2, LN_2};
         const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;
         assert_eq!(-FRAC_PI_2 - 3.0 * LN_2 - EULER_MASCHERONI, 0.25.digamma());
     }
@@ -330,7 +333,10 @@ mod tests {
 
     #[test]
     fn trigamma() {
+        #[cfg(feature = "no_std")]
         use core::f64::consts::PI;
+        #[cfg(not(feature = "no_std"))]
+        use std::f64::consts::PI;
         let x = vec![
             0.1,
             0.5,

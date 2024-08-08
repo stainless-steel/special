@@ -1,7 +1,7 @@
 [package]
 name = "special"
-version = "0.10.3"
-license = "Apache-2.0/MIT"
+version = "0.11.0"
+license = "Apache-2.0 OR MIT"
 authors = [
     "Abhishek Chanda <abhishek.becs@gmail.com>",
     "Albert Pang <albert.pang@me.com>",
@@ -19,6 +19,10 @@ repository = "https://github.com/stainless-steel/special"
 readme = "README.md"
 categories = ["algorithms", "no-std::no-alloc", "science"]
 keywords = ["beta", "error", "gamma"]
+
+[features]
+default = ["no_std"]
+no_std = []
 
 [dependencies]
 libm = "0.2"
