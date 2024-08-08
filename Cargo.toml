@@ -27,7 +27,7 @@ no_std = []
 
 [dependencies]
 libm = "0.2"
-lambert_w = "0.5.2"
+lambert_w = { version = "0.5.2", default-features = false, features = ["50bits", "libm"] }
 
 [dev-dependencies]
 assert = "0.7"
