@@ -1,6 +1,7 @@
 [package]
 name = "special"
 version = "0.11.0"
+edition = "2021"
 license = "Apache-2.0 OR MIT"
 authors = [
     "Abhishek Chanda <abhishek.becs@gmail.com>",

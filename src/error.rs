@@ -1,4 +1,4 @@
-use primitive::Primitive;
+use crate::primitive::Primitive;
 
 /// Error functions.
 pub trait Error {

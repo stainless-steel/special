@@ -1,6 +1,6 @@
 #![allow(unstable_name_collisions)]
 
-use primitive::Primitive;
+use crate::primitive::Primitive;
 
 /// Gamma functions.
 pub trait Gamma

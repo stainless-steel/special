@@ -2,8 +2,8 @@
 #![allow(unstable_name_collisions)]
 
 #[allow(unused_imports)]
-use primitive::Primitive;
-use Gamma;
+use crate::primitive::Primitive;
+use crate::Gamma;
 
 /// Beta functions.
 pub trait Beta {
