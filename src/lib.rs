@@ -14,11 +14,11 @@ extern crate alloc;
 mod beta;
 mod error;
 mod gamma;
-mod omega;
+mod lambert_w;
 mod primitive;
 
 pub use beta::Beta;
 pub use error::Error;
 pub use gamma::Gamma;
-pub use omega::Omega;
+pub use lambert_w::LambertW;
 pub use primitive::Primitive;
