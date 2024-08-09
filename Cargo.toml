@@ -26,6 +26,7 @@ default = ["no_std"]
 no_std = []
 
 [dependencies]
+lambert_w = { version = "0.5.2", default-features = false, features = ["50bits", "libm"] }
 libm = "0.2"
 
 [dev-dependencies]
