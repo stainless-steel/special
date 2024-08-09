@@ -21,12 +21,14 @@ where
     /// assert!((1.0.lambert_w0() - 0.5671432904097838).abs() < 1e-15);
     /// ```
     ///
-    /// This code is a re-export from the [`lambert_w`] crate.
+    /// This code is based on a [Rust implementation][1] by Johanna Sörngård.
     ///
-    /// ## Reference
+    /// ## References
     ///
-    /// T. Fukushima, Precise and fast computation of Lambert W function
-    /// by piecewise minimax rational function approximation with variable transformation, <https://doi.org/10.13140/RG.2.2.30264.37128>.
+    /// 1. T. Fukushima, Precise and fast computation of Lambert W function by piecewise minimax
+    ///    rational function approximation with variable transformation.
+    ///
+    /// [1]: https://crates.io/crates/lambert_w
     fn lambert_w0(self) -> Self;
 
     /// Compute the real-valued parts of the secondary branch of the Lambert W function.
@@ -47,12 +49,14 @@ where
     /// assert!(((-f64::ln(2.0) / 2.0).lambert_wm1() + f64::ln(4.0)).abs() < 1e-15);
     /// ```
     ///
-    /// This code is a re-export from the [`lambert_w`] crate.
+    /// This code is based on a [Rust implementation][1] by Johanna Sörngård.
     ///
-    /// ## Reference
+    /// ## References
     ///
-    /// T. Fukushima, Precise and fast computation of Lambert W function
-    /// by piecewise minimax rational function approximation with variable transformation, <https://doi.org/10.13140/RG.2.2.30264.37128>.
+    /// 1. T. Fukushima, Precise and fast computation of Lambert W function by piecewise minimax
+    ///    rational function approximation with variable transformation.
+    ///
+    /// [1]: https://crates.io/crates/lambert_w
     fn lambert_wm1(self) -> Self;
 }
 
