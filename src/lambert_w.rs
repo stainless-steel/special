@@ -23,7 +23,7 @@ where
     ///
     /// This code is a re-export from the [`lambert_w`] crate.
     ///
-    /// ## References
+    /// ## Reference
     ///
     /// T. Fukushima, Precise and fast computation of Lambert W function
     /// by piecewise minimax rational function approximation with variable transformation, <https://doi.org/10.13140/RG.2.2.30264.37128>.
@@ -49,7 +49,7 @@ where
     ///
     /// This code is a re-export from the [`lambert_w`] crate.
     ///
-    /// ## References
+    /// ## Reference
     ///
     /// T. Fukushima, Precise and fast computation of Lambert W function
     /// by piecewise minimax rational function approximation with variable transformation, <https://doi.org/10.13140/RG.2.2.30264.37128>.
