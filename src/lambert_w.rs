@@ -18,7 +18,8 @@ where
     /// ```
     /// use special::LambertW;
     ///
-    /// assert!((1.0.lambert_w0() - 0.5671432904097838).abs() < 1e-15);
+    /// let Ω = 0.5671432904097838;
+    /// assert!((1.0.lambert_w0() - Ω).abs() < 1e-15);
     /// ```
     ///
     /// This code is based on a [Rust implementation][1] by Johanna Sörngård.
