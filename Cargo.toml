@@ -20,7 +20,7 @@ homepage = "https://github.com/stainless-steel/special"
 repository = "https://github.com/stainless-steel/special"
 readme = "README.md"
 categories = ["algorithms", "no-std::no-alloc", "science"]
-keywords = ["beta", "error", "gamma"]
+keywords = ["beta", "error", "lambert-w", "gamma"]
 
 [features]
 default = ["no_std"]
