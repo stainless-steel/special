@@ -28,8 +28,12 @@ macro_rules! implement {
     }
 }
 
-#[cfg_attr(feature = "no_std", path = "extrinsic.rs")]
-#[cfg_attr(not(feature = "no_std"), path = "intrinsic.rs")]
+#[cfg(feature = "no_std")]
+#[path = "extrinsic.rs"]
+mod implementation;
+
+#[cfg(feature = "std")]
+#[path = "intrinsic.rs"]
 mod implementation;
 
 pub use implementation::Primitive;

@@ -24,10 +24,11 @@ keywords = ["beta", "error", "gamma"]
 
 [features]
 default = ["no_std"]
-no_std = []
+no_std = ["lambert_w/libm"]
+std = ["lambert_w/std"]
 
 [dependencies]
-lambert_w = { version = "0.5.2", default-features = false, features = ["50bits", "libm"] }
+lambert_w = { version = "0.5.2", default-features = false, features = ["50bits"] }
 libm = "0.2"
 
 [dev-dependencies]
