@@ -18,7 +18,7 @@ where
     /// ```
     /// use special::LambertW;
     ///
-    /// let Ω = 0.5671432904097838;
+    /// let Ω: f64 = 0.5671432904097838;
     /// assert!((1.0.lambert_w0() - Ω).abs() < 1e-15);
     /// ```
     ///
@@ -70,5 +70,17 @@ impl LambertW for f64 {
     #[inline]
     fn lambert_wm1(self) -> Self {
         lambert_w::lambert_wm1(self)
+    }
+}
+
+impl LambertW for f32 {
+    #[inline]
+    fn lambert_w0(self) -> Self {
+        lambert_w::lambert_w0f(self)
+    }
+
+    #[inline]
+    fn lambert_wm1(self) -> Self {
+        lambert_w::lambert_wm1f(self)
     }
 }
