@@ -61,18 +61,6 @@ where
     fn lambert_wm1(self) -> Self;
 }
 
-impl LambertW for f64 {
-    #[inline]
-    fn lambert_w0(self) -> Self {
-        lambert_w::lambert_w0(self)
-    }
-
-    #[inline]
-    fn lambert_wm1(self) -> Self {
-        lambert_w::lambert_wm1(self)
-    }
-}
-
 impl LambertW for f32 {
     #[inline]
     fn lambert_w0(self) -> Self {
@@ -82,5 +70,17 @@ impl LambertW for f32 {
     #[inline]
     fn lambert_wm1(self) -> Self {
         lambert_w::lambert_wm1f(self)
+    }
+}
+
+impl LambertW for f64 {
+    #[inline]
+    fn lambert_w0(self) -> Self {
+        lambert_w::lambert_w0(self)
+    }
+
+    #[inline]
+    fn lambert_wm1(self) -> Self {
+        lambert_w::lambert_wm1(self)
     }
 }
