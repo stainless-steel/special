@@ -20,5 +20,5 @@ mod primitive;
 pub use beta::Beta;
 pub use error::Error;
 pub use gamma::Gamma;
-pub use lambert_w::LambertW;
+pub use crate::lambert_w::LambertW;
 pub use primitive::Primitive;
