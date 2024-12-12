@@ -9,11 +9,11 @@ use crate::Gamma;
 pub trait Beta {
     /// Compute the regularized incomplete beta function.
     ///
+    /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
+    ///
     /// The code is based on a [C implementation][1] by John Burkardt. The
     /// original algorithm was published in Applied Statistics and is known as
     /// [Algorithm AS 63][2] and [Algorithm AS 109][3].
-    ///
-    /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
     ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
     /// [2]: http://www.jstor.org/stable/2346797
@@ -22,11 +22,11 @@ pub trait Beta {
 
     /// Compute the inverse of the regularized incomplete beta function.
     ///
+    /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
+    ///
     /// The code is based on a [C implementation][1] by John Burkardt. The
     /// original algorithm was published in Applied Statistics and is known as
     /// [Algorithm AS 64][2] and [Algorithm AS 109][3].
-    ///
-    /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
     ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
     /// [2]: http://www.jstor.org/stable/2346798
