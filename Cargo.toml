@@ -28,7 +28,7 @@ no_std = ["lambert_w/libm"]
 std = ["lambert_w/std"]
 
 [dependencies]
-lambert_w = { version = "0.5.4", default-features = false, features = ["24bits", "50bits"] }
+lambert_w = { version = "1.0.0", default-features = false }
 libm = "0.2"
 
 [dev-dependencies]
