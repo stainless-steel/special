@@ -13,11 +13,11 @@ pub trait Beta {
     /// original algorithm was published in Applied Statistics and is known as
     /// [Algorithm AS 63][2] and [Algorithm AS 109][3].
     ///
+    /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
+    ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
     /// [2]: http://www.jstor.org/stable/2346797
     /// [3]: http://www.jstor.org/stable/2346887
-    /// 
-    /// ln_beta should be precomputed as `p.ln_beta(q)`.
     fn inc_beta(self, p: Self, q: Self, ln_beta: Self) -> Self;
 
     /// Compute the inverse of the regularized incomplete beta function.
@@ -26,11 +26,11 @@ pub trait Beta {
     /// original algorithm was published in Applied Statistics and is known as
     /// [Algorithm AS 64][2] and [Algorithm AS 109][3].
     ///
+    /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
+    ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
     /// [2]: http://www.jstor.org/stable/2346798
     /// [3]: http://www.jstor.org/stable/2346887
-    /// 
-    /// ln_beta should be precomputed as `p.ln_beta(q)`.
     fn inv_inc_beta(self, p: Self, q: Self, ln_beta: Self) -> Self;
 
     /// Compute the natural logarithm of the beta function.
