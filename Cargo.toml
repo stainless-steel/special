@@ -32,9 +32,9 @@ no_std = ["lambert_w/libm"]
 std = ["lambert_w/std"]
 
 [dependencies]
-lambert_w = { version = "1.0.0", default-features = false }
+lambert_w = { version = "1", default-features = false }
 libm = "0.2"
 
 [dev-dependencies]
 assert = "0.7"
-random = "0.12"
+random = "0.14"
