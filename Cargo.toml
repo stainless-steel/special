@@ -25,9 +25,10 @@ keywords = ["beta", "error", "lambert-w", "gamma"]
 
 [features]
 default = ["no_std"]
-# Use `libm` to do certain math operations. This feature must be enabled if the `std` feature is disabled.
+
+# If one of the two features is disabled, the other one must be enabled. If both
+# features are enabled, `std` takes precedence over `no_std`.
 no_std = ["lambert_w/libm"]
-# Link the standard library and use it for some computations. When this feature is disabled the crate is no_std compatible. This feature takes precedence over the `no_std` feature.
 std = ["lambert_w/std"]
 
 [dependencies]
