@@ -21,12 +21,12 @@ macro_rules! implement {
         impl Error for $kind {
             #[inline]
             fn error(self) -> Self {
-                self.erf()
+                Primitive::erf(self)
             }
 
             #[inline]
             fn compl_error(self) -> Self {
-                self.erfc()
+                Primitive::erfc(self)
             }
 
             fn inv_error(self) -> Self {
