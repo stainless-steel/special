@@ -10,7 +10,7 @@ use test::{black_box, Bencher};
 
 #[bench]
 fn digamma(bencher: &mut Bencher) {
-    let x = random::default()
+    let x = random::default(42)
         .iter::<f64>()
         .take(1000)
         .map(|x| 20.0 * x - 10.0)
@@ -24,7 +24,7 @@ fn digamma(bencher: &mut Bencher) {
 
 #[bench]
 fn inc_gamma(bencher: &mut Bencher) {
-    let (mut x, mut p) = (random::default(), random::default());
+    let (mut x, mut p) = (random::default(42), random::default(24));
     let xp = x
         .iter::<f64>()
         .zip(p.iter::<f64>())
@@ -40,7 +40,7 @@ fn inc_gamma(bencher: &mut Bencher) {
 
 #[bench]
 fn trigamma(bencher: &mut Bencher) {
-    let x = random::default().iter().take(1000).collect::<Vec<f64>>();
+    let x = random::default(42).iter().take(1000).collect::<Vec<f64>>();
 
     bencher.iter(|| {
         for &x in &x {

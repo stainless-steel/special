@@ -12,7 +12,7 @@ use test::{black_box, Bencher};
 fn inc_beta(bencher: &mut Bencher) {
     let (p, q) = (0.5, 1.5);
     let ln_beta = p.ln_beta(q);
-    let x = random::default().iter().take(1000).collect::<Vec<f64>>();
+    let x = random::default(42).iter().take(1000).collect::<Vec<f64>>();
     bencher.iter(|| {
         for &x in &x {
             black_box(x.inc_beta(p, q, ln_beta));
@@ -24,7 +24,7 @@ fn inc_beta(bencher: &mut Bencher) {
 fn inv_inc_beta(bencher: &mut Bencher) {
     let (p, q) = (0.5, 1.5);
     let ln_beta = p.ln_beta(q);
-    let a = random::default().iter().take(1000).collect::<Vec<f64>>();
+    let a = random::default(42).iter().take(1000).collect::<Vec<f64>>();
     bencher.iter(|| {
         for &a in &a {
             black_box(a.inv_inc_beta(p, q, ln_beta));
