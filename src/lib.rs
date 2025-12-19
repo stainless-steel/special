@@ -12,6 +12,7 @@ extern crate assert;
 extern crate alloc;
 
 mod beta;
+mod elliptic;
 mod error;
 mod gamma;
 mod lambert_w;
@@ -19,6 +20,7 @@ mod primitive;
 
 pub use crate::lambert_w::LambertW;
 pub use beta::Beta;
+pub use elliptic::Elliptic;
 pub use error::Error;
 pub use gamma::Gamma;
 pub use primitive::Primitive;
