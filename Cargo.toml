@@ -33,7 +33,7 @@ no_std = ["lambert_w/libm"]
 std = ["lambert_w/std"]
 
 [dependencies]
-ellip = { version = "1.0.0", features = ["no_std"] }
+ellip = { version = "1.0.1", features = ["no_std"] }
 lambert_w = { version = "1", default-features = false }
 libm = "0.2"
 
