@@ -1,4 +1,3 @@
-/// Elliptic integral functions
 macro_rules! interface_method {
     ($(#[$attr:meta])* $fn_name:ident $($params:ident)*) => {
         $(#[$attr])*
@@ -83,7 +82,7 @@ macro_rules! impl_elliptic {
 impl_elliptic!(
     // <--- Complete Legendre's Integrals --->
 
-    /// Computes complete elliptic integral of the first kind (K).
+    /// Compute complete elliptic integral of the first kind (K).
     ///
     /// ## Parameters
     ///
@@ -105,7 +104,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipk,
 
-    /// Computes complete elliptic integral of the second kind (E).
+    /// Compute complete elliptic integral of the second kind (E).
     ///
     /// ## Parameters
     ///
@@ -127,7 +126,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipe,
 
-    /// Computes complete elliptic integral of the third kind (Π).
+    /// Compute complete elliptic integral of the third kind (Π).
     ///
     /// ## Parameters
     ///
@@ -152,7 +151,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippi n,
 
-    /// Computes complete elliptic integral of Legendre's type (D).
+    /// Compute complete elliptic integral of Legendre's type (D).
     ///
     /// ## Parameters
     ///
@@ -176,7 +175,7 @@ impl_elliptic!(
 
     // <--- Incomplete Legendre's Integrals --->
 
-    /// Computes incomplete elliptic integral of the first kind (F).
+    /// Compute incomplete elliptic integral of the first kind (F).
     ///
     /// ## Parameters
     ///
@@ -200,7 +199,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipf phi,
 
-    /// Computes incomplete elliptic integral of the second kind (E).
+    /// Compute incomplete elliptic integral of the second kind (E).
     ///
     /// ## Parameters
     ///
@@ -224,7 +223,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipeinc phi,
 
-    /// Computes incomplete elliptic integral of the third kind (Π).
+    /// Compute incomplete elliptic integral of the third kind (Π).
     ///
     /// ## Parameters
     ///
@@ -254,7 +253,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc phi n,
 
-    /// Computes incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
+    /// Compute incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
     ///
     /// ## Parameters
     ///
@@ -284,7 +283,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc_bulirsch phi n,
 
-    /// Computes incomplete elliptic integral of Legendre's type (D).
+    /// Compute incomplete elliptic integral of Legendre's type (D).
     ///
     /// ## Parameters
     ///
@@ -310,7 +309,7 @@ impl_elliptic!(
 
     // <--- Bulirsch's Integrals --->
 
-    /// Computes Bulirsch's complete elliptic integral.
+    /// Compute Bulirsch's complete elliptic integral.
     ///
     /// ## Parameters
     ///
@@ -344,7 +343,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc cel p a b,
 
-    /// Computes Bulirsch's complete elliptic integral.
+    /// Compute Bulirsch's complete elliptic integral.
     ///
     /// ## Parameters
     ///
@@ -371,7 +370,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc cel1,
 
-    /// Computes Bulirsch's complete elliptic integral.
+    /// Compute Bulirsch's complete elliptic integral.
     ///
     /// ## Parameters
     ///
@@ -402,7 +401,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc cel2 a b,
 
-    /// Computes Bulirsch's incomplete elliptic integral.
+    /// Compute Bulirsch's incomplete elliptic integral.
     ///
     /// ## Parameters
     ///
@@ -431,7 +430,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc_x el1 x,
 
-    /// Computes Bulirsch's incomplete elliptic integral.
+    /// Compute Bulirsch's incomplete elliptic integral.
     ///
     /// ## Parameters
     ///
@@ -463,7 +462,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc_x el2 x a b,
 
-    /// Computes Bulirsch's incomplete elliptic integral.
+    /// Compute Bulirsch's incomplete elliptic integral.
     ///
     /// ## Parameters
     ///
@@ -500,7 +499,7 @@ impl_elliptic!(
 
     // <--- Carlson's Symmetric Integrals --->
 
-    /// Computes Carlson's symmetric elliptic integral of the first kind (RF).
+    /// Compute Carlson's symmetric elliptic integral of the first kind (RF).
     ///
     /// ## Parameters
     ///
@@ -525,7 +524,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprf y z,
 
-    /// Computes Carlson's symmetric elliptic integral of the second kind (RG).
+    /// Compute Carlson's symmetric elliptic integral of the second kind (RG).
     ///
     /// ## Parameters
     ///
@@ -550,7 +549,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprg y z,
 
-    /// Computes Carlson's symmetric elliptic integral of the third kind (RJ).
+    /// Compute Carlson's symmetric elliptic integral of the third kind (RJ).
     ///
     /// ## Parameters
     ///
@@ -580,7 +579,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprj y z p,
 
-    /// Computes Carlson's degenerate symmetric elliptic integral (RC).
+    /// Compute Carlson's degenerate symmetric elliptic integral (RC).
     ///
     /// ## Parameters
     ///
@@ -605,7 +604,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprc y,
 
-    /// Computes Carlson's symmetric elliptic integral of the second kind (RD).
+    /// Compute Carlson's symmetric elliptic integral of the second kind (RD).
     ///
     /// ## Parameters
     ///
@@ -632,7 +631,7 @@ impl_elliptic!(
 
     // <--- Miscellaneous Functions --->
 
-    /// Computes Jacobi's Zeta function.
+    /// Compute Jacobi's Zeta function.
     ///
     /// ## Parameters
     ///
@@ -658,7 +657,7 @@ impl_elliptic!(
     /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     jacobi_zeta phi,
 
-    /// Computes Heuman's Lambda function.
+    /// Compute Heuman's Lambda function.
     ///
     /// ## Parameters
     ///
