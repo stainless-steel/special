@@ -7,12 +7,10 @@ macro_rules! declare_method {
 
 macro_rules! m_to_kc {
     ($fn_name:ident, $m:expr) => {{
-        if $m < 0.0 {
-            panic!(concat!(
-                stringify!($fn_name),
-                ": m (self) cannot be less than 1."
-            ))
-        }
+        debug_assert!(
+            $m > 0.0,
+            concat!(stringify!($fn_name), ": m (self) cannot be less than 1.")
+        );
         (1.0 - $m).sqrt()
     }};
 }
