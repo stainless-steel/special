@@ -99,7 +99,7 @@ implement_elliptic!(
     ///
     /// - Returns error if m > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipk,
 
     /// Compute complete elliptic integral of the second kind (E).
@@ -121,7 +121,7 @@ implement_elliptic!(
     ///
     /// - Returns error if m > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipe,
 
     /// Compute complete elliptic integral of the third kind (Π).
@@ -146,7 +146,7 @@ implement_elliptic!(
     /// - Returns error if m > 1.
     /// - Returns the Cauchy principal value if n > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippi n,
 
     /// Compute complete elliptic integral of Legendre's type (D).
@@ -168,7 +168,7 @@ implement_elliptic!(
     ///
     /// - Returns error if m > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipd,
 
     // <--- Incomplete Legendre's Integrals --->
@@ -194,7 +194,7 @@ implement_elliptic!(
     ///
     /// - Returns error if m sin²φ > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipf phi,
 
     /// Compute incomplete elliptic integral of the second kind (E).
@@ -218,7 +218,7 @@ implement_elliptic!(
     ///
     /// - Returns error if m sin²φ > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipeinc phi,
 
     /// Compute incomplete elliptic integral of the third kind (Π).
@@ -248,7 +248,7 @@ implement_elliptic!(
     ///   - or m ≥ 1 and φ is not a multiple of π/2.
     /// - Returns the Cauchy principal value if n sin²φ > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc phi n,
 
     /// Compute incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
@@ -278,7 +278,7 @@ implement_elliptic!(
     ///   - or m ≥ 1 and φ is not a multiple of π/2.
     /// - Returns the Cauchy principal value if n sin²φ > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc_bulirsch phi n,
 
     /// Compute incomplete elliptic integral of Legendre's type (D).
@@ -302,7 +302,7 @@ implement_elliptic!(
     ///
     /// - Returns error if m sin²φ > 1.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipdinc phi,
 
     // <--- Bulirsch's Integrals --->
@@ -338,7 +338,7 @@ implement_elliptic!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc cel p a b,
 
     /// Compute Bulirsch's complete elliptic integral.
@@ -365,7 +365,7 @@ implement_elliptic!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc cel1,
 
     /// Compute Bulirsch's complete elliptic integral.
@@ -396,7 +396,7 @@ implement_elliptic!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc cel2 a b,
 
     /// Compute Bulirsch's incomplete elliptic integral.
@@ -425,7 +425,7 @@ implement_elliptic!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc_x el1 x,
 
     /// Compute Bulirsch's incomplete elliptic integral.
@@ -457,7 +457,7 @@ implement_elliptic!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc_x el2 x a b,
 
     /// Compute Bulirsch's incomplete elliptic integral.
@@ -492,7 +492,7 @@ implement_elliptic!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @kc_x el3 x p,
 
     // <--- Carlson's Symmetric Integrals --->
@@ -519,7 +519,7 @@ implement_elliptic!(
     ///
     /// - Returns error if any of x, y, or z is negative, or more than one of them are zero.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprf y z,
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RG).
@@ -544,7 +544,7 @@ implement_elliptic!(
     ///
     /// - Returns error if any of x, y, or z is negative or infinite.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprg y z,
 
     /// Compute Carlson's symmetric elliptic integral of the third kind (RJ).
@@ -574,7 +574,7 @@ implement_elliptic!(
     ///   - or p = 0.
     /// - Returns the Cauchy principal value if p < 0.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprj y z p,
 
     /// Compute Carlson's degenerate symmetric elliptic integral (RC).
@@ -599,7 +599,7 @@ implement_elliptic!(
     /// - Returns error if x < 0 or y = 0.
     /// - Returns the Cauchy principal value if y < 0.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprc y,
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RD).
@@ -624,7 +624,7 @@ implement_elliptic!(
     ///
     /// - Returns error if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprd y z,
 
     // <--- Miscellaneous Functions --->
@@ -652,7 +652,7 @@ implement_elliptic!(
     /// - Returns error if m > 1.
     /// - Returns error if phi or m is infinite.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     jacobi_zeta phi,
 
     /// Compute Heuman's Lambda function.
@@ -678,6 +678,6 @@ implement_elliptic!(
     /// - Returns error if m < 0 or m ≥ 1.
     /// - Returns error if phi is infinite.
     ///
-    /// Implementation based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     heuman_lambda phi,
 );
