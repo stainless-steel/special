@@ -1,4 +1,4 @@
-macro_rules! interface_method {
+macro_rules! declare_method {
     ($(#[$attr:meta])* $fn_name:ident $($params:ident)*) => {
         $(#[$attr])*
         fn $fn_name(self, $($params: Self,)*) -> Self;
@@ -17,11 +17,11 @@ macro_rules! m_to_kc {
     }};
 }
 
-// By default, impl_method expect self as the last argument.
-// With @kc, impl_method expect self as **m** as the first argument.
-// With @kc_x, impl_method expect x as the first and self as the second argument.
-// With @first, impl_method expect self as the first argument.
-macro_rules! impl_method {
+// By default, define_method expect self as the last argument.
+// With @kc, define_method expect self as **m** as the first argument.
+// With @kc_x, define_method expect x as the first and self as the second argument.
+// With @first, define_method expect self as the first argument.
+macro_rules! define_method {
     (@kc $fn_name:ident $($params:ident)*) => {
         fn $fn_name(self, $($params: Self,)*) -> Self {
             let kc = m_to_kc!($fn_name, self);
@@ -52,7 +52,7 @@ macro_rules! impl_method {
     };
 }
 
-macro_rules! impl_elliptic {
+macro_rules! implement_elliptic {
     ($(
         $(comment:meta)*
         $(#[$attr:meta])*
@@ -61,25 +61,25 @@ macro_rules! impl_elliptic {
         /// Elliptic integrals.
         pub trait Elliptic: Sized {
             $(
-                interface_method!($(#[$attr])* $fn_name $($params)*);
+                declare_method!($(#[$attr])* $fn_name $($params)*);
             )*
         }
 
         impl Elliptic for f32 {
             $(
-                impl_method!($(@$flag)? $fn_name $($params)* );
+                define_method!($(@$flag)? $fn_name $($params)* );
             )*
         }
 
         impl Elliptic for f64 {
             $(
-                impl_method!($(@$flag)? $fn_name $($params)* );
+                define_method!($(@$flag)? $fn_name $($params)* );
             )*
         }
     };
 }
 
-impl_elliptic!(
+implement_elliptic!(
     // <--- Complete Legendre's Integrals --->
 
     /// Compute complete elliptic integral of the first kind (K).
