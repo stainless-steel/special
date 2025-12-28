@@ -95,9 +95,9 @@ implement_elliptic!(
     /// assert::close(m.ellipk(), 1.8540746773013719, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m > 1.
+    /// - The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipk,
@@ -117,9 +117,9 @@ implement_elliptic!(
     /// assert::close(m.ellipe(), 1.3506438810476755, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m > 1.
+    /// - The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipe,
@@ -141,10 +141,9 @@ implement_elliptic!(
     /// assert::close(m.ellippi(n), 2.7012877620953506, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m > 1.
-    /// - Returns the Cauchy principal value if n > 1.
+    /// - The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippi n,
@@ -164,9 +163,9 @@ implement_elliptic!(
     /// assert::close(m.ellipd(), 1.0068615925073927, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m > 1.
+    /// - The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipd,
@@ -190,9 +189,9 @@ implement_elliptic!(
     /// assert::close(m.ellipf(phi), 0.826017876249245, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m sin²φ > 1.
+    /// - The function panics if m sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipf phi,
@@ -214,9 +213,9 @@ implement_elliptic!(
     /// assert::close(m.ellipeinc(phi), 0.7481865041776612, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m sin²φ > 1.
+    /// - The function panics if m sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipeinc phi,
@@ -240,13 +239,12 @@ implement_elliptic!(
     /// assert::close(m.ellippiinc(phi, n), 0.9190227391656969, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error when:
+    /// - The function panics when:
     ///   - m sin²φ > 1,
     ///   - n sin²φ = 1,
     ///   - or m ≥ 1 and φ is not a multiple of π/2.
-    /// - Returns the Cauchy principal value if n sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc phi n,
@@ -270,13 +268,12 @@ implement_elliptic!(
     /// assert::close(m.ellippiinc_bulirsch(phi, n), 0.9190227391656969, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error when:
+    /// - The function panics when:
     ///   - m sin²φ > 1,
     ///   - n sin²φ = 1,
     ///   - or m ≥ 1 and φ is not a multiple of π/2.
-    /// - Returns the Cauchy principal value if n sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc_bulirsch phi n,
@@ -298,9 +295,9 @@ implement_elliptic!(
     /// assert::close(m.ellipdinc(phi), 0.15566274414316758, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m sin²φ > 1.
+    /// - The function panics if m sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipdinc phi,
@@ -328,11 +325,9 @@ implement_elliptic!(
     /// assert::close(m.cel(p, a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m = 1 or p = 0.
-    /// - Returns the Cauchy principal value for p < 0.
-    /// - Returns error if more than one arguments are infinite.
+    /// - The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
     /// ## Notes
     ///
@@ -357,9 +352,9 @@ implement_elliptic!(
     /// assert::close(m.cel1(), 1.8540746773013717, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m = 1.
+    /// - The function panics if m = 1.
     ///
     /// ## Notes
     ///
@@ -387,10 +382,9 @@ implement_elliptic!(
     /// assert::close(m.cel2(a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m = 1.
-    /// - Returns error if more than one arguments are infinite.
+    /// - The function panics if m = 1 or more than one arguments are infinite.
     ///
     /// ## Notes
     ///
@@ -417,9 +411,9 @@ implement_elliptic!(
     /// assert::close(m.el1(x), 0.826017876249245, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m = 1.
+    /// - The function panics if m = 1.
     ///
     /// ## Notes
     ///
@@ -449,9 +443,9 @@ implement_elliptic!(
     /// assert::close(m.el2(x, a, b), 0.826017876249245, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m = 1.
+    /// - The function panics if m = 1.
     ///
     /// ## Notes
     ///
@@ -480,13 +474,12 @@ implement_elliptic!(
     /// assert::close(m.el3(x, p), 0.826017876249245, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if:
+    /// - The function panics when:
     ///   - m = 1,
     ///   - 1 + px² = 0,
     ///   - or m < 0 for p < 0.
-    /// - Returns the Cauchy principal value when 1 + px² < 0
     ///
     /// ## Notes
     ///
@@ -515,9 +508,9 @@ implement_elliptic!(
     /// assert::close(x.elliprf(y, z), 1.370171633266872, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if any of x, y, or z is negative, or more than one of them are zero.
+    /// - The function panics if any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprf y z,
@@ -540,9 +533,9 @@ implement_elliptic!(
     /// assert::close(x.elliprg(y, z), 0.7526721491833781, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if any of x, y, or z is negative or infinite.
+    /// - The function panics if any of x, y, or z is negative or infinite.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprg y z,
@@ -567,12 +560,9 @@ implement_elliptic!(
     /// assert::close(x.elliprj(y, z, p), 5.680557292035963, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if:
-    ///   - any of x, y, or z is negative, or more than one of them are zero,
-    ///   - or p = 0.
-    /// - Returns the Cauchy principal value if p < 0.
+    /// - The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprj y z p,
@@ -594,10 +584,9 @@ implement_elliptic!(
     /// assert::close(x.elliprc(y), 1.2464504802804608, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if x < 0 or y = 0.
-    /// - Returns the Cauchy principal value if y < 0.
+    /// - The function panics if x < 0, y = 0, or y < 0.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprc y,
@@ -620,9 +609,9 @@ implement_elliptic!(
     /// assert::close(x.elliprd(y, z), 4.022594757168912, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
+    /// - The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprd y z,
@@ -647,10 +636,9 @@ implement_elliptic!(
     /// assert::close(m.jacobi_zeta(phi), 0.146454543836188, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m > 1.
-    /// - Returns error if phi or m is infinite.
+    /// - The function panics if m > 1, phi is infinite, or m is infinite.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     jacobi_zeta phi,
@@ -673,10 +661,9 @@ implement_elliptic!(
     /// assert::close(m.heuman_lambda(phi), 0.6183811341833665, 1e-15)
     /// ```
     ///
-    /// ## Domain
+    /// ## Panics
     ///
-    /// - Returns error if m < 0 or m ≥ 1.
-    /// - Returns error if phi is infinite.
+    /// - The function panics if m < 0, m ≥ 1, or phi is infinite.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     heuman_lambda phi,
