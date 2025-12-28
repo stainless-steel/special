@@ -13,8 +13,8 @@ authors = [
     "Johanna Sörngård <jsorngard@gmail.com>",
     "Robert Bamler <robert.bamler@uni-tuebingen.de>",
     "Rúnar Berg Baugsson Sigríðarson <runarberg@zoho.com>",
-    "zolkko <zolkko@gmail.com>",
     "Sira Pornsiriprasert <code@psira.me>",
+    "zolkko <zolkko@gmail.com>",
 ]
 description = "The package provides special functions."
 documentation = "https://docs.rs/special"
@@ -22,18 +22,18 @@ homepage = "https://github.com/stainless-steel/special"
 repository = "https://github.com/stainless-steel/special"
 readme = "README.md"
 categories = ["algorithms", "no-std::no-alloc", "science"]
-keywords = ["beta", "error", "lambert-w", "gamma", "elliptic"]
+keywords = ["beta", "elliptic", "error", "lambert-w", "gamma"]
 
 [features]
 default = ["no_std"]
 
 # If one of the two features is disabled, the other one must be enabled. If both
 # features are enabled, `std` takes precedence over `no_std`.
-no_std = ["lambert_w/libm"]
+no_std = ["lambert_w/libm", "ellip/no_std"]
 std = ["lambert_w/std"]
 
 [dependencies]
-ellip = { version = "1.0.1", features = ["no_std"] }
+ellip = { version = "1.0.1" }
 lambert_w = { version = "1", default-features = false }
 libm = "0.2"
 
