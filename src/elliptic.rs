@@ -1,18 +1,18 @@
-macro_rules! declare_method {
-    ($(#[$attr:meta])* $fn_name:ident $($params:ident)*) => {
-        $(#[$attr])*
-        fn $fn_name(self, $($params: Self,)*) -> Self;
-    };
-}
-
 macro_rules! m_to_kc {
-    ($fn_name:ident, $m:expr) => {{
+    ($name:ident, $m:expr) => {{
         debug_assert!(
             $m > 0.0,
-            concat!(stringify!($fn_name), ": m (self) cannot be less than 1.")
+            concat!(stringify!($name), ": m (self) cannot be less than 1.")
         );
         (1.0 - $m).sqrt()
     }};
+}
+
+macro_rules! declare_method {
+    ($(#[$attr:meta])* $name:ident $($argument:ident)*) => {
+        $(#[$attr])*
+        fn $name(self, $($argument: Self,)*) -> Self;
+    };
 }
 
 // By default, define_method expect self as the last argument.
@@ -20,66 +20,58 @@ macro_rules! m_to_kc {
 // With @kc_x, define_method expect x as the first and self as the second argument.
 // With @first, define_method expect self as the first argument.
 macro_rules! define_method {
-    (@kc $fn_name:ident $($params:ident)*) => {
-        fn $fn_name(self, $($params: Self,)*) -> Self {
-            let kc = m_to_kc!($fn_name, self);
-            ellip::$fn_name(kc, $($params,)*).unwrap()
+    (@kc $name:ident $($argument:ident)*) => {
+        fn $name(self, $($argument: Self,)*) -> Self {
+            let kc = m_to_kc!($name, self);
+            ellip::$name(kc, $($argument,)*).unwrap()
         }
     };
-    (@kc_x $fn_name:ident $x:ident) => {
-        fn $fn_name(self, $x: Self) -> Self {
-            let kc = m_to_kc!($fn_name, self);
-            ellip::$fn_name($x, kc).unwrap()
+    (@kc_x $name:ident $x:ident) => {
+        fn $name(self, $x: Self) -> Self {
+            let kc = m_to_kc!($name, self);
+            ellip::$name($x, kc).unwrap()
         }
     };
-    (@kc_x $fn_name:ident $x:ident $($params:ident)+) => {
-        fn $fn_name(self, $x: Self, $($params: Self,)*) -> Self {
-            let kc = m_to_kc!($fn_name, self);
-            ellip::$fn_name($x, kc, $($params,)*).unwrap()
+    (@kc_x $name:ident $x:ident $($argument:ident)+) => {
+        fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
+            let kc = m_to_kc!($name, self);
+            ellip::$name($x, kc, $($argument,)*).unwrap()
         }
     };
-    (@first $fn_name:ident $($params:ident)*) => {
-        fn $fn_name(self, $($params: Self,)*) -> Self {
-            ellip::$fn_name(self, $($params,)*).unwrap()
+    (@first $name:ident $($argument:ident)*) => {
+        fn $name(self, $($argument: Self,)*) -> Self {
+            ellip::$name(self, $($argument,)*).unwrap()
         }
     };
-    ($fn_name:ident $($params:ident)*) => {
-        fn $fn_name(self, $($params: Self,)*) -> Self {
-            ellip::$fn_name($($params,)* self).unwrap()
+    ($name:ident $($argument:ident)*) => {
+        fn $name(self, $($argument: Self,)*) -> Self {
+            ellip::$name($($argument,)* self).unwrap()
         }
     };
 }
 
-macro_rules! implement_elliptic {
+macro_rules! implement {
     ($(
         $(comment:meta)*
         $(#[$attr:meta])*
-        $(@$flag:ident)? $fn_name:ident $([$($order:tt)*])? $($params:ident)*,
+        $(@$flag:ident)? $name:ident $([$($order:tt)*])? $($argument:ident)*,
     )*) => {
         /// Elliptic integrals.
         pub trait Elliptic: Sized {
-            $(
-                declare_method!($(#[$attr])* $fn_name $($params)*);
-            )*
+            $(declare_method!($(#[$attr])* $name $($argument)*);)*
         }
 
         impl Elliptic for f32 {
-            $(
-                define_method!($(@$flag)? $fn_name $($params)* );
-            )*
+            $(define_method!($(@$flag)? $name $($argument)*);)*
         }
 
         impl Elliptic for f64 {
-            $(
-                define_method!($(@$flag)? $fn_name $($params)* );
-            )*
+            $(define_method!($(@$flag)? $name $($argument)*);)*
         }
     };
 }
 
-implement_elliptic!(
-    // <--- Complete Legendre's Integrals --->
-
+implement!(
     /// Compute complete elliptic integral of the first kind (K).
     ///
     /// ## Parameters
