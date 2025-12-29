@@ -1,6 +1,6 @@
 [package]
 name = "special"
-version = "0.11.4"
+version = "0.12.0"
 edition = "2021"
 license = "Apache-2.0 OR MIT"
 authors = [
@@ -33,7 +33,7 @@ no_std = ["lambert_w/libm"]
 std = ["lambert_w/std"]
 
 [dependencies]
-ellip = { version = "1.0.2" }
+ellip = "1.0.2"
 lambert_w = { version = "1", default-features = false }
 libm = "0.2"
 
