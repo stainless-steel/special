@@ -110,7 +110,7 @@ implement!(
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
-    /// - n: characteristic (n)
+    /// - `n`: characteristic (n)
     ///
     /// ## Examples
     ///
@@ -296,8 +296,8 @@ implement!(
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
-    /// - `p`: a parameter
-    /// - `a`, `b`: coefficients
+    /// - `p`: parameter
+    /// - `a` and `b`: coefficients
     ///
     /// ## Examples
     ///
@@ -353,7 +353,7 @@ implement!(
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
-    /// - `a`, `b`: coefficients
+    /// - `a` and `b`: coefficients
     ///
     /// ## Examples
     ///
@@ -382,7 +382,7 @@ implement!(
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
-    /// - `x`: tangent of amplitude angle
+    /// - `x`: tangent of the amplitude angle
     ///
     /// ## Examples
     ///
@@ -410,8 +410,8 @@ implement!(
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
-    /// - `x`: tangent of amplitude angle
-    /// - `a`, `b`: coefficients
+    /// - `x`: tangent of the amplitude angle
+    /// - `a` and `b`: coefficients
     ///
     /// ## Examples
     ///
@@ -441,7 +441,7 @@ implement!(
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
-    /// - `x`: tangent of amplitude angle
+    /// - `x`: tangent of the amplitude angle
     /// - `p`: a parameter
     ///
     /// ## Examples
@@ -469,7 +469,7 @@ implement!(
     ///
     /// ## Parameters
     ///
-    /// - `self`, `y`, `z`: symmetric arguments
+    /// - `self`, `y`, and `z`: symmetric arguments
     ///
     /// ## Examples
     ///
@@ -496,7 +496,7 @@ implement!(
     ///
     /// ## Parameters
     ///
-    /// - `self`, `y`, `z`: symmetric arguments
+    /// - `self`, `y`, and `z`: symmetric arguments
     ///
     /// ## Examples
     ///
@@ -523,8 +523,8 @@ implement!(
     ///
     /// ## Parameters
     ///
-    /// - `self`, `y`, `z`: symmetric arguments
-    /// - `p`: a parameter
+    /// - `self`, `y`, and `z`: symmetric arguments
+    /// - `p`: parameter
     ///
     /// ## Examples
     ///
@@ -552,7 +552,7 @@ implement!(
     ///
     /// ## Parameters
     ///
-    /// - `self`, `y`: symmetric arguments
+    /// - `self` and `y`: symmetric arguments
     ///
     /// ## Examples
     ///
@@ -578,7 +578,7 @@ implement!(
     ///
     /// ## Parameters
     ///
-    /// - `self`, `y`, `z`: symmetric arguments
+    /// - `self`, `y`, and `z`: symmetric arguments
     ///
     /// ## Examples
     ///
