@@ -309,7 +309,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.bulirsch(p, a, b), 1.8540746773013717, 1e-15)
+    /// assert::close(m.elliptic_bulirsch(p, a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -317,7 +317,7 @@ implement!(
     /// The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc bulirsch -> cel(p, a, b),
+    @first_kc elliptic_bulirsch -> cel(p, a, b),
 
     /// Compute the complete elliptic integral in Bulirsch's form of the first kind.
     ///
@@ -335,7 +335,7 @@ implement!(
     ///
     /// let m = 0.5;
     ///
-    /// assert::close(m.bulirsch_1(), 1.8540746773013717, 1e-15)
+    /// assert::close(m.elliptic_bulirsch_1(), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -343,7 +343,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc bulirsch_1 -> cel1(),
+    @first_kc elliptic_bulirsch_1 -> cel1(),
 
     /// Compute the complete elliptic integral in Bulirsch's form of the second kind.
     ///
@@ -364,7 +364,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.bulirsch_2(a, b), 1.8540746773013717, 1e-15)
+    /// assert::close(m.elliptic_bulirsch_2(a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -372,7 +372,7 @@ implement!(
     /// The function panics if m = 1 or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc bulirsch_2 -> cel2(a, b),
+    @first_kc elliptic_bulirsch_2 -> cel2(a, b),
 
     /// Compute the incomplete elliptic integral Bulirsch's form of the first kind.
     ///
@@ -392,7 +392,7 @@ implement!(
     /// let m = 0.5;
     /// let x = std::f64::consts::FRAC_PI_4.tan();
     ///
-    /// assert::close(m.inc_bulirsch_1(x), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_elliptic_bulirsch_1(x), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -400,7 +400,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc inc_bulirsch_1 -> el1(x),
+    @second_kc inc_elliptic_bulirsch_1 -> el1(x),
 
     /// Compute the incomplete elliptic integral in Bulirsch's form of the second kind.
     ///
@@ -423,7 +423,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.inc_bulirsch_2(x, a, b), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_elliptic_bulirsch_2(x, a, b), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -431,7 +431,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc inc_bulirsch_2 -> el2(x, a, b),
+    @second_kc inc_elliptic_bulirsch_2 -> el2(x, a, b),
 
     /// Compute the incomplete elliptic integral Bulirsch's form of the third kind.
     ///
@@ -453,7 +453,7 @@ implement!(
     /// let x = std::f64::consts::FRAC_PI_4.tan();
     /// let p = 1.0;
     ///
-    /// assert::close(m.inc_bulirsch_3(x, p), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_elliptic_bulirsch_3(x, p), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -461,7 +461,7 @@ implement!(
     /// The function panics if m = 1, 1 + px² = 0, or m < 0 for p < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc inc_bulirsch_3 -> el3(x, p),
+    @second_kc inc_elliptic_bulirsch_3 -> el3(x, p),
 
     /// Compute the symmetric elliptic integral in Carlson's form of the first kind (RF).
     ///
@@ -480,7 +480,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.carlson_rf(y, z), 1.370171633266872, 1e-15)
+    /// assert::close(x.elliptic_carlson_rf(y, z), 1.370171633266872, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -488,7 +488,7 @@ implement!(
     /// The function panics if any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    carlson_rf -> elliprf(y, z),
+    elliptic_carlson_rf -> elliprf(y, z),
 
     /// Compute the symmetric elliptic integral in Carlson's form of the second kind (RG).
     ///
@@ -507,7 +507,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.carlson_rg(y, z), 0.7526721491833781, 1e-15)
+    /// assert::close(x.elliptic_carlson_rg(y, z), 0.7526721491833781, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -515,7 +515,7 @@ implement!(
     /// The function panics if any of x, y, or z is negative or infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    carlson_rg -> elliprg(y, z),
+    elliptic_carlson_rg -> elliprg(y, z),
 
     /// Compute the symmetric elliptic integral in Carlson's form of the third kind (RJ).
     ///
@@ -536,7 +536,7 @@ implement!(
     /// let z = 0.25;
     /// let p = 0.125;
     ///
-    /// assert::close(x.carlson_rj(y, z, p), 5.680557292035963, 1e-15)
+    /// assert::close(x.elliptic_carlson_rj(y, z, p), 5.680557292035963, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -544,7 +544,7 @@ implement!(
     /// The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m carlson_rj -> elliprj(y, z, p),
+    @first_m elliptic_carlson_rj -> elliprj(y, z, p),
 
     /// Compute the degenerate symmetric elliptic integral in Carlson's form (RC).
     ///
@@ -562,7 +562,7 @@ implement!(
     /// let x = 1.0;
     /// let y = 0.5;
     ///
-    /// assert::close(x.carlson_rc(y), 1.2464504802804608, 1e-15)
+    /// assert::close(x.elliptic_carlson_rc(y), 1.2464504802804608, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -570,7 +570,7 @@ implement!(
     /// The function panics if x < 0, y = 0, or y < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m carlson_rc -> elliprc(y),
+    @first_m elliptic_carlson_rc -> elliprc(y),
 
     /// Compute the symmetric elliptic integral in Carlson's form of the second kind (RD).
     ///
@@ -589,7 +589,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.carlson_rd(y, z), 4.022594757168912, 1e-15)
+    /// assert::close(x.elliptic_carlson_rd(y, z), 4.022594757168912, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -597,7 +597,7 @@ implement!(
     /// The function panics if x < 0, y < 0, z ≤ 0, or when both x and y are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m carlson_rd -> elliprd(y, z),
+    @first_m elliptic_carlson_rd -> elliprd(y, z),
 
     /// Compute Jacobi's Zeta function.
     ///
