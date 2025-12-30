@@ -1,9 +1,6 @@
 macro_rules! m_to_kc {
-    ($name:ident, $m:expr) => {{
-        debug_assert!(
-            $m > 0.0,
-            concat!(stringify!($name), ": m (self) cannot be less than 1.")
-        );
+    ($m:expr) => {{
+        debug_assert!($m > 0.0, concat!("m (self) cannot be less than 1"));
         (1.0 - $m).sqrt()
     }};
 }
@@ -22,20 +19,17 @@ macro_rules! declare_method {
 macro_rules! define_method {
     (@kc $name:ident $($argument:ident)*) => {
         fn $name(self, $($argument: Self,)*) -> Self {
-            let kc = m_to_kc!($name, self);
-            ellip::$name(kc, $($argument,)*).unwrap()
+            ellip::$name(m_to_kc!(self), $($argument,)*).unwrap()
         }
     };
     (@kc_x $name:ident $x:ident) => {
         fn $name(self, $x: Self) -> Self {
-            let kc = m_to_kc!($name, self);
-            ellip::$name($x, kc).unwrap()
+            ellip::$name($x, m_to_kc!(self)).unwrap()
         }
     };
     (@kc_x $name:ident $x:ident $($argument:ident)+) => {
         fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
-            let kc = m_to_kc!($name, self);
-            ellip::$name($x, kc, $($argument,)*).unwrap()
+            ellip::$name($x, m_to_kc!(self), $($argument,)*).unwrap()
         }
     };
     (@first $name:ident $($argument:ident)*) => {
