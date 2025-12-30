@@ -15,14 +15,14 @@ macro_rules! define_method {
     (@first_kc $name:ident -> $backend:ident($($argument:ident),*)) => {
         #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
-            debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
+            debug_assert!(self > 0.0, "m (self) cannot be less than 1");
             ellip::$backend((1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     (@second_kc $name:ident -> $backend:ident($x:ident $(, $argument:ident)*)) => {
         #[inline]
         fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
-            debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
+            debug_assert!(self > 0.0, "m (self) cannot be less than 1");
             ellip::$backend($x, (1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
