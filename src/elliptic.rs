@@ -310,7 +310,8 @@ implement!(
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
-    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
     ///
     /// ## Parameters
     ///
@@ -335,16 +336,13 @@ implement!(
     ///
     /// The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
-    /// ## Notes
-    ///
-    /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
-    ///
     /// [1]: https://crates.io/crates/ellip
     @kc cel p a b,
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
-    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
     ///
     /// ## Parameters
     ///
@@ -364,16 +362,13 @@ implement!(
     ///
     /// The function panics if m = 1.
     ///
-    /// ## Notes
-    ///
-    /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
-    ///
     /// [1]: https://crates.io/crates/ellip
     @kc cel1,
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
-    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
     ///
     /// ## Parameters
     ///
@@ -396,16 +391,13 @@ implement!(
     ///
     /// The function panics if m = 1 or more than one arguments are infinite.
     ///
-    /// ## Notes
-    ///
-    /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
-    ///
     /// [1]: https://crates.io/crates/ellip
     @kc cel2 a b,
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
-    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
     ///
     /// ## Parameters
     ///
@@ -427,16 +419,13 @@ implement!(
     ///
     /// The function panics if m = 1.
     ///
-    /// ## Notes
-    ///
-    /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
-    ///
     /// [1]: https://crates.io/crates/ellip
     @kc_x el1 x,
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
-    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
     ///
     /// ## Parameters
     ///
@@ -461,16 +450,13 @@ implement!(
     ///
     /// The function panics if m = 1.
     ///
-    /// ## Notes
-    ///
-    /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
-    ///
     /// [1]: https://crates.io/crates/ellip
     @kc_x el2 x a b,
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
-    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
     ///
     /// ## Parameters
     ///
@@ -493,10 +479,6 @@ implement!(
     /// ## Panics
     ///
     /// The function panics if m = 1, 1 + px² = 0, or m < 0 for p < 0.
-    ///
-    /// ## Notes
-    ///
-    /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
     /// [1]: https://crates.io/crates/ellip
     @kc_x el3 x p,
