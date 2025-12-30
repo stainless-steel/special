@@ -13,6 +13,8 @@ where
     ///
     /// when w >= -1.
     ///
+    /// The implementation is based on [lambert_w][1] by Johanna Sörngård.
+    ///
     /// ## Example
     ///
     /// ```
@@ -21,8 +23,6 @@ where
     /// let Ω: f64 = 0.5671432904097838;
     /// assert!((1.0.lambert_w0() - Ω).abs() < 1e-15);
     /// ```
-    ///
-    /// This code is based on a [Rust implementation][1] by Johanna Sörngård.
     ///
     /// ## References
     ///
@@ -42,6 +42,8 @@ where
     ///
     /// when w < -1.
     ///
+    /// The implementation is based on [lambert_w][1] by Johanna Sörngård.
+    ///
     /// ## Example
     ///
     /// ```
@@ -49,8 +51,6 @@ where
     ///
     /// assert!(((-f64::ln(2.0) / 2.0).lambert_wm1() + f64::ln(4.0)).abs() < 1e-15);
     /// ```
-    ///
-    /// This code is based on a [Rust implementation][1] by Johanna Sörngård.
     ///
     /// ## References
     ///

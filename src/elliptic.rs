@@ -74,6 +74,8 @@ macro_rules! implement {
 implement!(
     /// Compute complete elliptic integral of the first kind (K).
     ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    ///
     /// ## Parameters
     ///
     /// - `self`: elliptic parameter (m)
@@ -91,10 +93,12 @@ implement!(
     ///
     /// The function panics if m > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellipk,
 
     /// Compute complete elliptic integral of the second kind (E).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -113,10 +117,12 @@ implement!(
     ///
     /// The function panics if m > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellipe,
 
     /// Compute complete elliptic integral of the third kind (Π).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -137,10 +143,12 @@ implement!(
     ///
     /// The function panics if m > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellippi n,
 
     /// Compute complete elliptic integral of Legendre's type (D).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -159,12 +167,14 @@ implement!(
     ///
     /// The function panics if m > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellipd,
 
     // <--- Incomplete Legendre's Integrals --->
 
     /// Compute incomplete elliptic integral of the first kind (F).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -185,10 +195,12 @@ implement!(
     ///
     /// The function panics if m sin²φ > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellipf phi,
 
     /// Compute incomplete elliptic integral of the second kind (E).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -209,10 +221,12 @@ implement!(
     ///
     /// The function panics if m sin²φ > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellipeinc phi,
 
     /// Compute incomplete elliptic integral of the third kind (Π).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -235,10 +249,12 @@ implement!(
     ///
     /// The function panics if m sin²φ > 1, n sin²φ = 1, or m ≥ 1 and φ is not a multiple of π/2.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellippiinc phi n,
 
     /// Compute incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -261,10 +277,12 @@ implement!(
     ///
     /// The function panics if m sin²φ > 1, n sin²φ = 1, or m ≥ 1 and φ is not a multiple of π/2.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellippiinc_bulirsch phi n,
 
     /// Compute incomplete elliptic integral of Legendre's type (D).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -285,12 +303,14 @@ implement!(
     ///
     /// The function panics if m sin²φ > 1.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     ellipdinc phi,
 
     // <--- Bulirsch's Integrals --->
 
     /// Compute Bulirsch's complete elliptic integral.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -319,10 +339,12 @@ implement!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @kc cel p a b,
 
     /// Compute Bulirsch's complete elliptic integral.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -346,10 +368,12 @@ implement!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @kc cel1,
 
     /// Compute Bulirsch's complete elliptic integral.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -376,10 +400,12 @@ implement!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @kc cel2 a b,
 
     /// Compute Bulirsch's incomplete elliptic integral.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -405,10 +431,12 @@ implement!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @kc_x el1 x,
 
     /// Compute Bulirsch's incomplete elliptic integral.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -437,10 +465,12 @@ implement!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @kc_x el2 x a b,
 
     /// Compute Bulirsch's incomplete elliptic integral.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -468,12 +498,14 @@ implement!(
     ///
     /// The original literature by Bulirsch used the complementary modulus `kc`, where kc = √(1-m).
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @kc_x el3 x p,
 
     // <--- Carlson's Symmetric Integrals --->
 
     /// Compute Carlson's symmetric elliptic integral of the first kind (RF).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -495,10 +527,12 @@ implement!(
     ///
     /// The function panics if any of x, y, or z is negative, or more than one of them are zero.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     elliprf y z,
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RG).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -520,10 +554,12 @@ implement!(
     ///
     /// The function panics if any of x, y, or z is negative or infinite.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     elliprg y z,
 
     /// Compute Carlson's symmetric elliptic integral of the third kind (RJ).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -547,10 +583,12 @@ implement!(
     ///
     /// The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @first elliprj y z p,
 
     /// Compute Carlson's degenerate symmetric elliptic integral (RC).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -571,10 +609,12 @@ implement!(
     ///
     /// The function panics if x < 0, y = 0, or y < 0.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @first elliprc y,
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RD).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -596,12 +636,14 @@ implement!(
     ///
     /// The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     @first elliprd y z,
 
     // <--- Miscellaneous Functions --->
 
     /// Compute Jacobi's Zeta function.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -623,10 +665,12 @@ implement!(
     ///
     /// The function panics if m > 1, phi is infinite, or m is infinite.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     jacobi_zeta phi,
 
     /// Compute Heuman's Lambda function.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
     /// ## Parameters
     ///
@@ -648,6 +692,6 @@ implement!(
     ///
     /// The function panics if m < 0, m ≥ 1, or phi is infinite.
     ///
-    /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
+    /// [1]: https://crates.io/crates/ellip
     heuman_lambda phi,
 );

@@ -10,7 +10,7 @@ pub trait Error {
 
     /// Compute the inverse of the error function.
     ///
-    /// The code is based on a [C implementation][1] by Alijah Ahmed.
+    /// The implementation is based on a [C implementation][1] by Alijah Ahmed.
     ///
     /// [1]: https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html
     fn inv_error(self) -> Self;

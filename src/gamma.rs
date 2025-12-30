@@ -20,8 +20,8 @@ where
     ///            dp
     /// ```
     ///
-    /// where Γ is the gamma function. The computation is based on an
-    /// approximation as described in the reference below.
+    /// where Γ is the gamma function. The computation is based on an approximation as described in
+    /// the reference below.
     ///
     /// ## Examples
     ///
@@ -40,7 +40,7 @@ where
 
     /// Compute the trigamma function.
     ///
-    /// The code is based on a [Julia implementation][1].
+    /// The implementation is based on a [Julia implementation][1].
     ///
     /// [1]: https://github.com/JuliaMath/SpecialFunctions.jl
     fn trigamma(&self) -> Self;
@@ -55,12 +55,10 @@ where
     ///            Γ(p)     Γ(p) 0
     /// ```
     ///
-    /// where γ is the incomplete lower gamma function, and Γ is the complete
-    /// gamma function.
+    /// where γ is the incomplete lower gamma function, and Γ is the complete gamma function.
     ///
-    /// The code is based on a [C implementation][1] by John Burkardt. The
-    /// original algorithm was published in Applied Statistics and is known as
-    /// [Algorithm AS 239][2].
+    /// The implementation is based on a [C implementation][1] by John Burkardt. The original
+    /// algorithm was published in Applied Statistics and is known as [Algorithm AS 239][2].
     ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html
     /// [2]: http://www.jstor.org/stable/2347328
@@ -156,8 +154,8 @@ macro_rules! implement { ($kind:ty) => { impl Gamma for $kind {
             return 0.0;
         }
 
-        // For `p ≥ 1000`, the original algorithm uses an approximation shown
-        // below. However, it introduces a substantial accuracy loss.
+        // For `p ≥ 1000`, the original algorithm uses an approximation shown below. However, it
+        // introduces a substantial accuracy loss.
         //
         // ```
         // use std::f64::consts::FRAC_1_SQRT_2;

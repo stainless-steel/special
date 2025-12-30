@@ -11,9 +11,9 @@ pub trait Beta {
     ///
     /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
     ///
-    /// The code is based on a [C implementation][1] by John Burkardt. The
-    /// original algorithm was published in Applied Statistics and is known as
-    /// [Algorithm AS 63][2] and [Algorithm AS 109][3].
+    /// The implementation is based on a [C implementation][1] by John Burkardt. The original
+    /// algorithm was published in Applied Statistics and is known as [Algorithm AS 63][2] and
+    /// [Algorithm AS 109][3].
     ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
     /// [2]: http://www.jstor.org/stable/2346797
@@ -24,9 +24,9 @@ pub trait Beta {
     ///
     /// `ln_beta` should be precomputed as `p.ln_beta(q)`.
     ///
-    /// The code is based on a [C implementation][1] by John Burkardt. The
-    /// original algorithm was published in Applied Statistics and is known as
-    /// [Algorithm AS 64][2] and [Algorithm AS 109][3].
+    /// The implementation is based on a [C implementation][1] by John Burkardt. The original
+    /// algorithm was published in Applied Statistics and is known as [Algorithm AS 64][2] and
+    /// [Algorithm AS 109][3].
     ///
     /// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa109/asa109.html
     /// [2]: http://www.jstor.org/stable/2346798
@@ -43,17 +43,15 @@ macro_rules! implement { ($kind:ident) => { impl Beta for $kind {
         // Algorithm AS 63
         // http://www.jstor.org/stable/2346797
         //
-        // The function uses the method discussed by Soper (1921). If p is not
-        // less than (p + q)x and the integral part of q + (1 - x)(p + q) is a
-        // positive integer, say s, reductions are made up to s times “by parts”
-        // using the recurrence relation
+        // The function uses the method discussed by Soper (1921). If p is not less than (p + q)x
+        // and the integral part of q + (1 - x)(p + q) is a positive integer, say s, reductions are
+        // made up to s times “by parts” using the recurrence relation
         //
         //                 Γ(p + q)
         // I(x, p, q) = ------------- x^p (1 - x)^(q - 1) + I(x, p + 1, q - 1)
         //              Γ(p + 1) Γ(q)
         //
-        // and then reductions are continued by “raising p” with the recurrence
-        // relation
+        // and then reductions are continued by “raising p” with the recurrence relation
         //
         //                             Γ(p + q)
         // I(x, p + s, q - s) = --------------------- x^(p + s) (1 - x)^(q - s)
@@ -61,17 +59,15 @@ macro_rules! implement { ($kind:ident) => { impl Beta for $kind {
         //
         //                    + I(x, p + s + 1, q - s)
         //
-        // If s is not a positive integer, reductions are made only by “raising
-        // p.” The process of reduction is terminated when the relative
-        // contribution to the integral is not greater than the value of ACU. If
-        // p is less than (p + q)x, I(1 - x, q, p) is first calculated by the
-        // above procedure and then I(x, p, q) is obtained from the relation
+        // If s is not a positive integer, reductions are made only by “raising p.” The process of
+        // reduction is terminated when the relative contribution to the integral is not greater
+        // than the value of ACU. If p is less than (p + q)x, I(1 - x, q, p) is first calculated by
+        // the above procedure and then I(x, p, q) is obtained from the relation
         //
         // I(x, p, q) = 1 - I(1 - x, p, q).
         //
-        // Soper (1921) demonstrated that the expansion of I(x, p, q) by “parts”
-        // and “raising p” method as described above converges more rapidly than
-        // any other series expansions.
+        // Soper (1921) demonstrated that the expansion of I(x, p, q) by “parts” and “raising p”
+        // method as described above converges more rapidly than any other series expansions.
 
         const ACU: $kind = 0.1e-14;
 
@@ -163,14 +159,13 @@ macro_rules! implement { ($kind:ident) => { impl Beta for $kind {
         // ------ = -----------
         // 1 - x₀      χ²(α)
         //
-        // where χ²(α) is the upper α point of the χ² distribution with 2q
-        // degrees of freedom and is obtained from Wilson and Hilferty’s
-        // approximation (cf. Wilson and Hilferty, 1931)
+        // where χ²(α) is the upper α point of the χ² distribution with 2q degrees of freedom and
+        // is obtained from Wilson and Hilferty’s approximation (cf. Wilson and Hilferty, 1931)
         //
         // χ²(α) = 2q (1 - 1 / (9q) + y(α) sqrt(1 / (9q)))^3,
         //
-        // y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper
-        // α point of the standard normal distribution. If χ²(α) < 0, then
+        // y(α) being Hastings’ approximation (cf. Hastings, 1955) for the upper α point of the
+        // standard normal distribution. If χ²(α) < 0, then
         //
         // x₀ = 1 - ((1 - α)q B(p, q))^(1 / q).
         //
@@ -178,8 +173,7 @@ macro_rules! implement { ($kind:ident) => { impl Beta for $kind {
         //
         // x₀ = (αp B(p, q))^(1 / p).
         //
-        // The final solution is obtained by the Newton–Raphson method from the
-        // relation
+        // The final solution is obtained by the Newton–Raphson method from the relation
         //
         //                    f(x[i - 1])
         // x[i] = x[i - 1] - ------------
@@ -222,10 +216,9 @@ macro_rules! implement { ($kind:ident) => { impl Beta for $kind {
             // Remark AS R19 and Algorithm AS 109
             // http://www.jstor.org/stable/2346887
             //
-            // For p and q > 1, the approximation given by Carter (1947), which
-            // improves the Fisher–Cochran formula, is generally better. For
-            // other values of p and q en empirical investigation has shown that
-            // the approximation given in AS 64 is adequate.
+            // For p and q > 1, the approximation given by Carter (1947), which improves the
+            // Fisher–Cochran formula, is generally better. For other values of p and q en
+            // empirical investigation has shown that the approximation given in AS 64 is adequate.
             let r = (y * y - 3.0) / 6.0;
             let s = 1.0 / (2.0 * p - 1.0);
             let t = 1.0 / (2.0 * q - 1.0);
