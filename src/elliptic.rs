@@ -5,36 +5,25 @@ macro_rules! declare_method {
     };
 }
 
-// By default, define_method expect self as the last argument.
-// With @kc, define_method expect self as **m** as the first argument.
-// With @kc_x, define_method expect x as the first and self as the second argument.
-// With @first, define_method expect self as the first argument.
 macro_rules! define_method {
-    (@kc $name:ident -> $backend:ident($($argument:ident),*)) => {
+    (@first_m $name:ident -> $backend:ident($($argument:ident),*)) => {
+        #[inline]
+        fn $name(self, $($argument: Self,)*) -> Self {
+            ellip::$name(self, $($argument,)*).unwrap()
+        }
+    };
+    (@first_kc $name:ident -> $backend:ident($($argument:ident),*)) => {
         #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
             ellip::$name((1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
-    (@kc_x $name:ident -> $backend:ident($x:ident)) => {
-        #[inline]
-        fn $name(self, $x: Self) -> Self {
-            debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
-            ellip::$name($x, (1.0 - self).sqrt()).unwrap()
-        }
-    };
-    (@kc_x $name:ident -> $backend:ident($x:ident, $($argument:ident),+)) => {
+    (@second_kc $name:ident -> $backend:ident($x:ident $(, $argument:ident)*)) => {
         #[inline]
         fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
             ellip::$name($x, (1.0 - self).sqrt(), $($argument,)*).unwrap()
-        }
-    };
-    (@first $name:ident -> $backend:ident($($argument:ident),*)) => {
-        #[inline]
-        fn $name(self, $($argument: Self,)*) -> Self {
-            ellip::$name(self, $($argument,)*).unwrap()
         }
     };
     ($name:ident -> $backend:ident($($argument:ident),*)) => {
@@ -331,7 +320,7 @@ implement!(
     /// The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @kc cel -> cel(p, a, b),
+    @first_kc cel -> cel(p, a, b),
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
@@ -357,7 +346,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @kc cel1 -> cel1(),
+    @first_kc cel1 -> cel1(),
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
@@ -386,7 +375,7 @@ implement!(
     /// The function panics if m = 1 or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @kc cel2 -> cel2(a, b),
+    @first_kc cel2 -> cel2(a, b),
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
@@ -414,7 +403,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @kc_x el1 -> el1(x),
+    @second_kc el1 -> el1(x),
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
@@ -445,7 +434,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @kc_x el2 -> el2(x, a, b),
+    @second_kc el2 -> el2(x, a, b),
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
@@ -475,7 +464,7 @@ implement!(
     /// The function panics if m = 1, 1 + px² = 0, or m < 0 for p < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @kc_x el3 -> el3(x, p),
+    @second_kc el3 -> el3(x, p),
 
     // <--- Carlson's Symmetric Integrals --->
 
@@ -560,7 +549,7 @@ implement!(
     /// The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first elliprj -> elliprj(y, z, p),
+    @first_m elliprj -> elliprj(y, z, p),
 
     /// Compute Carlson's degenerate symmetric elliptic integral (RC).
     ///
@@ -586,7 +575,7 @@ implement!(
     /// The function panics if x < 0, y = 0, or y < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first elliprc -> elliprc(y),
+    @first_m elliprc -> elliprc(y),
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RD).
     ///
@@ -613,7 +602,7 @@ implement!(
     /// The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first elliprd -> elliprd(y, z),
+    @first_m elliprd -> elliprd(y, z),
 
     // <--- Miscellaneous Functions --->
 
