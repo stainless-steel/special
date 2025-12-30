@@ -1,10 +1,3 @@
-macro_rules! m_to_kc {
-    ($m:expr) => {{
-        debug_assert!($m > 0.0, concat!("m (self) cannot be less than 1"));
-        (1.0 - $m).sqrt()
-    }};
-}
-
 macro_rules! declare_method {
     ($(#[$attribute:meta])* $name:ident $($argument:ident)*) => {
         $(#[$attribute])*
@@ -19,17 +12,20 @@ macro_rules! declare_method {
 macro_rules! define_method {
     (@kc $name:ident $($argument:ident)*) => {
         fn $name(self, $($argument: Self,)*) -> Self {
-            ellip::$name(m_to_kc!(self), $($argument,)*).unwrap()
+            debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
+            ellip::$name((1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     (@kc_x $name:ident $x:ident) => {
         fn $name(self, $x: Self) -> Self {
-            ellip::$name($x, m_to_kc!(self)).unwrap()
+            debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
+            ellip::$name($x, (1.0 - self).sqrt()).unwrap()
         }
     };
     (@kc_x $name:ident $x:ident $($argument:ident)+) => {
         fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
-            ellip::$name($x, m_to_kc!(self), $($argument,)*).unwrap()
+            debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
+            ellip::$name($x, (1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     (@first $name:ident $($argument:ident)*) => {
