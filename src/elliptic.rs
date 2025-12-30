@@ -55,7 +55,7 @@ macro_rules! implement {
 }
 
 implement!(
-    /// Compute the complete elliptic integral of the first kind (K).
+    /// Compute the complete elliptic integral in Legendre's form of the first kind (K).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -79,7 +79,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     legendre_k -> ellipk(),
 
-    /// Compute the complete elliptic integral of the second kind (E).
+    /// Compute the complete elliptic integral in Legendre's form of the second kind (E).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -103,7 +103,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     legendre_e -> ellipe(),
 
-    /// Compute the complete elliptic integral of the third kind (Π).
+    /// Compute the complete elliptic integral in Legendre's form of the third kind (Π).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -129,7 +129,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     legendre_pi -> ellippi(n),
 
-    /// Compute the complete elliptic integral of Legendre's type (D).
+    /// Compute the complete elliptic integral in Legendre's form of Legendre's type (D).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -153,7 +153,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     legendre_d -> ellipd(),
 
-    /// Compute the incomplete elliptic integral of the first kind (F).
+    /// Compute the incomplete elliptic integral in Legendre's form of the first kind (F).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -179,7 +179,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     inc_legendre_f -> ellipf(phi),
 
-    /// Compute the incomplete elliptic integral of the second kind (E).
+    /// Compute the incomplete elliptic integral in Legendre's form of the second kind (E).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -205,7 +205,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     inc_legendre_e -> ellipeinc(phi),
 
-    /// Compute the incomplete elliptic integral of the third kind (Π).
+    /// Compute the incomplete elliptic integral in Legendre's form of the third kind (Π).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -233,7 +233,8 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     inc_legendre_pi -> ellippiinc(phi, n),
 
-    /// Compute the incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
+    /// Compute the incomplete elliptic integral in Legendre's form of the third kind (Π) using
+    /// Bulirsch's method.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -261,7 +262,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     inc_legendre_pi_bulirsch -> ellippiinc_bulirsch(phi, n),
 
-    /// Compute the incomplete elliptic integral of Legendre's type (D).
+    /// Compute the incomplete elliptic integral in Legendre's form of Legendre's type (D).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -318,7 +319,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @first_kc bulirsch -> cel(p, a, b),
 
-    /// Compute the complete elliptic integral of the first kind in Bulirsch's form.
+    /// Compute the complete elliptic integral in Bulirsch's form of the first kind.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -344,7 +345,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @first_kc bulirsch_1 -> cel1(),
 
-    /// Compute the complete elliptic integral of the second kind in Bulirsch's form.
+    /// Compute the complete elliptic integral in Bulirsch's form of the second kind.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -462,7 +463,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @second_kc inc_bulirsch_3 -> el3(x, p),
 
-    /// Compute Carlson's symmetric elliptic integral of the first kind (RF).
+    /// Compute the symmetric elliptic integral in Carlson's form of the first kind (RF).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -489,7 +490,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     carlson_rf -> elliprf(y, z),
 
-    /// Compute Carlson's symmetric elliptic integral of the second kind (RG).
+    /// Compute the symmetric elliptic integral in Carlson's form of the second kind (RG).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -516,7 +517,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     carlson_rg -> elliprg(y, z),
 
-    /// Compute Carlson's symmetric elliptic integral of the third kind (RJ).
+    /// Compute the symmetric elliptic integral in Carlson's form of the third kind (RJ).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -545,7 +546,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @first_m carlson_rj -> elliprj(y, z, p),
 
-    /// Compute Carlson's degenerate symmetric elliptic integral (RC).
+    /// Compute the degenerate symmetric elliptic integral in Carlson's form (RC).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -571,7 +572,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @first_m carlson_rc -> elliprc(y),
 
-    /// Compute Carlson's symmetric elliptic integral of the second kind (RD).
+    /// Compute the symmetric elliptic integral in Carlson's form of the second kind (RD).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
