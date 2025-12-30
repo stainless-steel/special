@@ -9,8 +9,8 @@ macro_rules! m_to_kc {
 }
 
 macro_rules! declare_method {
-    ($(#[$attr:meta])* $name:ident $($argument:ident)*) => {
-        $(#[$attr])*
+    ($(#[$attribute:meta])* $name:ident $($argument:ident)*) => {
+        $(#[$attribute])*
         fn $name(self, $($argument: Self,)*) -> Self;
     };
 }
@@ -52,13 +52,12 @@ macro_rules! define_method {
 
 macro_rules! implement {
     ($(
-        $(comment:meta)*
-        $(#[$attr:meta])*
+        $(#[$attribute:meta])*
         $(@$flag:ident)? $name:ident $([$($order:tt)*])? $($argument:ident)*,
     )*) => {
         /// Elliptic integrals.
         pub trait Elliptic: Sized {
-            $(declare_method!($(#[$attr])* $name $($argument)*);)*
+            $(declare_method!($(#[$attribute])* $name $($argument)*);)*
         }
 
         impl Elliptic for f32 {
