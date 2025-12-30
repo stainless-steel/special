@@ -89,7 +89,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m > 1.
+    /// The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipk,
@@ -111,7 +111,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m > 1.
+    /// The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipe,
@@ -135,7 +135,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m > 1.
+    /// The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippi n,
@@ -157,7 +157,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m > 1.
+    /// The function panics if m > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipd,
@@ -183,7 +183,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m sin²φ > 1.
+    /// The function panics if m sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipf phi,
@@ -207,7 +207,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m sin²φ > 1.
+    /// The function panics if m sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipeinc phi,
@@ -233,10 +233,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics when:
-    ///   - m sin²φ > 1,
-    ///   - n sin²φ = 1,
-    ///   - or m ≥ 1 and φ is not a multiple of π/2.
+    /// The function panics if m sin²φ > 1, n sin²φ = 1, or m ≥ 1 and φ is not a multiple of π/2.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc phi n,
@@ -262,10 +259,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics when:
-    ///   - m sin²φ > 1,
-    ///   - n sin²φ = 1,
-    ///   - or m ≥ 1 and φ is not a multiple of π/2.
+    /// The function panics if m sin²φ > 1, n sin²φ = 1, or m ≥ 1 and φ is not a multiple of π/2.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellippiinc_bulirsch phi n,
@@ -289,7 +283,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m sin²φ > 1.
+    /// The function panics if m sin²φ > 1.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     ellipdinc phi,
@@ -319,7 +313,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m = 1, p = 0, or more than one arguments are infinite.
+    /// The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
     /// ## Notes
     ///
@@ -346,7 +340,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m = 1.
+    /// The function panics if m = 1.
     ///
     /// ## Notes
     ///
@@ -376,7 +370,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m = 1 or more than one arguments are infinite.
+    /// The function panics if m = 1 or more than one arguments are infinite.
     ///
     /// ## Notes
     ///
@@ -405,7 +399,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m = 1.
+    /// The function panics if m = 1.
     ///
     /// ## Notes
     ///
@@ -437,7 +431,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m = 1.
+    /// The function panics if m = 1.
     ///
     /// ## Notes
     ///
@@ -468,10 +462,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics when:
-    ///   - m = 1,
-    ///   - 1 + px² = 0,
-    ///   - or m < 0 for p < 0.
+    /// The function panics if m = 1, 1 + px² = 0, or m < 0 for p < 0.
     ///
     /// ## Notes
     ///
@@ -502,7 +493,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if any of x, y, or z is negative, or more than one of them are zero.
+    /// The function panics if any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprf y z,
@@ -527,7 +518,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if any of x, y, or z is negative or infinite.
+    /// The function panics if any of x, y, or z is negative or infinite.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     elliprg y z,
@@ -554,7 +545,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
+    /// The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprj y z p,
@@ -578,7 +569,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if x < 0, y = 0, or y < 0.
+    /// The function panics if x < 0, y = 0, or y < 0.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprc y,
@@ -603,7 +594,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
+    /// The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     @first elliprd y z,
@@ -630,7 +621,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m > 1, phi is infinite, or m is infinite.
+    /// The function panics if m > 1, phi is infinite, or m is infinite.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     jacobi_zeta phi,
@@ -655,7 +646,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// - The function panics if m < 0, m ≥ 1, or phi is infinite.
+    /// The function panics if m < 0, m ≥ 1, or phi is infinite.
     ///
     /// The implementation is based on [Ellip](https://crates.io/crates/ellip) by Sira Pornsiriprasert.
     heuman_lambda phi,
