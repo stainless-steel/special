@@ -1,18 +1,25 @@
+features := elliptic lambert_w no_std std
+
 .PHONY: all
 all: check test
 
-.PHONY: test
-bench:
-	cargo +nightly bench --no-default-features --features no_std
-	cargo +nightly bench --no-default-features --features std
+.PHONY: benchmark
+benchmark:
+	cargo +nightly bench --all-features
 
 .PHONY: check
-check:
-	cargo clippy --no-default-features --features no_std -- -D warnings
-	cargo clippy --no-default-features --features std -- -D warnings
+check: $(addprefix check-,$(features))
+	cargo clippy --all-features -- -D warnings
 	cargo fmt --all -- --check
 
+.PHONY: $(addprefix check-,$(features))
+$(addprefix check-,$(features)): check-%:
+	cargo clippy --features $* -- -D warnings
+
 .PHONY: test
-test:
-	cargo test --no-default-features --features no_std
-	cargo test --no-default-features --features std
+test: $(addprefix test-,$(features))
+	cargo test --all-features
+
+.PHONY: $(addprefix test-,$(features))
+$(addprefix test-,$(features)): test-%:
+	cargo build --features $*
