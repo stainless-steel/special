@@ -72,7 +72,7 @@ macro_rules! implement {
 }
 
 implement!(
-    /// Compute complete elliptic integral of the first kind (K).
+    /// Compute the complete elliptic integral of the first kind (K).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -96,7 +96,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellipk,
 
-    /// Compute complete elliptic integral of the second kind (E).
+    /// Compute the complete elliptic integral of the second kind (E).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -120,7 +120,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellipe,
 
-    /// Compute complete elliptic integral of the third kind (Π).
+    /// Compute the complete elliptic integral of the third kind (Π).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -146,7 +146,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellippi n,
 
-    /// Compute complete elliptic integral of Legendre's type (D).
+    /// Compute the complete elliptic integral of Legendre's type (D).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -172,7 +172,7 @@ implement!(
 
     // <--- Incomplete Legendre's Integrals --->
 
-    /// Compute incomplete elliptic integral of the first kind (F).
+    /// Compute the incomplete elliptic integral of the first kind (F).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -198,7 +198,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellipf phi,
 
-    /// Compute incomplete elliptic integral of the second kind (E).
+    /// Compute the incomplete elliptic integral of the second kind (E).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -224,7 +224,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellipeinc phi,
 
-    /// Compute incomplete elliptic integral of the third kind (Π).
+    /// Compute the incomplete elliptic integral of the third kind (Π).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -252,7 +252,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellippiinc phi n,
 
-    /// Compute incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
+    /// Compute the incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -280,7 +280,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     ellippiinc_bulirsch phi n,
 
-    /// Compute incomplete elliptic integral of Legendre's type (D).
+    /// Compute the incomplete elliptic integral of Legendre's type (D).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
