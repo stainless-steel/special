@@ -464,8 +464,6 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @second_kc el3 -> el3(x, p),
 
-    // <--- Carlson's Symmetric Integrals --->
-
     /// Compute Carlson's symmetric elliptic integral of the first kind (RF).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
@@ -483,7 +481,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.elliprf(y, z), 1.370171633266872, 1e-15)
+    /// assert::close(x.carlson_rf(y, z), 1.370171633266872, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -491,7 +489,7 @@ implement!(
     /// The function panics if any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    elliprf -> elliprf(y, z),
+    carlson_rf -> elliprf(y, z),
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RG).
     ///
@@ -510,7 +508,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.elliprg(y, z), 0.7526721491833781, 1e-15)
+    /// assert::close(x.carlson_rg(y, z), 0.7526721491833781, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -518,7 +516,7 @@ implement!(
     /// The function panics if any of x, y, or z is negative or infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    elliprg -> elliprg(y, z),
+    carlson_rg -> elliprg(y, z),
 
     /// Compute Carlson's symmetric elliptic integral of the third kind (RJ).
     ///
@@ -539,7 +537,7 @@ implement!(
     /// let z = 0.25;
     /// let p = 0.125;
     ///
-    /// assert::close(x.elliprj(y, z, p), 5.680557292035963, 1e-15)
+    /// assert::close(x.carlson_rj(y, z, p), 5.680557292035963, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -547,7 +545,7 @@ implement!(
     /// The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m elliprj -> elliprj(y, z, p),
+    @first_m carlson_rj -> elliprj(y, z, p),
 
     /// Compute Carlson's degenerate symmetric elliptic integral (RC).
     ///
@@ -565,7 +563,7 @@ implement!(
     /// let x = 1.0;
     /// let y = 0.5;
     ///
-    /// assert::close(x.elliprc(y), 1.2464504802804608, 1e-15)
+    /// assert::close(x.carlson_rc(y), 1.2464504802804608, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -573,7 +571,7 @@ implement!(
     /// The function panics if x < 0, y = 0, or y < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m elliprc -> elliprc(y),
+    @first_m carlson_rc -> elliprc(y),
 
     /// Compute Carlson's symmetric elliptic integral of the second kind (RD).
     ///
@@ -592,7 +590,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.elliprd(y, z), 4.022594757168912, 1e-15)
+    /// assert::close(x.carlson_rd(y, z), 4.022594757168912, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -600,7 +598,7 @@ implement!(
     /// The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m elliprd -> elliprd(y, z),
+    @first_m carlson_rd -> elliprd(y, z),
 
     // <--- Miscellaneous Functions --->
 
