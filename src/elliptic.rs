@@ -11,29 +11,34 @@ macro_rules! declare_method {
 // With @first, define_method expect self as the first argument.
 macro_rules! define_method {
     (@kc $name:ident -> $backend:ident($($argument:ident),*)) => {
+        #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
             ellip::$name((1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     (@kc_x $name:ident -> $backend:ident($x:ident)) => {
+        #[inline]
         fn $name(self, $x: Self) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
             ellip::$name($x, (1.0 - self).sqrt()).unwrap()
         }
     };
     (@kc_x $name:ident -> $backend:ident($x:ident, $($argument:ident),+)) => {
+        #[inline]
         fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
             ellip::$name($x, (1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     (@first $name:ident -> $backend:ident($($argument:ident),*)) => {
+        #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
             ellip::$name(self, $($argument,)*).unwrap()
         }
     };
     ($name:ident -> $backend:ident($($argument:ident),*)) => {
+        #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
             ellip::$name($($argument,)* self).unwrap()
         }
