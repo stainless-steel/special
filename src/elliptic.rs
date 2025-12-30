@@ -63,7 +63,7 @@ implement!(
     ///
     /// - `self`: elliptic parameter (m)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -87,7 +87,7 @@ implement!(
     ///
     /// - `self`: elliptic parameter (m)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -112,7 +112,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - n: characteristic (n)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -137,7 +137,7 @@ implement!(
     ///
     /// - `self`: elliptic parameter (m)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -162,7 +162,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `phi`: amplitude angle (φ)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -188,7 +188,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `phi`: amplitude angle (φ)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -215,7 +215,7 @@ implement!(
     /// - `phi`: amplitude angle (φ)
     /// - `n`: characteristic
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -244,7 +244,7 @@ implement!(
     /// - `phi`: amplitude angle (φ)
     /// - `n`: characteristic
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -271,7 +271,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `phi`: amplitude angle (φ)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -299,7 +299,7 @@ implement!(
     /// - `p`: a parameter
     /// - `a`, `b`: coefficients
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -328,7 +328,7 @@ implement!(
     ///
     /// - `self`: elliptic parameter (m)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -355,7 +355,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `a`, `b`: coefficients
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -384,7 +384,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `x`: tangent of amplitude angle
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -413,7 +413,7 @@ implement!(
     /// - `x`: tangent of amplitude angle
     /// - `a`, `b`: coefficients
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -444,7 +444,7 @@ implement!(
     /// - `x`: tangent of amplitude angle
     /// - `p`: a parameter
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -471,7 +471,7 @@ implement!(
     ///
     /// - `self`, `y`, `z`: symmetric arguments
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -498,7 +498,7 @@ implement!(
     ///
     /// - `self`, `y`, `z`: symmetric arguments
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -526,7 +526,7 @@ implement!(
     /// - `self`, `y`, `z`: symmetric arguments
     /// - `p`: a parameter
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -554,7 +554,7 @@ implement!(
     ///
     /// - `self`, `y`: symmetric arguments
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -580,7 +580,7 @@ implement!(
     ///
     /// - `self`, `y`, `z`: symmetric arguments
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -608,7 +608,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `phi`: amplitude angle (φ)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;
@@ -635,7 +635,7 @@ implement!(
     /// - `self`: elliptic parameter (m)
     /// - `phi`: amplitude angle (φ)
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::Elliptic;

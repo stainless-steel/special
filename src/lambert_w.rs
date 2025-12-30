@@ -15,7 +15,7 @@ where
     ///
     /// The implementation is based on [lambert_w][1] by Johanna Sörngård.
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::LambertW;
@@ -44,7 +44,7 @@ where
     ///
     /// The implementation is based on [lambert_w][1] by Johanna Sörngård.
     ///
-    /// ## Example
+    /// ## Examples
     ///
     /// ```
     /// use special::LambertW;
