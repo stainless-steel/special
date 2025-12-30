@@ -594,7 +594,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// The function panics if x < 0, y < 0, z ≤ 0 or when both x and y are zero.
+    /// The function panics if x < 0, y < 0, z ≤ 0, or when both x and y are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
     @first_m carlson_rd -> elliprd(y, z),
@@ -621,7 +621,7 @@ implement!(
     ///
     /// ## Panics
     ///
-    /// The function panics if m > 1, phi is infinite, or m is infinite.
+    /// The function panics if m > 1, φ is infinite, or m is infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
     jacobi_zeta -> jacobi_zeta(phi),
