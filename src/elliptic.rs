@@ -287,7 +287,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     inc_legendre_d -> ellipdinc(phi),
 
-    /// Compute Bulirsch's complete elliptic integral.
+    /// Compute the general complete elliptic integral in Bulirsch's form.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -308,7 +308,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.bulirsch_cel(p, a, b), 1.8540746773013717, 1e-15)
+    /// assert::close(m.bulirsch(p, a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -316,9 +316,9 @@ implement!(
     /// The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc bulirsch_cel -> cel(p, a, b),
+    @first_kc bulirsch -> cel(p, a, b),
 
-    /// Compute Bulirsch's complete elliptic integral.
+    /// Compute the complete elliptic integral of the first kind in Bulirsch's form.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -334,7 +334,7 @@ implement!(
     ///
     /// let m = 0.5;
     ///
-    /// assert::close(m.bulirsch_cel1(), 1.8540746773013717, 1e-15)
+    /// assert::close(m.bulirsch_1(), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -342,9 +342,9 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc bulirsch_cel1 -> cel1(),
+    @first_kc bulirsch_1 -> cel1(),
 
-    /// Compute Bulirsch's complete elliptic integral.
+    /// Compute the complete elliptic integral of the second kind in Bulirsch's form.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -363,7 +363,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.bulirsch_cel2(a, b), 1.8540746773013717, 1e-15)
+    /// assert::close(m.bulirsch_2(a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -371,9 +371,9 @@ implement!(
     /// The function panics if m = 1 or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc bulirsch_cel2 -> cel2(a, b),
+    @first_kc bulirsch_2 -> cel2(a, b),
 
-    /// Compute Bulirsch's incomplete elliptic integral.
+    /// Compute the incomplete elliptic integral Bulirsch's form of the first kind.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -391,7 +391,7 @@ implement!(
     /// let m = 0.5;
     /// let x = std::f64::consts::FRAC_PI_4.tan();
     ///
-    /// assert::close(m.inc_bulirsch_el1(x), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_bulirsch_1(x), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -399,9 +399,9 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc inc_bulirsch_el1 -> el1(x),
+    @second_kc inc_bulirsch_1 -> el1(x),
 
-    /// Compute Bulirsch's incomplete elliptic integral.
+    /// Compute the incomplete elliptic integral in Bulirsch's form of the second kind.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -422,7 +422,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.inc_bulirsch_el2(x, a, b), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_bulirsch_2(x, a, b), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -430,9 +430,9 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc inc_bulirsch_el2 -> el2(x, a, b),
+    @second_kc inc_bulirsch_2 -> el2(x, a, b),
 
-    /// Compute Bulirsch's incomplete elliptic integral.
+    /// Compute the incomplete elliptic integral Bulirsch's form of the third kind.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
     /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
@@ -452,7 +452,7 @@ implement!(
     /// let x = std::f64::consts::FRAC_PI_4.tan();
     /// let p = 1.0;
     ///
-    /// assert::close(m.inc_bulirsch_el3(x, p), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_bulirsch_3(x, p), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -460,7 +460,7 @@ implement!(
     /// The function panics if m = 1, 1 + px² = 0, or m < 0 for p < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc inc_bulirsch_el3 -> el3(x, p),
+    @second_kc inc_bulirsch_3 -> el3(x, p),
 
     /// Compute Carlson's symmetric elliptic integral of the first kind (RF).
     ///
