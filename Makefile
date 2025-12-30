@@ -3,8 +3,8 @@ features := elliptic lambert_w no_std std
 .PHONY: all
 all: check test
 
-.PHONY: benchmark
-benchmark:
+.PHONY: bench
+bench:
 	cargo +nightly bench --all-features
 
 .PHONY: check
