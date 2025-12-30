@@ -287,8 +287,6 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     inc_legendre_d -> ellipdinc(phi),
 
-    // <--- Bulirsch's Integrals --->
-
     /// Compute Bulirsch's complete elliptic integral.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
@@ -310,7 +308,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.cel(p, a, b), 1.8540746773013717, 1e-15)
+    /// assert::close(m.bulirsch_cel(p, a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -318,7 +316,7 @@ implement!(
     /// The function panics if m = 1, p = 0, or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc cel -> cel(p, a, b),
+    @first_kc bulirsch_cel -> cel(p, a, b),
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
@@ -336,7 +334,7 @@ implement!(
     ///
     /// let m = 0.5;
     ///
-    /// assert::close(m.cel1(), 1.8540746773013717, 1e-15)
+    /// assert::close(m.bulirsch_cel1(), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -344,7 +342,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc cel1 -> cel1(),
+    @first_kc bulirsch_cel1 -> cel1(),
 
     /// Compute Bulirsch's complete elliptic integral.
     ///
@@ -365,7 +363,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.cel2(a, b), 1.8540746773013717, 1e-15)
+    /// assert::close(m.bulirsch_cel2(a, b), 1.8540746773013717, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -373,7 +371,7 @@ implement!(
     /// The function panics if m = 1 or more than one arguments are infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_kc cel2 -> cel2(a, b),
+    @first_kc bulirsch_cel2 -> cel2(a, b),
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
@@ -393,7 +391,7 @@ implement!(
     /// let m = 0.5;
     /// let x = std::f64::consts::FRAC_PI_4.tan();
     ///
-    /// assert::close(m.el1(x), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_bulirsch_el1(x), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -401,7 +399,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc el1 -> el1(x),
+    @second_kc inc_bulirsch_el1 -> el1(x),
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
@@ -424,7 +422,7 @@ implement!(
     /// let a = 1.0;
     /// let b = 1.0;
     ///
-    /// assert::close(m.el2(x, a, b), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_bulirsch_el2(x, a, b), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -432,7 +430,7 @@ implement!(
     /// The function panics if m = 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc el2 -> el2(x, a, b),
+    @second_kc inc_bulirsch_el2 -> el2(x, a, b),
 
     /// Compute Bulirsch's incomplete elliptic integral.
     ///
@@ -454,7 +452,7 @@ implement!(
     /// let x = std::f64::consts::FRAC_PI_4.tan();
     /// let p = 1.0;
     ///
-    /// assert::close(m.el3(x, p), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_bulirsch_el3(x, p), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -462,7 +460,7 @@ implement!(
     /// The function panics if m = 1, 1 + px² = 0, or m < 0 for p < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @second_kc el3 -> el3(x, p),
+    @second_kc inc_bulirsch_el3 -> el3(x, p),
 
     /// Compute Carlson's symmetric elliptic integral of the first kind (RF).
     ///
@@ -599,8 +597,6 @@ implement!(
     ///
     /// [1]: https://crates.io/crates/ellip
     @first_m carlson_rd -> elliprd(y, z),
-
-    // <--- Miscellaneous Functions --->
 
     /// Compute Jacobi's Zeta function.
     ///
