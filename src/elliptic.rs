@@ -9,27 +9,27 @@ macro_rules! define_method {
     (@first_m $name:ident -> $backend:ident($($argument:ident),*)) => {
         #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
-            ellip::$name(self, $($argument,)*).unwrap()
+            ellip::$backend(self, $($argument,)*).unwrap()
         }
     };
     (@first_kc $name:ident -> $backend:ident($($argument:ident),*)) => {
         #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
-            ellip::$name((1.0 - self).sqrt(), $($argument,)*).unwrap()
+            ellip::$backend((1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     (@second_kc $name:ident -> $backend:ident($x:ident $(, $argument:ident)*)) => {
         #[inline]
         fn $name(self, $x: Self, $($argument: Self,)*) -> Self {
             debug_assert!(self > 0.0, concat!("m (self) cannot be less than 1"));
-            ellip::$name($x, (1.0 - self).sqrt(), $($argument,)*).unwrap()
+            ellip::$backend($x, (1.0 - self).sqrt(), $($argument,)*).unwrap()
         }
     };
     ($name:ident -> $backend:ident($($argument:ident),*)) => {
         #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
-            ellip::$name($($argument,)* self).unwrap()
+            ellip::$backend($($argument,)* self).unwrap()
         }
     };
 }
@@ -69,7 +69,7 @@ implement!(
     /// use special::Elliptic;
     ///
     /// let m = 0.5;
-    /// assert::close(m.ellipk(), 1.8540746773013719, 1e-15)
+    /// assert::close(m.legendre_k(), 1.8540746773013719, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -77,7 +77,7 @@ implement!(
     /// The function panics if m > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellipk -> ellipk(),
+    legendre_k -> ellipk(),
 
     /// Compute the complete elliptic integral of the second kind (E).
     ///
@@ -93,7 +93,7 @@ implement!(
     /// use special::Elliptic;
     ///
     /// let m = 0.5;
-    /// assert::close(m.ellipe(), 1.3506438810476755, 1e-15)
+    /// assert::close(m.legendre_e(), 1.3506438810476755, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -101,7 +101,7 @@ implement!(
     /// The function panics if m > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellipe -> ellipe(),
+    legendre_e -> ellipe(),
 
     /// Compute the complete elliptic integral of the third kind (Π).
     ///
@@ -119,7 +119,7 @@ implement!(
     ///
     /// let m = 0.5;
     /// let n = 0.5;
-    /// assert::close(m.ellippi(n), 2.7012877620953506, 1e-15)
+    /// assert::close(m.legendre_pi(n), 2.7012877620953506, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -127,7 +127,7 @@ implement!(
     /// The function panics if m > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellippi -> ellippi(n),
+    legendre_pi -> ellippi(n),
 
     /// Compute the complete elliptic integral of Legendre's type (D).
     ///
@@ -143,7 +143,7 @@ implement!(
     /// use special::Elliptic;
     ///
     /// let m = 0.5;
-    /// assert::close(m.ellipd(), 1.0068615925073927, 1e-15)
+    /// assert::close(m.legendre_d(), 1.0068615925073927, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -151,9 +151,7 @@ implement!(
     /// The function panics if m > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellipd -> ellipd(),
-
-    // <--- Incomplete Legendre's Integrals --->
+    legendre_d -> ellipd(),
 
     /// Compute the incomplete elliptic integral of the first kind (F).
     ///
@@ -171,7 +169,7 @@ implement!(
     ///
     /// let m = 0.5;
     /// let phi = std::f64::consts::FRAC_PI_4;
-    /// assert::close(m.ellipf(phi), 0.826017876249245, 1e-15)
+    /// assert::close(m.inc_legendre_f(phi), 0.826017876249245, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -179,7 +177,7 @@ implement!(
     /// The function panics if m sin²φ > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellipf -> ellipf(phi),
+    inc_legendre_f -> ellipf(phi),
 
     /// Compute the incomplete elliptic integral of the second kind (E).
     ///
@@ -197,7 +195,7 @@ implement!(
     ///
     /// let m = 0.5;
     /// let phi = std::f64::consts::FRAC_PI_4;
-    /// assert::close(m.ellipeinc(phi), 0.7481865041776612, 1e-15)
+    /// assert::close(m.inc_legendre_e(phi), 0.7481865041776612, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -205,7 +203,7 @@ implement!(
     /// The function panics if m sin²φ > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellipeinc -> ellipeinc(phi),
+    inc_legendre_e -> ellipeinc(phi),
 
     /// Compute the incomplete elliptic integral of the third kind (Π).
     ///
@@ -225,7 +223,7 @@ implement!(
     /// let m = 0.5;
     /// let phi = std::f64::consts::FRAC_PI_4;
     /// let n = 0.5;
-    /// assert::close(m.ellippiinc(phi, n), 0.9190227391656969, 1e-15)
+    /// assert::close(m.inc_legendre_pi(phi, n), 0.9190227391656969, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -233,7 +231,7 @@ implement!(
     /// The function panics if m sin²φ > 1, n sin²φ = 1, or m ≥ 1 and φ is not a multiple of π/2.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellippiinc -> ellippiinc(phi, n),
+    inc_legendre_pi -> ellippiinc(phi, n),
 
     /// Compute the incomplete elliptic integral of the third kind (Π) using Bulirsch's method.
     ///
@@ -253,7 +251,7 @@ implement!(
     /// let m = 0.5;
     /// let phi = std::f64::consts::FRAC_PI_4;
     /// let n = 0.5;
-    /// assert::close(m.ellippiinc_bulirsch(phi, n), 0.9190227391656969, 1e-15)
+    /// assert::close(m.inc_legendre_pi_bulirsch(phi, n), 0.9190227391656969, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -261,7 +259,7 @@ implement!(
     /// The function panics if m sin²φ > 1, n sin²φ = 1, or m ≥ 1 and φ is not a multiple of π/2.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellippiinc_bulirsch -> ellippiinc_bulirsch(phi, n),
+    inc_legendre_pi_bulirsch -> ellippiinc_bulirsch(phi, n),
 
     /// Compute the incomplete elliptic integral of Legendre's type (D).
     ///
@@ -279,7 +277,7 @@ implement!(
     ///
     /// let m = 0.5;
     /// let phi = std::f64::consts::FRAC_PI_4;
-    /// assert::close(m.ellipdinc(phi), 0.15566274414316758, 1e-15)
+    /// assert::close(m.inc_legendre_d(phi), 0.15566274414316758, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -287,7 +285,7 @@ implement!(
     /// The function panics if m sin²φ > 1.
     ///
     /// [1]: https://crates.io/crates/ellip
-    ellipdinc -> ellipdinc(phi),
+    inc_legendre_d -> ellipdinc(phi),
 
     // <--- Bulirsch's Integrals --->
 
