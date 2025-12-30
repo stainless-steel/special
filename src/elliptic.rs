@@ -463,7 +463,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @second_kc inc_elliptic_bulirsch_3 -> el3(x, p),
 
-    /// Compute the symmetric elliptic integral in Carlson's form of the first kind (RF).
+    /// Compute the elliptic integral in Carlson's form of the first kind (RF).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -480,7 +480,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.elliptic_carlson_rf(y, z), 1.370171633266872, 1e-15)
+    /// assert::close(x.elliptic_rf(y, z), 1.370171633266872, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -488,9 +488,9 @@ implement!(
     /// The function panics if any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    elliptic_carlson_rf -> elliprf(y, z),
+    elliptic_rf -> elliprf(y, z),
 
-    /// Compute the symmetric elliptic integral in Carlson's form of the second kind (RG).
+    /// Compute the elliptic integral in Carlson's form of the second kind (RG).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -507,7 +507,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.elliptic_carlson_rg(y, z), 0.7526721491833781, 1e-15)
+    /// assert::close(x.elliptic_rg(y, z), 0.7526721491833781, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -515,9 +515,9 @@ implement!(
     /// The function panics if any of x, y, or z is negative or infinite.
     ///
     /// [1]: https://crates.io/crates/ellip
-    elliptic_carlson_rg -> elliprg(y, z),
+    elliptic_rg -> elliprg(y, z),
 
-    /// Compute the symmetric elliptic integral in Carlson's form of the third kind (RJ).
+    /// Compute the elliptic integral in Carlson's form of the third kind (RJ).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -536,7 +536,7 @@ implement!(
     /// let z = 0.25;
     /// let p = 0.125;
     ///
-    /// assert::close(x.elliptic_carlson_rj(y, z, p), 5.680557292035963, 1e-15)
+    /// assert::close(x.elliptic_rj(y, z, p), 5.680557292035963, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -544,9 +544,9 @@ implement!(
     /// The function panics if p = 0, any of x, y, or z is negative, or more than one of them are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m elliptic_carlson_rj -> elliprj(y, z, p),
+    @first_m elliptic_rj -> elliprj(y, z, p),
 
-    /// Compute the degenerate symmetric elliptic integral in Carlson's form (RC).
+    /// Compute the degenerate elliptic integral in Carlson's form (RC).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -562,7 +562,7 @@ implement!(
     /// let x = 1.0;
     /// let y = 0.5;
     ///
-    /// assert::close(x.elliptic_carlson_rc(y), 1.2464504802804608, 1e-15)
+    /// assert::close(x.elliptic_rc(y), 1.2464504802804608, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -570,9 +570,9 @@ implement!(
     /// The function panics if x < 0, y = 0, or y < 0.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m elliptic_carlson_rc -> elliprc(y),
+    @first_m elliptic_rc -> elliprc(y),
 
-    /// Compute the symmetric elliptic integral in Carlson's form of the second kind (RD).
+    /// Compute the elliptic integral in Carlson's form of the second kind (RD).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -589,7 +589,7 @@ implement!(
     /// let y = 0.5;
     /// let z = 0.25;
     ///
-    /// assert::close(x.elliptic_carlson_rd(y, z), 4.022594757168912, 1e-15)
+    /// assert::close(x.elliptic_rd(y, z), 4.022594757168912, 1e-15)
     /// ```
     ///
     /// ## Panics
@@ -597,7 +597,7 @@ implement!(
     /// The function panics if x < 0, y < 0, z ≤ 0, or when both x and y are zero.
     ///
     /// [1]: https://crates.io/crates/ellip
-    @first_m elliptic_carlson_rd -> elliprd(y, z),
+    @first_m elliptic_rd -> elliprd(y, z),
 
     /// Compute Jacobi's zeta function.
     ///
