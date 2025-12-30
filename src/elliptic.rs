@@ -599,7 +599,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     @first_m elliptic_carlson_rd -> elliprd(y, z),
 
-    /// Compute Jacobi's Zeta function.
+    /// Compute Jacobi's zeta function.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
@@ -626,7 +626,7 @@ implement!(
     /// [1]: https://crates.io/crates/ellip
     jacobi_zeta -> jacobi_zeta(phi),
 
-    /// Compute Heuman's Lambda function.
+    /// Compute Heuman's lambda function.
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
     ///
