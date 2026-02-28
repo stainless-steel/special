@@ -1,3 +1,5 @@
+use crate::primitive::Primitive;
+
 macro_rules! declare_method {
     ($(#[$attribute:meta])* $name:ident($($argument:ident),*)) => {
         $(#[$attribute])*
