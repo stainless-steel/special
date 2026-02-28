@@ -1,3 +1,4 @@
+#[cfg(not(feature = "std"))]
 use crate::primitive::Primitive;
 
 macro_rules! declare_method {
