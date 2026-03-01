@@ -29,13 +29,13 @@ default = ["elliptic", "lambert_w", "no_std"]
 
 # If one of the two features is disabled, the other one must be enabled. If both
 # features are enabled, `std` takes precedence over `no_std`.
-no_std = ["lambert_w?/libm"]
-std = ["lambert_w?/std"]
+no_std = ["lambert_w?/libm", "ellip?/libm"]
+std = ["lambert_w?/std", "ellip?/std"]
 
 elliptic = ["ellip"]
 
 [dependencies]
-ellip = { version = "1.0.2", optional = true }
+ellip = { version = "1.1.0", default-features = false, optional = true }
 lambert_w = { version = "1", default-features = false, optional = true }
 libm = "0.2"
 
