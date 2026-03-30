@@ -36,7 +36,7 @@ elliptic = ["ellip"]
 
 [dependencies]
 ellip = { version = "1.1.0", default-features = false, optional = true }
-lambert_w = { version = "1", default-features = false, optional = true }
+lambert_w = { version = "2", default-features = false, optional = true }
 libm = "0.2"
 
 [dev-dependencies]
