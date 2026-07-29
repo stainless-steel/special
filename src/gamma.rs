@@ -142,11 +142,11 @@ macro_rules! implement { ($kind:ty, $elimit:expr) => { impl Gamma for $kind {
     }
 
     fn inc_gamma(self, p: Self) -> Self {
-        // Exponent below which exp underflows; differs between f32 and f64.
-        let elimit: $kind = $elimit;
         const OFLO: $kind = 1e+37;
         const TOL: $kind = 1e-14;
         const XBIG: $kind = 1e+08;
+
+        let elimit: $kind = $elimit;
 
         let x = self;
         debug_assert!(x >= 0.0 && p > 0.0);
@@ -376,9 +376,23 @@ mod tests {
     }
 
     #[test]
-    fn inc_gamma_far_lower_tail() {
-        // Deep lower-tail P(x, p) that f64 represents but the old f32 limit flushed to
-        // zero. References: mpmath gammainc(p, 0, x, regularized=True), dps = 35.
+    fn inc_gamma_tail_32() {
+        let cases = [
+            // In the normal range
+            (2.0, 4.2, 0.11863451, 1e-6),
+            // Below the underflow limit
+            (3.0, 49.0, 0.0, 0.0),
+        ];
+        for (x, p, expected, epsilon) in cases {
+            let actual = f32::inc_gamma(x, p);
+            assert::close(actual, expected, epsilon);
+        }
+    }
+
+    #[test]
+    fn inc_gamma_tail_64() {
+        // References:
+        // mpmath.gammainc(p, 0, x, regularized=True) with mpmath.dps = 35
         let cases = [
             (0.05, 50.0, 2.780587716828684e-130),
             (0.1, 80.0, 1.265841467292894e-199),
@@ -387,25 +401,25 @@ mod tests {
             (0.5, 60.0, 6.374588457106951e-101),
             (1.0, 90.0, 2.503617787652586e-139),
         ];
-        for (x, p, want) in cases {
-            let got = f64::inc_gamma(x, p);
-            assert!(got > 0.0, "P({x}, {p}) was flushed to zero");
-            assert::close(got / want, 1.0, 1e-6);
+        for (x, p, expected) in cases {
+            let actual = f64::inc_gamma(x, p);
+            assert!(actual > 0.0);
+            assert::close(actual / expected, 1.0, 1e-6);
         }
 
-        // Just above the old threshold: already correct, must stay unchanged.
-        assert::close(f64::inc_gamma(3.0, 45.0), 1.315242471735669e-36, 1e-42);
-
-        // Normal-range control: unaffected by the underflow limit.
-        assert::close(f64::inc_gamma(2.0, 4.2), 0.11863450161354464, 1e-14);
-
-        // Below the smallest normal f64 the result is flushed to zero, as before.
-        assert_eq!(f64::inc_gamma(5.0, 245.0), 0.0);
-        assert_eq!(f64::inc_gamma(0.001, 300.0), 0.0);
-        assert_eq!(f64::inc_gamma(0.01, 400.0), 0.0);
-
-        // f32 keeps its own, shallower underflow limit and stays unchanged.
-        assert::close(f32::inc_gamma(2.0, 4.2), 0.11863451, 1e-6);
-        assert_eq!(f32::inc_gamma(3.0, 49.0), 0.0);
+        let cases = [
+            // In the normal range
+            (2.0, 4.2, 0.11863450161354464, 1e-14),
+            // Just above the underflow limit for 32 bits
+            (3.0, 45.0, 1.315242471735669e-36, 1e-42),
+            // Below the underflow limit for 64 bits
+            (5.0, 245.0, 0.0, 0.0),
+            (0.001, 300.0, 0.0, 0.0),
+            (0.01, 400.0, 0.0, 0.0),
+        ];
+        for (x, p, expected, epsilon) in cases {
+            let actual = f64::inc_gamma(x, p);
+            assert::close(actual, expected, epsilon);
+        }
     }
 }
