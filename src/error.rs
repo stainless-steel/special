@@ -1,5 +1,9 @@
 use crate::primitive::Primitive;
 
+// The value is found empirically. It must be even; otherwise, it lands on the wrong phase of a
+// 1-ulp oscillation at the deepest tail points.
+const HALLEY_ITERATIONS: usize = 8;
+
 /// Error functions.
 pub trait Error {
     /// Compute the error function.
@@ -70,9 +74,7 @@ macro_rules! implement {
                     p = 2.83297682 + p * w;
 
                     let mut res_ra = p * self;
-                    // 8 steps: converges by 7; must be even, or it lands on the wrong
-                    // phase of a 1-ulp oscillation at the deepest tail points.
-                    for _ in 0..8 {
+                    for _ in 0..HALLEY_ITERATIONS {
                         let fx: Self = if res_ra >= 0.0 {
                             (1.0 - self) - res_ra.compl_error()
                         } else {
