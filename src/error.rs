@@ -53,14 +53,11 @@ macro_rules! implement {
                     let d2f = -2.0 * res_ra * df;
 
                     res_ra - (2.0 * fx * df) / ((2.0 * df * df) - (fx * d2f))
+                } else if self == 1.0 {
+                    return <$kind>::INFINITY;
+                } else if self == -1.0 {
+                    return <$kind>::NEG_INFINITY;
                 } else {
-                    if self == 1.0 {
-                        return <$kind>::INFINITY;
-                    }
-                    if self == -1.0 {
-                        return <$kind>::NEG_INFINITY;
-                    }
-
                     w = w.sqrt() - 3.0;
                     p = -0.000200214257;
                     p = 0.000100950558 + p * w;
