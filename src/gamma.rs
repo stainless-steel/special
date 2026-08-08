@@ -377,13 +377,13 @@ mod tests {
 
     #[test]
     fn inc_gamma_tail_32() {
-        let cases = [
+        const CASES: [(f32, f32, f32, f32); 2] = [
             // In the normal range
             (2.0, 4.2, 0.11863451, 1e-6),
             // Below the underflow limit
             (3.0, 49.0, 0.0, 0.0),
         ];
-        for (x, p, expected, epsilon) in cases {
+        for (x, p, expected, epsilon) in CASES {
             let actual = f32::inc_gamma(x, p);
             assert::close(actual, expected, epsilon);
         }
@@ -392,8 +392,8 @@ mod tests {
     #[test]
     fn inc_gamma_tail_64() {
         // References:
-        // mpmath.gammainc(p, 0, x, regularized=True) with mpmath.dps = 35
-        let cases = [
+        // mpmath.gammainc(p, 0, x, regularized=True) with dps = 35
+        const CASES_1: [(f64, f64, f64); 6] = [
             (0.05, 50.0, 2.780587716828684e-130),
             (0.1, 80.0, 1.265841467292894e-199),
             (2.0, 120.0, 2.734349802421488e-164),
@@ -401,13 +401,13 @@ mod tests {
             (0.5, 60.0, 6.374588457106951e-101),
             (1.0, 90.0, 2.503617787652586e-139),
         ];
-        for (x, p, expected) in cases {
+        for (x, p, expected) in CASES_1 {
             let actual = f64::inc_gamma(x, p);
             assert!(actual > 0.0);
             assert::close(actual / expected, 1.0, 1e-6);
         }
 
-        let cases = [
+        const CASES_2: [(f64, f64, f64, f64); 5] = [
             // In the normal range
             (2.0, 4.2, 0.11863450161354464, 1e-14),
             // Just above the underflow limit for 32 bits
@@ -417,7 +417,7 @@ mod tests {
             (0.001, 300.0, 0.0, 0.0),
             (0.01, 400.0, 0.0, 0.0),
         ];
-        for (x, p, expected, epsilon) in cases {
+        for (x, p, expected, epsilon) in CASES_2 {
             let actual = f64::inc_gamma(x, p);
             assert::close(actual, expected, epsilon);
         }

@@ -122,9 +122,29 @@ mod tests {
     }
 
     #[test]
-    fn inv_error_deep_tail() {
-        // Correctly rounded values of erfinv(1 - 2^-k) for the tail region
-        // (mpmath at 65 and 90 digits, agreeing bitwise after rounding).
+    fn inv_error_tail_32() {
+        const CASES: [(i32, u32); 5] = [
+            (11, 0x401dceee),
+            (13, 0x402dddae),
+            (16, 0x4043b937),
+            (21, 0x4063e060),
+            (24, 0x407547cb),
+        ];
+        for &(k, bits) in &CASES {
+            let y = 1.0_f32 - (2.0_f32).powi(-k);
+            let expected = f32::from_bits(bits);
+            assert_eq!(y.inv_error(), expected);
+            assert_eq!((-y).inv_error(), -expected);
+        }
+
+        assert_eq!(1.0_f32.inv_error(), f32::INFINITY);
+        assert_eq!((-1.0_f32).inv_error(), f32::NEG_INFINITY);
+    }
+
+    #[test]
+    fn inv_error_tail_64() {
+        // References:
+        // mpmath.erfinv(1 - 2^-k) with dps = 65 and 90
         const CASES: [(i32, u64); 19] = [
             (9, 0x4001855321d8668a),
             (10, 0x4002a6d8937b12d6),
@@ -146,7 +166,6 @@ mod tests {
             (52, 0x40173856d153f081),
             (53, 0x4017744f8f74e94a),
         ];
-
         for &(k, bits) in &CASES {
             let y = 1.0 - (2.0_f64).powi(-k);
             let expected = f64::from_bits(bits);
@@ -156,26 +175,5 @@ mod tests {
 
         assert_eq!(1.0_f64.inv_error(), f64::INFINITY);
         assert_eq!((-1.0_f64).inv_error(), f64::NEG_INFINITY);
-    }
-
-    #[test]
-    fn inv_error_f32_tail() {
-        const CASES: [(i32, u32); 5] = [
-            (11, 0x401dceee),
-            (13, 0x402dddae),
-            (16, 0x4043b937),
-            (21, 0x4063e060),
-            (24, 0x407547cb),
-        ];
-
-        for &(k, bits) in &CASES {
-            let y = 1.0_f32 - (2.0_f32).powi(-k);
-            let expected = f32::from_bits(bits);
-            assert_eq!(y.inv_error(), expected);
-            assert_eq!((-y).inv_error(), -expected);
-        }
-
-        assert_eq!(1.0_f32.inv_error(), f32::INFINITY);
-        assert_eq!((-1.0_f32).inv_error(), f32::NEG_INFINITY);
     }
 }
