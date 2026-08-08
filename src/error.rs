@@ -75,12 +75,12 @@ macro_rules! implement {
 
                     let mut res_ra = p * self;
                     for _ in 0..HALLEY_ITERATIONS {
-                        let fx: Self = if res_ra >= 0.0 {
+                        let fx = if res_ra >= 0.0 {
                             (1.0 - self) - res_ra.compl_error()
                         } else {
                             (-res_ra).compl_error() - (1.0 + self)
                         };
-                        let df = 2.0 / SQRT_PI as $kind * (-(res_ra * res_ra)).exp();
+                        let df = 2.0 / SQRT_PI * (-(res_ra * res_ra)).exp();
                         let d2f = -2.0 * res_ra * df;
                         let next = res_ra - (2.0 * fx * df) / ((2.0 * df * df) - (fx * d2f));
                         if next == res_ra {
