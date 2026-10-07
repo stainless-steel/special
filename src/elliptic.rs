@@ -2,6 +2,14 @@
 use crate::primitive::Primitive;
 
 macro_rules! declare_method {
+    ($(#[$attribute:meta])* @pair $name:ident($($argument:ident),*)) => {
+        $(#[$attribute])*
+        fn $name(self, $($argument: Self,)*) -> (Self, Self);
+    };
+    ($(#[$attribute:meta])* @$flag:ident $name:ident($($argument:ident),*)) => {
+        $(#[$attribute])*
+        fn $name(self, $($argument: Self,)*) -> Self;
+    };
     ($(#[$attribute:meta])* $name:ident($($argument:ident),*)) => {
         $(#[$attribute])*
         fn $name(self, $($argument: Self,)*) -> Self;
@@ -9,6 +17,12 @@ macro_rules! declare_method {
 }
 
 macro_rules! define_method {
+    (@pair $name:ident -> $backend:ident($($argument:ident),*)) => {
+        #[inline]
+        fn $name(self, $($argument: Self,)*) -> (Self, Self) {
+            ellip::$backend(self, $($argument,)*).unwrap()
+        }
+    };
     (@first_m $name:ident -> $backend:ident($($argument:ident),*)) => {
         #[inline]
         fn $name(self, $($argument: Self,)*) -> Self {
@@ -44,7 +58,7 @@ macro_rules! implement {
     )*) => {
         /// Elliptic integrals.
         pub trait Elliptic: Sized {
-            $(declare_method!($(#[$attribute])* $name($($argument)*));)*
+            $(declare_method!($(#[$attribute])* $(@$flag)? $name($($argument)*));)*
         }
 
         impl Elliptic for f32 {
@@ -58,6 +72,30 @@ macro_rules! implement {
 }
 
 implement!(
+    /// Compute the complete elliptic integrals in Legendre's form of the first and second kinds
+    /// (K and E) simultaneously.
+    ///
+    /// Returns `(K, E)` for the elliptic parameter `self` (m).
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
+    ///
+    /// ## Examples
+    ///
+    /// ```
+    /// use special::Elliptic;
+    ///
+    /// let (k, e) = 0.5.elliptic_ke();
+    /// assert::close(k, 1.8540746773013719, 1e-15);
+    /// assert::close(e, 1.3506438810476755, 1e-15);
+    /// ```
+    ///
+    /// ## Panics
+    ///
+    /// The function panics if m > 1.
+    ///
+    /// [1]: https://crates.io/crates/ellip
+    @pair elliptic_ke -> ellipke(),
+
     /// Compute the complete elliptic integral in Legendre's form of the first kind (K).
     ///
     /// The implementation is based on [ellip][1] by Sira Pornsiriprasert.
@@ -512,6 +550,33 @@ implement!(
     ///
     /// [1]: https://crates.io/crates/ellip
     @first_kc elliptic_bulirsch_2 -> cel2(a, b),
+
+    /// Compute the complete elliptic integral of the third kind in Bulirsch's form.
+    ///
+    /// The implementation is based on [ellip][1] by Sira Pornsiriprasert. Note that the original
+    /// literature by Bulirsch used the complementary modulus kc where kc = √(1 - m).
+    ///
+    /// ## Parameters
+    ///
+    /// - `self`: elliptic parameter (m)
+    /// - `p`: parameter
+    ///
+    /// ## Examples
+    ///
+    /// ```
+    /// use special::Elliptic;
+    ///
+    /// let m = 0.75;
+    /// let p = 0.25;
+    /// assert::close(m.elliptic_bulirsch_3(p), 4.844224110273839, 1e-15);
+    /// ```
+    ///
+    /// ## Panics
+    ///
+    /// The function panics if m = 1 or p = 0.
+    ///
+    /// [1]: https://crates.io/crates/ellip
+    @first_kc elliptic_bulirsch_3 -> cel3(p),
 
     /// Compute the incomplete elliptic integral Bulirsch's form of the first kind.
     ///
